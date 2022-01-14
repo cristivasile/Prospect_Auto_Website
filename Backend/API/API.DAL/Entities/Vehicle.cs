@@ -26,6 +26,10 @@ namespace API.DAL.Entities
 
         public Status Status { get; set; }
 
+        /// <summary>
+        /// All features belonging to this vehicle.
+        /// </summary>
+        public ICollection<VehicleFeature> VehicleFeatures { get; set; }
     }
 }
 

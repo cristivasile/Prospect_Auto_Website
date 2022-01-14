@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220114101418_AddedPriceToVehicle")]
-    partial class AddedPriceToVehicle
+    [Migration("20220114105914_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,22 @@ namespace API.DAL.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.13")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("API.DAL.Entities.Feature", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Desirability")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Features");
+                });
 
             modelBuilder.Entity("API.DAL.Entities.Location", b =>
                 {
@@ -76,12 +92,14 @@ namespace API.DAL.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Brand")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("LocationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Model")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Odometer")
@@ -98,6 +116,64 @@ namespace API.DAL.Migrations
                     b.HasIndex("LocationId");
 
                     b.ToTable("Vehicles");
+                });
+
+            modelBuilder.Entity("API.DAL.Entities.VehicleFeature", b =>
+                {
+                    b.Property<string>("VehicleId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("FeatureId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("VehicleId", "FeatureId");
+
+                    b.HasIndex("FeatureId");
+
+                    b.ToTable("VehicleFeature");
+                });
+
+            modelBuilder.Entity("API.DAL.Entities.Wheel", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BoltPattern")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Diameter")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Material")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Weight")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Width")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Wheels");
+                });
+
+            modelBuilder.Entity("API.DAL.Entities.WheelStock", b =>
+                {
+                    b.Property<string>("WheelId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Stock")
+                        .HasColumnType("int");
+
+                    b.HasKey("WheelId", "LocationId");
+
+                    b.HasIndex("LocationId");
+
+                    b.ToTable("WheelStock");
                 });
 
             modelBuilder.Entity("API.DAL.Entities.Status", b =>
@@ -120,14 +196,66 @@ namespace API.DAL.Migrations
                     b.Navigation("Location");
                 });
 
+            modelBuilder.Entity("API.DAL.Entities.VehicleFeature", b =>
+                {
+                    b.HasOne("API.DAL.Entities.Feature", "Feature")
+                        .WithMany("FeatureVehicles")
+                        .HasForeignKey("FeatureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.DAL.Entities.Vehicle", "Vehicle")
+                        .WithMany("VehicleFeatures")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Feature");
+
+                    b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("API.DAL.Entities.WheelStock", b =>
+                {
+                    b.HasOne("API.DAL.Entities.Location", "Location")
+                        .WithMany("Wheels")
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.DAL.Entities.Wheel", "Wheel")
+                        .WithMany("Locations")
+                        .HasForeignKey("WheelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Location");
+
+                    b.Navigation("Wheel");
+                });
+
+            modelBuilder.Entity("API.DAL.Entities.Feature", b =>
+                {
+                    b.Navigation("FeatureVehicles");
+                });
+
             modelBuilder.Entity("API.DAL.Entities.Location", b =>
                 {
                     b.Navigation("OwnedVehicles");
+
+                    b.Navigation("Wheels");
                 });
 
             modelBuilder.Entity("API.DAL.Entities.Vehicle", b =>
                 {
                     b.Navigation("Status");
+
+                    b.Navigation("VehicleFeatures");
+                });
+
+            modelBuilder.Entity("API.DAL.Entities.Wheel", b =>
+                {
+                    b.Navigation("Locations");
                 });
 #pragma warning restore 612, 618
         }

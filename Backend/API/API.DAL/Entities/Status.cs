@@ -12,7 +12,9 @@ namespace API.DAL.Entities
 
         public string VehicleId { get; set; }
 
-        //Example: In stock, Sold, Deleted
+        /// <example>
+        /// In stock, Sold, Deleted
+        /// </example>
         public string VehicleStatus { get; set; }
 
         public DateTime DateAdded { get; set; }
