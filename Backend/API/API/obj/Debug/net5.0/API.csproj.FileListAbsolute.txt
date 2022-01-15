@@ -63,3 +63,5 @@ D:\Toolbars\Facultate\Repos\Prospect_Auto\Prospect_Auto\Backend\API\API\bin\Debu
 D:\Toolbars\Facultate\Repos\Prospect_Auto\Prospect_Auto\Backend\API\API\bin\Debug\net5.0\System.Net.Http.Formatting.dll
 D:\Toolbars\Facultate\Repos\Prospect_Auto\Prospect_Auto\Backend\API\API\bin\Debug\net5.0\System.Web.Http.dll
 D:\Toolbars\Facultate\Repos\Prospect_Auto\Prospect_Auto\Backend\API\API\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+D:\Toolbars\Facultate\Repos\Prospect_Auto\Prospect_Auto\Backend\API\API\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPatch.dll
+D:\Toolbars\Facultate\Repos\Prospect_Auto\Prospect_Auto\Backend\API\API\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll

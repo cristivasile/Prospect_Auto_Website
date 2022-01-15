@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
 namespace API
@@ -30,11 +31,17 @@ namespace API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
             });
+            services.AddControllersWithViews()
+                   .AddNewtonsoftJson(options =>
+                   options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
 
             services.AddScoped<IVehicleRepository, VehicleRepository>();
             services.AddScoped<IVehicleManager, VehicleManager>();
 
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnString")));
+            services.AddDbContext<AppDbContext>(options => options
+                                                            .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
+                                                            .UseSqlServer(Configuration.GetConnectionString("ConnString")));
         
         }
 

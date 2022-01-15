@@ -22,13 +22,15 @@ namespace API.Managers
 
         public async Task<List<VehicleModel>> GetAll()
         {
-            var vehicles = await vehicleRepository.GetAll()
-                                    .Select(x => new VehicleModel(x)).ToListAsync();
+            var test = await vehicleRepository.GetAll();
+            //use task.fromresult to simulate tolistasync
+            var vehicles = await Task.FromResult((await vehicleRepository.GetAll())
+                               .Select(x => new VehicleModel(x)).ToList());
 
             return vehicles;
         }
 
-        public async Task<List<VehicleModel>> GetAllGrouped()
+        public Task<List<VehicleModel>> GetAllGrouped()
         {
             //TODO - this
             /*
@@ -58,11 +60,10 @@ namespace API.Managers
 
         public async Task<List<VehicleModel>> GetAvailable()
         {
-            var vehicles = await vehicleRepository
-                                .GetAll().Include(x => x.Status)
-                                .Where(x => x.Status.VehicleStatus.ToLower() == "available")
+            //use task.fromresult to simulate tolistasync
+            var vehicles = await Task.FromResult((await vehicleRepository.GetAll())
                                 .Select(x => new VehicleModel(x))
-                                .ToListAsync();
+                                .ToList());
 
             return vehicles;
         }
@@ -93,8 +94,7 @@ namespace API.Managers
 
         public async Task<int> Update(string id, VehicleCreateModel updatedVehicle)
         {
-            var currentVehicle = await vehicleRepository.GetAll()
-                                        .FirstOrDefaultAsync(x => x.Id == id);
+            var currentVehicle = await vehicleRepository.GetById(id);
 
             ///404 not found
             if (currentVehicle == null)
@@ -113,8 +113,7 @@ namespace API.Managers
 
         public async Task<int> Delete(string id)
         {
-            var currentVehicle = await vehicleRepository.GetAll()
-                                        .FirstOrDefaultAsync(x => x.Id == id);
+            var currentVehicle = await vehicleRepository.GetById(id);
 
             ///404 not found
             if (currentVehicle == null)
@@ -132,7 +131,7 @@ namespace API.Managers
             if (vehicle == null)
                 return returned;
 
-            returned = new (vehicle);
+            returned = new VehicleModel(vehicle);
 
             return returned;
         }

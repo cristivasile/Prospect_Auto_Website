@@ -18,12 +18,21 @@ namespace API.Repositories
             storage = context;
         }
 
-        public IQueryable<Vehicle> GetAll()
+        public async Task<List<Vehicle>> GetAll()
         {
-            var vehicles = storage.Vehicles;
+            var vehicles = await storage.Vehicles.ToListAsync();
             return vehicles;
         }
 
+        public async Task<List<Vehicle>> GetAvailable()
+        {
+            var vehicles = await storage.Vehicles
+                             .Include(x => x.Status)
+                             .Where(x => x.Status.VehicleStatus.ToLower() == "available")
+                             .ToListAsync();
+            return vehicles;
+        }
+        
         public async Task<Vehicle> GetById(string id)
         {
             var vehicle = await storage.Vehicles.FindAsync(id);
