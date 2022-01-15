@@ -3,6 +3,7 @@ using API.Entities;
 using API.Interfaces;
 using API.Managers;
 using API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,8 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
+    //TODO - decide security levels
+
     [Route("api/[controller]")]
     [ApiController]
     public class VehicleController : ControllerBase
@@ -75,6 +78,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> DeleteVehicle([FromRoute] string id)
         {
             if (await vehicleManager.Delete(id) == -1)

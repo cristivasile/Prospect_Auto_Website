@@ -1,10 +1,14 @@
 ﻿using API.Configurations;
 using API.Entities;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Context
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext
+        <User, Role, string, IdentityUserClaim<string>, UserRole, IdentityUserLogin<string>,
+        IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Status> Statuses { get; set; }
