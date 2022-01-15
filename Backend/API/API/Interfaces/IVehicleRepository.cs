@@ -1,4 +1,5 @@
-﻿using API.Models;
+﻿using API.Entities;
+using API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace API.Interfaces
 {
     public interface IVehicleRepository
     {
-        Task<List<VehicleModel>> GetAll();
+        IQueryable<Vehicle> GetAll();
+        Task Create(Vehicle newVehicle, Status newStatus);
+        Task Update(Vehicle updatedVehicle);
+        Task Delete(Vehicle toDelete);
     }
 }

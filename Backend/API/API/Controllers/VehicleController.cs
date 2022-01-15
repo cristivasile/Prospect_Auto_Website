@@ -1,6 +1,8 @@
 ﻿using API.Context;
 using API.Entities;
 using API.Interfaces;
+using API.Managers;
+using API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,64 +17,52 @@ namespace API.Controllers
     [ApiController]
     public class VehicleController : ControllerBase
     {
-        private readonly IVehicleRepository vehicleRepository;
+        private readonly IVehicleManager vehicleManager;
 
-        public VehicleController(IVehicleRepository vehicleRepository)
+        public VehicleController(IVehicleManager manager)
         {
-            this.vehicleRepository = vehicleRepository;
+            this.vehicleManager = manager;
         }
         
         [HttpGet("getAll")]
         public async Task<IActionResult> ReadVehicles()
         {
-            var vehicles = await vehicleRepository.GetAll();
+            var vehicles = await vehicleManager.GetAll();
             return Ok(vehicles);
         }
 
-        /*
         [HttpGet("getAvailable")]
         public async Task<IActionResult> ReadAvailableVehicles()
         {
-
-            var vehicles = storage.Vehicles.ToList();
-
+            var vehicles = await vehicleManager.GetAvailable();
             return Ok(vehicles);
         }
 
-        [HttpPost("")]
-        public async Task<IActionResult> CreateVehicle()
+
+        [HttpPost]
+        public async Task<IActionResult> CreateVehicle([FromBody] VehicleCreateModel vehicle)
         {
-
-            Vehicle newVehicle = new() {
-                Id = Guid.NewGuid().ToString(),
-                Brand = "TestBrand",
-                Model = "TestModel",
-                LocationId = 3,
-                Odometer = 12345,
-                Price = 9999,
-                Year = 1945
-            };
-
-            await storage.Vehicles.AddAsync(newVehicle);
-            await storage.SaveChangesAsync();
-
+            await vehicleManager.Create(vehicle);
             return Ok();
         }
         
+        
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateVehicle([FromRoute] string id, [FromBody] string newBrand)
+        public async Task<IActionResult> UpdateVehicle([FromRoute] string id, [FromBody] VehicleCreateModel updatedVehicle)
         {
-
-            var currentVehicle = await storage.Vehicles.FirstOrDefaultAsync(x => x.Id == id);
-            if (currentVehicle == null)
+            if (await vehicleManager.Update(id, updatedVehicle) == -1)
                 return NotFound();
-            currentVehicle.Brand = newBrand;
 
-            storage.Vehicles.Update(currentVehicle);
-
-            await storage.SaveChangesAsync();
             return Ok();
         }
-        */
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteVehicle([FromRoute] string id)
+        {
+            if (await vehicleManager.Delete(id) == -1)
+                return NotFound();
+
+            return Ok();
+        }
     } 
 }

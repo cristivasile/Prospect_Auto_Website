@@ -1,8 +1,10 @@
 ﻿using API.Context;
+using API.Entities;
 using API.Interfaces;
 using API.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.Repositories
@@ -16,28 +18,29 @@ namespace API.Repositories
             storage = context;
         }
 
-        public async Task<List<VehicleModel>> GetAll()
+        public IQueryable<Vehicle> GetAll()
         {
-            var vehicles = await storage.Vehicles.ToListAsync();
+            var vehicles = storage.Vehicles;
+            return vehicles;
+        }
 
-            List<VehicleModel> returned = new(); 
-            foreach(var vehicle in vehicles)
-            {
-                VehicleModel auxVehicle = new()
-                {
-                    Id = vehicle.Id,
-                    Brand = vehicle.Brand,
-                    Model = vehicle.Model,
-                    Odometer = vehicle.Odometer,
-                    Year = vehicle.Year,
-                    LocationId = vehicle.LocationId,
-                    Price = vehicle.Price
-                };
+        public async Task Create(Vehicle newVehicle, Status newStatus)
+        {
+            await storage.Vehicles.AddAsync(newVehicle);
+            await storage.Statuses.AddAsync(newStatus);
+            await storage.SaveChangesAsync();
+        }
 
-                returned.Add(auxVehicle);
-            }
+        public async Task Update(Vehicle updatedVehicle)
+        {
+            storage.Vehicles.Update(updatedVehicle);
+            await storage.SaveChangesAsync();
+        }
 
-            return returned;
+        public async Task Delete(Vehicle toDelete)
+        {
+            storage.Vehicles.Remove(toDelete);
+            await storage.SaveChangesAsync();
         }
     }
 }

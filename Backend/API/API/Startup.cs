@@ -1,5 +1,6 @@
 using API.Context;
 using API.Interfaces;
+using API.Managers;
 using API.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +32,7 @@ namespace API
             });
 
             services.AddScoped<IVehicleRepository, VehicleRepository>();
+            services.AddScoped<IVehicleManager, VehicleManager>();
 
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ConnString")));
         

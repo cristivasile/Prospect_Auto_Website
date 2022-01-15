@@ -14,12 +14,15 @@ namespace API.Configurations
         public void Configure(EntityTypeBuilder<Status> builder)
         {
             builder
-                .Property(x => x.VehicleId)
-                .IsRequired();
+                .HasKey(x => x.VehicleId);
 
             builder
                 .Property(x => x.VehicleStatus)
                 .IsRequired();
+
+            builder
+                .Property(x => x.DateSold)
+                .IsRequired(false);
         }
     }
 }

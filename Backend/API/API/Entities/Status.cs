@@ -8,18 +8,16 @@ namespace API.Entities
 {
     public class Status
     {
-        public int Id { get; set; }
-
         public string VehicleId { get; set; }
 
         /// <example>
-        /// In stock, Sold, Deleted
+        /// Available, Sold, Deleted
         /// </example>
         public string VehicleStatus { get; set; }
 
         public DateTime DateAdded { get; set; }
 
-        public DateTime DateSold { get; set; }
+        public DateTime? DateSold { get; set; }
 
         public virtual Vehicle Vehicle { get; set; }
     }
