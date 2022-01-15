@@ -1,4 +1,5 @@
-﻿using System;
+﻿using API.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,5 +22,16 @@ namespace API.Models
         public int LocationId { get; set; }
 
         public int Price { get; set; }
+
+        public VehicleModel(Vehicle x)
+        {
+            Id = x.Id;
+            Brand = x.Brand;
+            Model = x.Model;
+            LocationId = x.LocationId;
+            Odometer = x.Odometer;
+            Price = x.Price;
+            Year = x.Year;
+        }
     }
 }

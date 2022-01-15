@@ -22,7 +22,17 @@ namespace API.Managers
 
         public async Task<List<VehicleModel>> GetAll()
         {
-            var vehicles = await vehicleRepository.GetAll().ToListAsync();
+            var vehicles = await vehicleRepository.GetAll()
+                                    .Select(x => new VehicleModel(x)).ToListAsync();
+
+            return vehicles;
+        }
+
+        public async Task<List<VehicleModel>> GetAllGrouped()
+        {
+            //TODO - this
+            /*
+            var vehicles = await vehicleRepository.GetAll().GroupBy(x => x.LocationId).ToListAsync();
 
             List<VehicleModel> returned = new();
             foreach (var vehicle in vehicles)
@@ -42,6 +52,8 @@ namespace API.Managers
             }
 
             return returned;
+            */
+            throw new System.NotImplementedException();
         }
 
         public async Task<List<VehicleModel>> GetAvailable()
@@ -49,26 +61,10 @@ namespace API.Managers
             var vehicles = await vehicleRepository
                                 .GetAll().Include(x => x.Status)
                                 .Where(x => x.Status.VehicleStatus.ToLower() == "available")
+                                .Select(x => new VehicleModel(x))
                                 .ToListAsync();
 
-            List<VehicleModel> returned = new();
-            foreach (var vehicle in vehicles)
-            {
-                VehicleModel auxVehicle = new()
-                {
-                    Id = vehicle.Id,
-                    Brand = vehicle.Brand,
-                    Model = vehicle.Model,
-                    Odometer = vehicle.Odometer,
-                    Year = vehicle.Year,
-                    LocationId = vehicle.LocationId,
-                    Price = vehicle.Price
-                };
-
-                returned.Add(auxVehicle);
-            }
-
-            return returned;
+            return vehicles;
         }
 
         public async Task Create(VehicleCreateModel vehicle)
@@ -97,7 +93,8 @@ namespace API.Managers
 
         public async Task<int> Update(string id, VehicleCreateModel updatedVehicle)
         {
-            var currentVehicle = await vehicleRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+            var currentVehicle = await vehicleRepository.GetAll()
+                                        .FirstOrDefaultAsync(x => x.Id == id);
 
             ///404 not found
             if (currentVehicle == null)
@@ -116,7 +113,8 @@ namespace API.Managers
 
         public async Task<int> Delete(string id)
         {
-            var currentVehicle = await vehicleRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+            var currentVehicle = await vehicleRepository.GetAll()
+                                        .FirstOrDefaultAsync(x => x.Id == id);
 
             ///404 not found
             if (currentVehicle == null)
@@ -124,6 +122,19 @@ namespace API.Managers
 
             await vehicleRepository.Delete(currentVehicle);
             return 0;
+        }
+
+        public async Task<VehicleModel> GetById(string id)
+        {
+            var vehicle = await vehicleRepository.GetById(id);
+
+            VehicleModel returned = null;
+            if (vehicle == null)
+                return returned;
+
+            returned = new (vehicle);
+
+            return returned;
         }
     }
 }

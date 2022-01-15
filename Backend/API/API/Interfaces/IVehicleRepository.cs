@@ -11,6 +11,7 @@ namespace API.Interfaces
     public interface IVehicleRepository
     {
         IQueryable<Vehicle> GetAll();
+        Task<Vehicle> GetById(string id);
         Task Create(Vehicle newVehicle, Status newStatus);
         Task Update(Vehicle updatedVehicle);
         Task Delete(Vehicle toDelete);

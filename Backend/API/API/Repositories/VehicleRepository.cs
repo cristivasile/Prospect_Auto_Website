@@ -24,6 +24,12 @@ namespace API.Repositories
             return vehicles;
         }
 
+        public async Task<Vehicle> GetById(string id)
+        {
+            var vehicle = await storage.Vehicles.FindAsync(id);
+            return vehicle;
+        }
+
         public async Task Create(Vehicle newVehicle, Status newStatus)
         {
             await storage.Vehicles.AddAsync(newVehicle);

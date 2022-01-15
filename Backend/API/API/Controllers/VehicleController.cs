@@ -31,6 +31,16 @@ namespace API.Controllers
             return Ok(vehicles);
         }
 
+        [HttpGet("getAllGroupedByLocation")]
+        public async Task<IActionResult> ReadGroupedVehicles()
+        {
+            var vehicles = await vehicleManager.GetAllGrouped();
+            return Ok(vehicles);
+        }
+
+        /// <summary>
+        /// Get all vehicles that have an associated "available" status.
+        /// </summary>
         [HttpGet("getAvailable")]
         public async Task<IActionResult> ReadAvailableVehicles()
         {
@@ -38,6 +48,14 @@ namespace API.Controllers
             return Ok(vehicles);
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> ReadById([FromRoute] string id)
+        {
+            var vehicle = await vehicleManager.GetById(id);
+            if (vehicle == null)
+                return NotFound();
+            return Ok(vehicle);
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateVehicle([FromBody] VehicleCreateModel vehicle)

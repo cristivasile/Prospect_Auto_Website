@@ -13,6 +13,7 @@ namespace API.Configurations
     {
         public void Configure(EntityTypeBuilder<Status> builder)
         {
+            //primary foreign
             builder
                 .HasKey(x => x.VehicleId);
 
@@ -20,6 +21,7 @@ namespace API.Configurations
                 .Property(x => x.VehicleStatus)
                 .IsRequired();
 
+            //nullable
             builder
                 .Property(x => x.DateSold)
                 .IsRequired(false);
