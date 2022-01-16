@@ -1,4 +1,5 @@
-﻿using API.Entities;
+﻿using API.Context;
+using API.Entities;
 using API.Interfaces;
 using API.Models;
 using Microsoft.AspNetCore.Identity;
@@ -14,12 +15,14 @@ namespace API.Managers
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
         private readonly ITokenManager tokenManager;
+        private readonly AppDbContext storage;
 
-        public AuthenticationManager(UserManager<User> uManager, SignInManager<User> sManager, ITokenManager tManager)
+        public AuthenticationManager(UserManager<User> uManager, SignInManager<User> sManager, ITokenManager tManager, AppDbContext context)
         {
             userManager = uManager;
             signInManager = sManager;
             tokenManager = tManager;
+            storage = context;
         }
 
         /// <returns>
@@ -32,7 +35,7 @@ namespace API.Managers
         {
             var result = new TokenModel();
 
-            var user = await userManager.FindByEmailAsync(login.Email);
+            var user = await userManager.FindByNameAsync(login.userName);
 
             if (user == null) {
                 result.AccessToken = "-1";
@@ -65,20 +68,41 @@ namespace API.Managers
         /// </returns>
         public async Task<IdentityResult> SignUp(RegisterModel newUser)
         {
+            var result = new IdentityResult();
+
             var user = new User()
             {
                 Email = newUser.Email,
                 UserName = newUser.UserName
             };
 
-            var result = await userManager.CreateAsync(user, newUser.Password);
+            //check if email already exists
+            var emailExists = storage.Users.Any(x => x.Email.ToLower() == newUser.Email.ToLower());
+
+            if (emailExists)
+            {
+                result = IdentityResult.Failed(new IdentityError[] { 
+                                                new IdentityError { 
+                                                    Code = "0001",
+                                                    Description = "Email already exists!"
+                                                }});
+                return result;
+            }
+
+            result = await userManager.CreateAsync(user, newUser.Password);
 
             if (!result.Succeeded)
                 return result;
 
-            await userManager.AddToRoleAsync(user, newUser.Role);
-
+            foreach (string role in newUser.Roles) 
+                await userManager.AddToRoleAsync(user, role);
+            
             return result;
+        }
+
+        private IdentityError[] DuplicateEmail(string v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

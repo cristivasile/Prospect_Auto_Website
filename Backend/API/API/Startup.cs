@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Collections.Generic;
 using System.Text;
 
 namespace API
@@ -35,7 +36,39 @@ namespace API
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "API", Version = "v1" });
+
+                //for auth token in swagger
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      \r\n\r\nExample: 'Bearer 12345abcdef'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header
+                        },
+                        new List<string>()
+                    }
+                });
+                //--
             });
+
             services.AddControllersWithViews()
                    .AddNewtonsoftJson(options =>
                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -46,6 +79,8 @@ namespace API
             services.AddDbContext<AppDbContext>(options => options
                                                             .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
                                                             .UseSqlServer(Configuration.GetConnectionString("ConnString")));
+            
+            //-- authentication config
             services.AddIdentity<User, Role>()
                     .AddEntityFrameworkStores<AppDbContext>();
             services.AddScoped<IAuthenticationManager, AuthenticationManager>();
@@ -77,6 +112,8 @@ namespace API
                 options.AddPolicy("Admin", policy => policy.RequireRole("Admin")
                 .RequireAuthenticatedUser().AddAuthenticationSchemes("AuthScheme").Build());
             });
+
+            //---
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
