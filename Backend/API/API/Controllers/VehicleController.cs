@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 
 namespace API.Controllers
 {
-    //TODO - decide security levels
 
     [Route("api/[controller]")]
     [ApiController]

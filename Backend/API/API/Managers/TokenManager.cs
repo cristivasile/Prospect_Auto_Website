@@ -34,7 +34,7 @@ namespace API.Managers
                 claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
-            var secretKey = config.GetSection("Jwt").GetSection("Token").ToString();
+            var secretKey = config.GetSection("Jwt").GetSection("Token").Get<string>();
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);

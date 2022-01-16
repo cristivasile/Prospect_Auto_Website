@@ -6,12 +6,9 @@ using System.Threading.Tasks;
 
 namespace API.Models
 {
-    public class LocationModel
+    public class LocationModel : LocationCreateModel
     {
         public string Id { get; set; }
-        public string Address { get; set; }
-        public string Size { get; set; }
-        public int EmployeeNumber { get; set; }
 
         public LocationModel(Location ob)
         {

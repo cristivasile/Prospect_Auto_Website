@@ -7,21 +7,9 @@ using System.Threading.Tasks;
 
 namespace API.Models
 {
-    public class VehicleModel
+    public class VehicleModel : VehicleCreateModel
     {
         public string Id { get; set; }
-
-        public string Brand { get; set; }
-
-        public string Model { get; set; }
-
-        public int Odometer { get; set; }
-
-        public int Year { get; set; }
-
-        public string LocationId { get; set; }
-
-        public int Price { get; set; }
 
         public VehicleModel(Vehicle x)
         {

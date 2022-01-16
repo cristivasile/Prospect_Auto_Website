@@ -8,6 +8,6 @@ namespace API.Entities
 {
     public class User : IdentityUser
     {
-        public virtual ICollection<Role> Roles { get; set; }
+        public virtual ICollection<UserRole> Roles { get; set; }
     }
 }

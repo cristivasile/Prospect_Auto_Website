@@ -75,8 +75,12 @@ namespace API
 
             services.AddScoped<IVehicleRepository, VehicleRepository>();
             services.AddScoped<IVehicleManager, VehicleManager>();
+
             services.AddScoped<ILocationManager, LocationManager>();
             services.AddScoped<ILocationRepository, LocationRepository>();
+
+            services.AddScoped<IFeatureManager, FeatureManager>();
+            services.AddScoped<IFeatureRepository, FeatureRepository>();
 
             services.AddDbContext<AppDbContext>(options => options
                                                             .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
@@ -95,7 +99,7 @@ namespace API
             })
                 .AddJwtBearer("AuthScheme", options => {
                     options.SaveToken = true;
-                    var secret = Configuration.GetSection("Jwt").GetSection("SecretKey").ToString();
+                    var secret = Configuration.GetSection("Jwt").GetSection("Token").Get<string>();
                     options.TokenValidationParameters = new TokenValidationParameters()
                     {
                         ValidateIssuerSigningKey = true,
