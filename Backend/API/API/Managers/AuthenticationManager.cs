@@ -66,7 +66,7 @@ namespace API.Managers
         /// 0 for success
         /// -1 for failure
         /// </returns>
-        public async Task<IdentityResult> SignUp(RegisterModel newUser)
+        public async Task<IdentityResult> SignUp(RegisterModel newUser, List<string> roles)
         {
             var result = new IdentityResult();
 
@@ -94,7 +94,7 @@ namespace API.Managers
             if (!result.Succeeded)
                 return result;
 
-            foreach (string role in newUser.Roles) 
+            foreach (string role in roles) 
                 await userManager.AddToRoleAsync(user, role);
             
             return result;

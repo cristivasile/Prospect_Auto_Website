@@ -14,7 +14,7 @@ namespace API.Interfaces
         /// 0 for success
         /// -1 for failure
         /// </returns>
-        Task<IdentityResult> SignUp (RegisterModel newUser);
+        Task<IdentityResult> SignUp (RegisterModel newUser, List<string> roles);
         /// <returns>
         /// 0 for success
         /// -1 for inexistent email
