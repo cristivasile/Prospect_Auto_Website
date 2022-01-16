@@ -8,7 +8,7 @@ namespace API.Entities
 {
     public class Location
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Address { get; set; }
         public string Size { get; set; }
         public int EmployeeNumber { get; set; }

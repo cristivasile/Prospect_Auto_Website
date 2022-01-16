@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API.Migrations
 {
-    public partial class DatabaseRebuild : Migration
+    public partial class ReCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -49,8 +49,7 @@ namespace API.Migrations
                 name: "Locations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Size = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     EmployeeNumber = table.Column<int>(type: "int", nullable: false)
@@ -167,7 +166,7 @@ namespace API.Migrations
                     Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Odometer = table.Column<int>(type: "int", nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
-                    LocationId = table.Column<int>(type: "int", nullable: false),
+                    LocationId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Price = table.Column<int>(type: "int", nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
@@ -178,14 +177,14 @@ namespace API.Migrations
                         column: x => x.LocationId,
                         principalTable: "Locations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
                 name: "WheelStock",
                 columns: table => new
                 {
-                    LocationId = table.Column<int>(type: "int", nullable: false),
+                    LocationId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     WheelId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Stock = table.Column<int>(type: "int", nullable: false)
                 },

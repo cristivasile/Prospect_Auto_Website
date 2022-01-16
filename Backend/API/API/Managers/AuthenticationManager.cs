@@ -100,9 +100,5 @@ namespace API.Managers
             return result;
         }
 
-        private IdentityError[] DuplicateEmail(string v)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

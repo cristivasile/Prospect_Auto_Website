@@ -75,6 +75,8 @@ namespace API
 
             services.AddScoped<IVehicleRepository, VehicleRepository>();
             services.AddScoped<IVehicleManager, VehicleManager>();
+            services.AddScoped<ILocationManager, LocationManager>();
+            services.AddScoped<ILocationRepository, LocationRepository>();
 
             services.AddDbContext<AppDbContext>(options => options
                                                             .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))

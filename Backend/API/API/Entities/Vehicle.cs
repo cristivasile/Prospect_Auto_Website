@@ -18,7 +18,7 @@ namespace API.Entities
 
         public int Year { get; set; }
 
-        public int LocationId { get; set; }
+        public string LocationId { get; set; }
 
         public int Price { get; set; }
 

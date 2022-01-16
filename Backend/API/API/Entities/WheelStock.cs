@@ -8,7 +8,7 @@ namespace API.Entities
 {
     public class WheelStock
     {
-        public int LocationId { get; set; }
+        public string LocationId { get; set; }
         public string WheelId { get; set; }
         /// <summary>
         /// Number of wheels at the location.
