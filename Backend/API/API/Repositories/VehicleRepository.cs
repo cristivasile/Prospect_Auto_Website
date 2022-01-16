@@ -48,13 +48,13 @@ namespace API.Repositories
 
         public async Task Update(Vehicle updatedVehicle)
         {
-            storage.Vehicles.Update(updatedVehicle);
+            await Task.FromResult(storage.Vehicles.Update(updatedVehicle));
             await storage.SaveChangesAsync();
         }
 
         public async Task Delete(Vehicle toDelete)
         {
-            storage.Vehicles.Remove(toDelete);
+            await Task.FromResult(storage.Vehicles.Remove(toDelete));
             await storage.SaveChangesAsync();
         }
     }
