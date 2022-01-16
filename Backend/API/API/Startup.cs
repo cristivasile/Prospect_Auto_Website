@@ -82,6 +82,9 @@ namespace API
             services.AddScoped<IFeatureManager, FeatureManager>();
             services.AddScoped<IFeatureRepository, FeatureRepository>();
 
+            services.AddScoped<IWheelManager, WheelManager>();
+            services.AddScoped<IWheelRepository, WheelRepository>();
+
             services.AddDbContext<AppDbContext>(options => options
                                                             .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
                                                             .UseSqlServer(Configuration.GetConnectionString("ConnString")));

@@ -20,7 +20,7 @@ namespace API.Entities
 
         public string LocationId { get; set; }
 
-        public int Price { get; set; }
+        public float Price { get; set; }
 
         public virtual Location Location { get; set; }
 
