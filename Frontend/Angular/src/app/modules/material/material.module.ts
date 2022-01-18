@@ -5,7 +5,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 
 
-
 @NgModule({
   declarations: [],
   imports: [
@@ -20,4 +19,4 @@ import {MatInputModule} from '@angular/material/input';
     MatInputModule
   ]
 })
-export class MaterialModule { }
+export class MaterialModule {  }

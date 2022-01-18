@@ -10,7 +10,7 @@ namespace API.Models
     {
         public string Id { get; set; }
 
-        public FeatureModel (Feature ob)
+        public FeatureModel (ref Feature ob)
         {
             Id = ob.Id;
             Name = ob.Name;

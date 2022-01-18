@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataService } from 'src/app/services/data.service';
+
 
 @Component({
   selector: 'app-login',
@@ -9,7 +11,10 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private router : Router){ }
+  constructor(
+    private router : Router,
+    private dataService : DataService,
+    ){ }
 
   public loginForm: FormGroup = new FormGroup({
     username: new FormControl(''),
@@ -20,7 +25,9 @@ export class LoginComponent implements OnInit {
 
   Login() : void {
     localStorage.setItem('Role', 'Admin');
-    this.router.navigate(['/vehicles'])
+    this.dataService.changeUserData(this.loginForm.value);
+    console.log(this.loginForm.value);
+    this.router.navigate(['/main']);
   }
 
   get username() {
