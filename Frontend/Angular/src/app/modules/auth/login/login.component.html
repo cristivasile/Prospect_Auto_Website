@@ -1,1 +1,27 @@
-<p>login works!</p>
+<div class = "container">
+    <div class = "title">
+        <p> Prospect Auto </p>
+    </div>
+    <div class = "form-section">
+        <div class = "header">
+          <p> Welcome! Please log in.</p>
+        </div>
+        <form [formGroup]="loginForm" class = "form">
+            <mat-form-field appearance="outline">
+                <mat-label>Username</mat-label>
+                <input matInput/>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput placeholder="*******" type="password"/>
+            </mat-form-field>
+        </form>
+        <button mat-stroked-button class = "button" color = "accent" (click) = "Login()">
+          Login
+        </button>
+    </div>
+    <div class = "message-section">
+        <p id = 'messageOutput'>
+        </p>
+    </div>
+</div>
