@@ -4,14 +4,16 @@ import { CommonModule } from '@angular/common';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main/main.component';
 import { MaterialModule } from '../material/material.module';
-import { DataService } from 'src/app/services/data.service';
-import { Router } from '@angular/router';
 import { VehiclesComponent } from './vehicles/vehicles.component';
+import { WheelsComponent } from './wheels/wheels.component';
+import { LocationsComponent } from './locations/locations.component';
 
 @NgModule({
   declarations: [
     MainComponent,
     VehiclesComponent,
+    WheelsComponent,
+    LocationsComponent,
   ],
   imports: [
     CommonModule,

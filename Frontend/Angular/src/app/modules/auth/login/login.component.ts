@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FocusMonitorDetectionMode } from '@angular/cdk/a11y';
-import { ThrowStmt } from '@angular/compiler';
-
 type loginDetails = {
   Username : string,
   Password : string,
@@ -56,8 +54,9 @@ export class LoginComponent implements OnInit {
 
         localStorage.setItem('Role', result.role);
         localStorage.setItem('Token', result.accessToken);
+        localStorage.setItem('Username', this.loginInput.Username);
 
-        this.router.navigate(['/main']);
+        this.router.navigate(['/main/vehicles']);
       },
       error : (error) => {
         clearTimeout(this.messageTimeout);
@@ -65,15 +64,12 @@ export class LoginComponent implements OnInit {
         var result : string;
         if (error.error == "User does not exist!"){
           result = "Incorrect username.";
-          messageSection!.style.width = "10%";
         }
         else if (error.error == "User is locked out!"){
           result = "Too many login attempts! Try again later.";
-          messageSection!.style.width = "20%";
         }
         else{
           result = "Incorrect password.";
-          messageSection!.style.width = "10%";
         }
         document.getElementById('messageOutput')!.innerHTML = result;
         messageSection!.style.backgroundColor = "rgba(255, 255, 255, 0.95)";

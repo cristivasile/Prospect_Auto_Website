@@ -8,7 +8,7 @@ import { DataService } from 'src/app/services/data.service';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss']
 })
-export class MainComponent implements OnInit, OnDestroy {
+export class MainComponent implements OnInit {
 
   public subscription!: Subscription;
   public loggedUser: any;
@@ -21,16 +21,15 @@ export class MainComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void{
-    this.subscription = this.dataService.currentUser.subscribe( user => this.loggedUser = user);
+    this.loggedUser = localStorage.getItem('Username');
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
 
   Logout(){
-    localStorage.setItem('Role', 'None');
-    this.router.navigate(['/auth'])
+    localStorage.setItem('Role', '');
+    localStorage.setItem('Token', '');
+    localStorage.setItem('Username', '');
+    this.router.navigate(['/auth']);
   }
 
   public receiveMessage(event: any): void{

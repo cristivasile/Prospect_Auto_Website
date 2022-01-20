@@ -118,18 +118,18 @@ namespace API.Managers
 
             if (!emailValid)
             {
-                result = generateError("0002", "Invalid email!");
+                result = GenerateError("0002", "Invalid email!");
                 return result;
             }
 
             if (user.UserName.Length < 6)
             {
-                result = generateError("0003", "Username must have at least 6 characters!");
+                result = GenerateError("0003", "Username must have at least 6 characters!");
                 return result;
             }
             if (user.UserName.Length > 14)
             {
-                result = generateError("0004", "Username must have less than 15 characters!");
+                result = GenerateError("0004", "Username must have less than 15 characters!");
                 return result;
             }
 
@@ -138,13 +138,13 @@ namespace API.Managers
 
             if (emailExists)
             {
-                result = generateError("0001", "Email already exists!");
+                result = GenerateError("0001", "Email already exists!");
                 return result;
             }
 
             if (newUser.Password != newUser.RepeatedPassword)
             {
-                result = generateError("0005", "Repeated password does not match!");
+                result = GenerateError("0005", "Repeated password does not match!");
                 return result;
             }
 
@@ -160,7 +160,7 @@ namespace API.Managers
         }
 
         //creates a custom error result
-        private IdentityResult generateError(string code, string error)
+        private static IdentityResult GenerateError(string code, string error)
         {
             return IdentityResult.Failed(new IdentityError[] {
                                                 new IdentityError {

@@ -1,9 +1,32 @@
-<button mat-stroked-button color = "accent" (click) = "Logout()">
-  Logout
-</button>
-<p>
-  {{ loggedUser.username }}
-</p>
+<div class = "container">
+  <mat-toolbar color="primary" class = "toolbar">
+    <mat-toolbar-row>
+      <h1 id = "title">Prospect Auto | </h1>
 
-<app-vehicles [messageFromParent] = "parentMessage"
-(messageFromChild)="receiveMessage($event)"></app-vehicles>
+      <div>
+        <a mat-button [routerLink]="'/main/vehicles'"> Vehicles </a>
+        <a mat-button [routerLink]="'/main/wheels'"> Wheels </a>
+        <a mat-button [routerLink]="'/main/locations'"> Locations </a>
+      </div>
+
+
+      <p id = "welcomeMessage">
+        Welcome, {{loggedUser}}!
+      </p>
+
+      <button mat-mini-fab color = "warn" (click) = "Logout()" id = "logoutButton">
+        <mat-icon>logout</mat-icon>
+      </button>
+
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <div class = "childContainer">
+    <router-outlet></router-outlet>
+  </div>
+
+  <footer id = "footer">
+    <p id = "footerText"> Vasile George-Cristian </p>
+    <button mat-flat-button id = "githubIcon" color = "accent" onClick = "window.open('https://github.com/cristivasile/Prospect_Auto_Website')">GitHub</button>
+  </footer>
+</div>

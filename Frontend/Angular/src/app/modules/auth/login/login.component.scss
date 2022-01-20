@@ -54,8 +54,10 @@
 
   #message-section{
     margin-top: 7%;
-    width: 20%;
-    height: 5%;
+    width: auto;
+    max-width: 30%;
+    height: auto;
+    padding:1%;
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -66,7 +68,6 @@
       color: red;
       font-weight: bold;
       font-size: 1.2em;
-      padding : 1% 1% 1% 1%;
       margin-bottom: 0;
     }
   }
