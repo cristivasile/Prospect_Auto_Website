@@ -58,6 +58,8 @@ namespace API.Controllers
         {
             var result = await authenticationManager.Login(login);
 
+
+
             if (result.AccessToken == "-1")
                 return BadRequest("User does not exist!");
 

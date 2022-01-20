@@ -35,21 +35,24 @@ namespace API.Managers
         {
             var result = new TokenModel();
 
-            var user = await userManager.FindByNameAsync(login.userName);
+            var user = await userManager.FindByNameAsync(login.Username);
 
-            if (user == null) {
+            if (user == null)
+            {
                 result.AccessToken = "-1";
                 return result;
             }
 
             var tryLogin = await signInManager.CheckPasswordSignInAsync(user, login.Password, true);
 
-            if (tryLogin.IsLockedOut){
+            if (tryLogin.IsLockedOut)
+            {
                 result.AccessToken = "-2";
                 return result;
             }
 
-            if (!tryLogin.Succeeded){
+            if (!tryLogin.Succeeded)
+            {
                 result.AccessToken = "-3";
                 return result;
             }
@@ -57,6 +60,14 @@ namespace API.Managers
             var token = await tokenManager.GenerateToken(user);
 
             result.AccessToken = token;
+
+            var roles = await userManager.GetRolesAsync(user);
+
+            if (roles.Count == 1)
+                result.Role = "User";
+            else if (roles.Count == 2)
+                result.Role = "Admin";
+            else result.Role = "Sysadmin";
 
             return result;
         }
@@ -73,19 +84,67 @@ namespace API.Managers
             var user = new User()
             {
                 Email = newUser.Email,
-                UserName = newUser.UserName
+                UserName = newUser.Username
             };
+
+            //check if email is valid
+
+            bool emailValid = false;
+
+            //check for email@email.
+
+            int nrAts = user.Email.Count(x => x == '@');
+
+            //check for email@email@email, email or email@.
+            if (nrAts == 1 && user.Email[^1] != '.')
+                for (var index = 0; index < user.Email.Length - 3; index++)
+                {
+                    //check for point after @ and at least one character
+                    if(user.Email[index] == '@' && user.Email[index + 1] != '.')
+                    {
+                        //look for at least one . after @
+                        for(var index2 = index + 2; index2 < user.Email.Length - 1; index2 ++)
+                            if(user.Email[index2] == '.')
+                            {
+                                emailValid = true;
+                                break;
+                            }
+                        break;
+                    }
+                }
+
+            if(user.Email.Length > 50)
+                emailValid = false; 
+
+            if (!emailValid)
+            {
+                result = generateError("0002", "Invalid email!");
+                return result;
+            }
+
+            if (user.UserName.Length < 6)
+            {
+                result = generateError("0003", "Username must have at least 6 characters!");
+                return result;
+            }
+            if (user.UserName.Length > 14)
+            {
+                result = generateError("0004", "Username must have less than 15 characters!");
+                return result;
+            }
 
             //check if email already exists
             var emailExists = storage.Users.Any(x => x.Email.ToLower() == newUser.Email.ToLower());
 
             if (emailExists)
             {
-                result = IdentityResult.Failed(new IdentityError[] { 
-                                                new IdentityError { 
-                                                    Code = "0001",
-                                                    Description = "Email already exists!"
-                                                }});
+                result = generateError("0001", "Email already exists!");
+                return result;
+            }
+
+            if (newUser.Password != newUser.RepeatedPassword)
+            {
+                result = generateError("0005", "Repeated password does not match!");
                 return result;
             }
 
@@ -94,10 +153,20 @@ namespace API.Managers
             if (!result.Succeeded)
                 return result;
 
-            foreach (string role in roles) 
+            foreach (string role in roles)
                 await userManager.AddToRoleAsync(user, role);
-            
+
             return result;
+        }
+
+        //creates a custom error result
+        private IdentityResult generateError(string code, string error)
+        {
+            return IdentityResult.Failed(new IdentityError[] {
+                                                new IdentityError {
+                                                    Code = code,
+                                                    Description = error
+                                                }});
         }
 
     }

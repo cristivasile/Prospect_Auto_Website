@@ -2,28 +2,36 @@
     <div class = "title">
         <p> Prospect Auto </p>
     </div>
+
+    <div id = "message-section">
+        <p id = 'messageOutput'>
+        </p>
+    </div>
+
     <div class = "form-section">
         <div class = "header">
           <p> Welcome! Please log in.</p>
         </div>
         <form [formGroup]="loginForm" class = "form">
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" >
                 <mat-label>Username</mat-label>
                 <input matInput formControlName="username"/>
             </mat-form-field>
-            <mat-form-field appearance="outline">
+            <mat-form-field appearance="outline" >
                 <mat-label>Password</mat-label>
                 <input matInput placeholder="*******" type="password" formControlName="password"/>
             </mat-form-field>
         </form>
+
         <button mat-flat-button class = "button" color = "accent" (click) = "Login()">
           Login
         </button>
+
+        <div class = "signUp">
+          <p> Don't have an account? <a href="/auth/signup"><u>Sign up</u></a> instead.</p>
+        </div>
     </div>
-    <div class = "message-section">
-        <p id = 'messageOutput'>
-        </p>
-    </div>
+
     <footer id = "footer">
       <p id = "footerText"> Vasile George-Cristian </p>
       <button mat-flat-button id = "githubIcon" color = "accent" onClick = "window.open('https://github.com/cristivasile/Prospect_Auto_Website')">GitHub</button>

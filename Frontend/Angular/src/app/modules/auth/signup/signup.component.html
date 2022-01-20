@@ -1,0 +1,47 @@
+<div class = "container">
+  <div class = "title">
+      <p> Prospect Auto </p>
+  </div>
+
+  <div id = "message-section">
+      <p id = 'messageOutput'>
+      </p>
+  </div>
+
+  <div class = "form-section">
+      <div class = "header">
+        <p> Create an account</p>
+      </div>
+      <form [formGroup]="signupForm" class = "form">
+          <mat-form-field appearance="outline" >
+            <mat-label>Email</mat-label>
+            <input matInput placeholder = "email@email.email"formControlName="email"/>
+          </mat-form-field>
+          <mat-form-field appearance="outline" >
+              <mat-label>Username</mat-label>
+              <input matInput placeholder = "username" formControlName="username"/>
+          </mat-form-field>
+          <mat-form-field appearance="outline" >
+              <mat-label>Password</mat-label>
+              <input matInput placeholder="*******" type="password" formControlName="password"/>
+          </mat-form-field>
+          <mat-form-field appearance="outline" >
+            <mat-label>Repeat password</mat-label>
+            <input matInput placeholder="*******" type="password" formControlName="repeatedPassword"/>
+          </mat-form-field>
+      </form>
+
+      <button id="signupButton" mat-flat-button class = "button" color = "accent" (click) = "Signup()">
+        Sign up
+      </button>
+
+      <div class = "signUp">
+        <p> Already have an account? <a href="/auth"><u>Log in</u></a> instead.</p>
+      </div>
+  </div>
+
+  <footer id = "footer">
+    <p id = "footerText"> Vasile George-Cristian </p>
+    <button mat-flat-button id = "githubIcon" color = "accent" onClick = "window.open('https://github.com/cristivasile/Prospect_Auto_Website')">GitHub</button>
+  </footer>
+</div>

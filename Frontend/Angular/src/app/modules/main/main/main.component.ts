@@ -12,6 +12,8 @@ export class MainComponent implements OnInit, OnDestroy {
 
   public subscription!: Subscription;
   public loggedUser: any;
+  public parentMessage = "message from parent";
+  public messageToParent: any;
 
   constructor(
     private router: Router,
@@ -29,6 +31,10 @@ export class MainComponent implements OnInit, OnDestroy {
   Logout(){
     localStorage.setItem('Role', 'None');
     this.router.navigate(['/auth'])
+  }
+
+  public receiveMessage(event: any): void{
+    console.log(event);
   }
 
 }

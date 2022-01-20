@@ -11,7 +11,7 @@ namespace API.Models
     {
         public string Id { get; set; }
 
-        public VehicleModel(ref Vehicle x)
+        public VehicleModel(Vehicle x)
         {
             Id = x.Id;
             Brand = x.Brand;

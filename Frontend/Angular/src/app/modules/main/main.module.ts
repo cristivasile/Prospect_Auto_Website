@@ -3,20 +3,20 @@ import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './main/main.component';
-import { Subscription } from 'rxjs';
+import { MaterialModule } from '../material/material.module';
 import { DataService } from 'src/app/services/data.service';
 import { Router } from '@angular/router';
 import { VehiclesComponent } from './vehicles/vehicles.component';
 
-
 @NgModule({
   declarations: [
     MainComponent,
-    VehiclesComponent
+    VehiclesComponent,
   ],
   imports: [
     CommonModule,
-    MainRoutingModule
+    MainRoutingModule,
+    MaterialModule,
   ]
 })
 export class MainModule { }

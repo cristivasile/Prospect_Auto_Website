@@ -4,3 +4,6 @@
 <p>
   {{ loggedUser.username }}
 </p>
+
+<app-vehicles [messageFromParent] = "parentMessage"
+(messageFromChild)="receiveMessage($event)"></app-vehicles>

@@ -10,7 +10,7 @@ namespace API.Models
     {
         public string Id { get; set; }
 
-        public LocationModel(ref Location ob)
+        public LocationModel(Location ob)
         {
             this.Id = ob.Id;
             this.Address = ob.Address;

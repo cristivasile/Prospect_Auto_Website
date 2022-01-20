@@ -8,7 +8,6 @@ export class DataService {
 
   private userSource = new BehaviorSubject({
     username: '',
-    password: '',
   });
   public currentUser = this.userSource.asObservable();
 
@@ -16,5 +15,6 @@ export class DataService {
 
   public changeUserData(user : any): void {
     this.userSource.next(user);
+    console.log(user);
   }
 }

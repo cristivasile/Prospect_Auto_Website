@@ -10,7 +10,7 @@ namespace API.Models
     {
         public string Id { get; set; }
 
-        public WheelModel(ref Wheel ob)
+        public WheelModel(Wheel ob)
         {
             this.BoltPattern = ob.BoltPattern;
             this.Diameter = ob.Diameter;
