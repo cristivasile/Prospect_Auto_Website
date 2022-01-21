@@ -15,6 +15,10 @@ namespace API.Models
 
         public int Year { get; set; }
 
+        public float EngineSize { get; set; }
+
+        public int Power { get; set; }
+
         public string LocationId { get; set; }
 
         public float Price { get; set; }

@@ -1,5 +1,9 @@
 @import "../../../../variables";
 
-.container {
+.myContainer {
   display:flex;
+
+  .form-section{
+    margin-top:2%;
+  }
 }

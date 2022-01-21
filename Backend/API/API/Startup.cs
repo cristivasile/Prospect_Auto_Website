@@ -89,18 +89,14 @@ namespace API
                                                             .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
                                                             .UseSqlServer(Configuration.GetConnectionString("ConnString")));
 
-            services.AddCors();
-
-            /*
             services.AddCors(options =>
             {
                 options.AddPolicy(name: "_allowSpecificOrigins",
                                   builder =>
                                   {
-                                      builder.WithOrigins("localhost:4200", "http://localhost:4200/", "https://localhost:4200/").AllowAnyMethod().AllowAnyHeader();
+                                      builder.WithOrigins("localhost:4200", "http://localhost:4200", "https://localhost:4200").AllowAnyMethod().AllowAnyHeader();
                                   });
             });
-            */
 
             //-- authentication config
             services.AddIdentity<User, Role>()
@@ -151,8 +147,7 @@ namespace API
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1"));
             }
 
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-            //app.UseCors("_allowSpecificOrigins");
+            app.UseCors("_allowSpecificOrigins");
 
             app.UseHttpsRedirection();
 

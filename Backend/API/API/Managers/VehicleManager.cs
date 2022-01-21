@@ -61,7 +61,7 @@ namespace API.Managers
         public async Task<List<VehicleModel>> GetAvailable()
         {
             //use task.fromresult to simulate tolistasync
-            var vehicles = await Task.FromResult((await vehicleRepository.GetAll())
+            var vehicles = await Task.FromResult((await vehicleRepository.GetAvailable())
                                 .Select(x => new VehicleModel(x))
                                 .ToList());
 
@@ -77,6 +77,8 @@ namespace API.Managers
                 Model = vehicle.Model,
                 LocationId = vehicle.LocationId,
                 Odometer = vehicle.Odometer,
+                EngineSize = vehicle.EngineSize,
+                Power = vehicle.Power,
                 Price = vehicle.Price,
                 Year = vehicle.Year
             };
@@ -103,6 +105,8 @@ namespace API.Managers
             currentVehicle.Brand = updatedVehicle.Brand;
             currentVehicle.Model = updatedVehicle.Model;
             currentVehicle.Price = updatedVehicle.Price;
+            currentVehicle.EngineSize = updatedVehicle.EngineSize;
+            currentVehicle.Power = updatedVehicle.Power;
             currentVehicle.Odometer = updatedVehicle.Odometer;
             currentVehicle.LocationId = updatedVehicle.LocationId;
             currentVehicle.Year = updatedVehicle.Year;

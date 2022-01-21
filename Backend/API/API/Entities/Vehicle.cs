@@ -17,6 +17,10 @@ namespace API.Entities
         public int Odometer { get; set; }
 
         public int Year { get; set; }
+        
+        public float EngineSize { get; set; }
+
+        public int Power { get; set; }
 
         public string LocationId { get; set; }
 

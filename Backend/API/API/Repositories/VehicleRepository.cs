@@ -29,7 +29,9 @@ namespace API.Repositories
             var vehicles = await storage.Vehicles
                              .Include(x => x.Status)
                              .Where(x => x.Status.VehicleStatus.ToLower() == "available")
+                             .Include(x => x.Location)
                              .ToListAsync();
+
             return vehicles;
         }
         

@@ -1,7 +1,7 @@
-<div class = "container">
-  <mat-toolbar color="primary" class = "toolbar">
+<div class="myContainer">
+  <mat-toolbar color="primary" class="toolbar">
     <mat-toolbar-row>
-      <h1 id = "title">Prospect Auto | </h1>
+      <h1 id="title">Prospect Auto |</h1>
 
       <mat-tab-group (selectedTabChange)="tabClick($event)">
         <mat-tab label="Vehicles" [routerLink]="'/main/vehicles'"></mat-tab>
@@ -9,26 +9,29 @@
         <mat-tab label="Locations" [routerLink]="'/main/locations'"></mat-tab>
       </mat-tab-group>
 
+      <p id="welcomeMessage">Welcome, {{ loggedUser }}!</p>
 
-      <p id = "welcomeMessage">
-        Welcome, {{loggedUser}}!
-      </p>
-
-      <button mat-mini-fab color = "warn" (click) = "Logout()" id = "logoutButton">
+      <button mat-mini-fab color="warn" (click)="Logout()" id="logoutButton">
         <mat-icon>logout</mat-icon>
       </button>
-
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <div class = "childContainer">
-    <div class = "child">
+  <div class="myChildContainer">
+    <div class="myChild">
       <router-outlet></router-outlet>
     </div>
   </div>
 
-  <footer id = "footer">
-    <p id = "footerText"> Vasile George-Cristian </p>
-    <button mat-flat-button id = "githubIcon" color = "accent" onClick = "window.open('https://github.com/cristivasile/Prospect_Auto_Website')">GitHub</button>
+  <footer id="footer">
+    <p id="footerText">Vasile George-Cristian</p>
+    <button
+      mat-flat-button
+      id="githubIcon"
+      color="accent"
+      onClick="window.open('https://github.com/cristivasile/Prospect_Auto_Website')"
+    >
+      GitHub
+    </button>
   </footer>
 </div>

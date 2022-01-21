@@ -4,6 +4,7 @@
 @use '@angular/material' as mat;
 // Plus imports for other components in your app.
 @import "variables";
+@import "~bootstrap/dist/css/bootstrap.css";
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
@@ -45,4 +46,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .mat-tab-label {
   color: white;
+  font-size: .9em;
 }

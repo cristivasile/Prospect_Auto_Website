@@ -1,50 +1,62 @@
-<div class = "container">
-  <!--
-  <div class="demo-button-container">
-    <button mat-raised-button (click)="addData()" class="demo-button">
-      Add data
-    </button>
-    <button
-        mat-raised-button
-        [disabled]="!dataSource.length"
-        (click)="removeData()"
-        class="demo-button">
-      Remove data
-    </button>
+<div class = "myContainer">
+  <div class = "listHead">
+    <div class = "imageSection mySection">
+      Image
+    </div>
+    <div class = "separator"></div>
+    <div class = "typeSection mySection">
+      Type
+    </div>
+    <div class = "separator"></div>
+    <div class = "typeSection mySection">
+      Info
+    </div>
+    <div class = "separator"></div>
+    <div class = "locationSection mySection">
+      Dealership location
+    </div>
+    <div class = "separator"></div>
+    <div class = "priceSection mySection">
+      Price
+    </div>
   </div>
-  --->
 
+  <div class = "d-flex flex-wrap vehiclesList">
 
-  <table mat-table [dataSource]="vehicles" class="mat-elevation-z8 table">
+    <div class= "card myCard" *ngFor="let vehicle of vehicles">
+      <img style = "object-fit:contain"src="https://static.turbosquid.com/Preview/2014/12/25__23_33_08/01.jpgc343e688-6e75-4628-90e0-b3331493f667Original.jpg" class="card-img-top" alt="{{vehicle.brand}}">
+      <div class = "myInfo">
+          <div>
+            <span class = "tag1">Brand</span> &nbsp; &nbsp; <span class="info1">{{vehicle.brand}}</span>
+          </div>
+          <div>
+            <span class = "tag1">Model</span> &nbsp; &nbsp; <span class="info1">{{vehicle.model}}</span>
+          </div>
+      </div>
 
-    <ng-container matColumnDef="brand">
-      <th mat-header-cell *matHeaderCellDef>Brand</th>
-      <td mat-cell *matCellDef="let element">{{element.brand}}</td>
-    </ng-container>
+      <div class = "myInfo2">
+        <div class = "myLine">
+          <span class = "tag2">Year</span> &nbsp; &nbsp; &nbsp; <span class="info2">{{vehicle.year}}</span>
+        </div>
+        <div class = "myLine">
+          <span class = "tag2">Mileage</span> &nbsp; &nbsp; <span class="info2">{{vehicle.odometer}} km</span>
+        </div>
+        <div class = "myLine">
+          <span class = "tag2">Engine size</span> &nbsp; &nbsp; <span class="info2">{{vehicle.engineSize}} cc</span>
+        </div>
+        <div class = "myLine">
+          <span class = "tag2">Power</span> &nbsp; &nbsp; <span class="info2">{{vehicle.power}} hp</span>
+        </div>
+      </div>
 
-    <ng-container matColumnDef="model">
-      <th mat-header-cell *matHeaderCellDef>Model</th>
-      <td mat-cell *matCellDef="let element">{{element.model}}</td>
-    </ng-container>
+      <div class = "myAddress">
+        <span>{{vehicle.locationAddress}}</span>
+      </div>
 
-    <ng-container matColumnDef="year">
-      <th mat-header-cell *matHeaderCellDef>Year</th>
-      <td mat-cell *matCellDef="let element">{{element.year}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="mileage">
-      <th mat-header-cell *matHeaderCellDef>Mileage</th>
-      <td mat-cell *matCellDef="let element">{{element.odometer}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef>Price</th>
-      <td mat-cell *matCellDef="let element">{{element.price}}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-  </table>
+      <div class = "priceContainer">
+        <span>{{vehicle.price}}	€</span>
+      </div>
+    </div>
+  </div>
 
 </div>

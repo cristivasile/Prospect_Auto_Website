@@ -1,7 +1,8 @@
 @import "../../../variables";
 
-.container {
+.myContainer {
   width: 100%;
+  box-sizing:content-box;
   height: 100%;
   display:flex;
   align-items: center;
@@ -19,7 +20,7 @@
     border-radius: 2em;
     align-items: center;
     justify-content: center;
-    background-color: $accent;
+    background-color: $primary;
 
     ::ng-deep
     .mat-progress-spinner,
@@ -30,7 +31,7 @@
     }
   }
 
-  .title{
+  .myTitle{
     margin-top: 5%;
     font-size: 5em;
     height:auto;
@@ -39,7 +40,6 @@
   }
 
   .form-section{
-    margin-top: 2%;
     border-radius: 2em;
     width: 30%;
     height: auto;
@@ -54,7 +54,7 @@
       color: $accent;
     }
 
-    .header{
+    .myHeader{
       margin-top:2em;
       margin-bottom:1.3em;
       font-size: 1.75em;
@@ -94,15 +94,16 @@
     }
   }
 
-  .form {
+  .myForm {
     width : 70%;
     .mat-form-field {
       width : 100%;
     }
   }
 
-  #footer{
+  #myFooter{
     width: 25%;
+    box-sizing: content-box;
     position:absolute;
     bottom:0;
     display:flex;

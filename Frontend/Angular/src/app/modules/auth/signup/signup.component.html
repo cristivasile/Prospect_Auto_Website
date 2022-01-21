@@ -1,5 +1,5 @@
-<div class = "container">
-  <div class = "title">
+<div class = "myContainer">
+  <div class = "myTitle">
       <p> Prospect Auto </p>
   </div>
 
@@ -9,10 +9,10 @@
   </div>
 
   <div class = "form-section">
-      <div class = "header">
+      <div class = "myHeader">
         <p> Create an account</p>
       </div>
-      <form [formGroup]="signupForm" class = "form">
+      <form [formGroup]="signupForm" class = "myForm">
           <mat-form-field appearance="outline" >
             <mat-label>Email</mat-label>
             <input matInput placeholder = "email@email.email"formControlName="email"/>
@@ -44,7 +44,7 @@
       </div>
   </div>
 
-  <footer id = "footer">
+  <footer id = "myFooter">
     <p id = "footerText"> Vasile George-Cristian </p>
     <button mat-flat-button id = "githubIcon" color = "accent" onClick = "window.open('https://github.com/cristivasile/Prospect_Auto_Website')">GitHub</button>
   </footer>
