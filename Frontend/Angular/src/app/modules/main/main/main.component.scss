@@ -8,6 +8,16 @@
   flex-direction: column;
   background-image: url(../../../../assets/images/background.jpg);
 
+
+  mat-tab-label{
+    color:white;
+  }
+
+  md-tabs.md-default-theme md-ink-bar, md-tabs md-ink-bar {
+    color: $accent;
+    background-color: accent;
+  }
+
   .toolbar{
     width: 90%;
     margin-top:2%;
@@ -31,14 +41,22 @@
   }
 
   .childContainer{
-    width: 90%;
+    width: 88%;
     height: auto;
-    padding-top: 1%;
     display:flex;
     align-items: center;
     flex-direction: column;
     background-color: rgba(255, 255, 255, 0.95);
     border-radius: 0 0 .5em .5em;
+    background-color: $primary;
+    padding:.2% 1% 1% 1%;
+
+    .child{
+      width:100%;
+      height:100%;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
   #footer{

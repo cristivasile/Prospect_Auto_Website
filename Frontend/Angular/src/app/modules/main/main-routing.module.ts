@@ -22,10 +22,11 @@ const routes: Routes = [
     },{
       path: 'locations',
       component: LocationsComponent
-    }
-
-
-    ]
+    }]
+  },
+  {
+    path:'test',
+    component: VehiclesComponent
   }
 ];
 @NgModule({

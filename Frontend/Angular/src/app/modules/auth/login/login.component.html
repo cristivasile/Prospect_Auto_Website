@@ -23,13 +23,17 @@
             </mat-form-field>
         </form>
 
-        <button mat-flat-button class = "button" color = "accent" (click) = "Login()">
+        <button mat-flat-button [disabled] = "buttonDisabled" class = "button" color = "accent" (click) = "Login()">
           Login
         </button>
 
         <div class = "signUp">
           <p> Don't have an account? <a href="/auth/signup"><u>Sign up</u></a> instead.</p>
         </div>
+    </div>
+
+    <div id = "buttonPressed">
+      <mat-spinner class = "spinner" [diameter]="70"></mat-spinner>
     </div>
 
     <footer id = "footer">

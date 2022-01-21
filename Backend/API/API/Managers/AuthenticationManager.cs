@@ -122,6 +122,15 @@ namespace API.Managers
                 return result;
             }
 
+            //check if email already exists
+            var emailExists = storage.Users.Any(x => x.Email.ToLower() == newUser.Email.ToLower());
+
+            if (emailExists)
+            {
+                result = GenerateError("0001", "Email already exists!");
+                return result;
+            }
+
             if (user.UserName.Length < 6)
             {
                 result = GenerateError("0003", "Username must have at least 6 characters!");
@@ -133,12 +142,9 @@ namespace API.Managers
                 return result;
             }
 
-            //check if email already exists
-            var emailExists = storage.Users.Any(x => x.Email.ToLower() == newUser.Email.ToLower());
-
-            if (emailExists)
+            if (newUser.Password.Length == 0)
             {
-                result = GenerateError("0001", "Email already exists!");
+                result = GenerateError("0006", "Password field can not be empty!");
                 return result;
             }
 

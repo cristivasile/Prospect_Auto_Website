@@ -10,8 +10,6 @@ export class AuthenticationService {
 
   public url = '/auth';
 
-
-
   constructor(
     public http: HttpClient,
   ) { }

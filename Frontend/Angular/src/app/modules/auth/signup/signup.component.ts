@@ -14,7 +14,8 @@ type SignupInput = {
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss']
+  styleUrls: ['../common.styles.scss',
+              './signup.component.scss',]
 })
 
 export class SignupComponent implements OnInit {
@@ -26,6 +27,7 @@ export class SignupComponent implements OnInit {
     Password : "",
     RepeatedPassword: "",
   };
+  public buttonDisabled : boolean = false;
 
   constructor(
     private router : Router,
@@ -43,11 +45,21 @@ export class SignupComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  Signup() : void {
+  private sleep(ms : any) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async Signup() : Promise<void> {
     this.signupInput.Email = this.signupForm.value.email;
     this.signupInput.Password = this.signupForm.value.password;
     this.signupInput.Username = this.signupForm.value.username;
     this.signupInput.RepeatedPassword = this.signupForm.value.repeatedPassword;
+
+    var loading = document.getElementById("buttonPressed")!;
+    loading.style.display = "flex";
+
+    this.buttonDisabled = true;
+    await this.sleep(1500);
 
     this.authService.signUp(this.signupInput).subscribe({
       next : (result) => {
@@ -72,12 +84,16 @@ export class SignupComponent implements OnInit {
         document.getElementById('messageOutput')!.innerHTML = error.error;
         messageSection!.style.backgroundColor = "rgba(255, 255, 255, 0.95)";
 
+        loading.style.display = "none";
+        this.buttonDisabled = false;
+
         this.messageTimeout = setTimeout( () => {
           document.getElementById('messageOutput')!.innerHTML = "";
           messageSection!.style.backgroundColor = "rgba(255, 255, 255, 0)";
         }, 5000);
       }
     });
+
   }
 
 }

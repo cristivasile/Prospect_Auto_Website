@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { DataService } from 'src/app/services/data.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FocusMonitorDetectionMode } from '@angular/cdk/a11y';
+import { delay, timeout } from 'rxjs';
 type loginDetails = {
   Username : string,
   Password : string,
@@ -12,7 +13,9 @@ type loginDetails = {
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: [
+    '../common.styles.scss',
+    './login.component.scss',]
 })
 export class LoginComponent implements OnInit {
 
@@ -21,6 +24,7 @@ export class LoginComponent implements OnInit {
   {Username : "",
   Password : ""};
   private messageTimeout : any;
+  public buttonDisabled : boolean = false;
   constructor(
     private router : Router,
     private dataService : DataService,
@@ -42,7 +46,17 @@ export class LoginComponent implements OnInit {
       }
   }
 
-  Login() : void {
+  private sleep(ms : any) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async Login() : Promise<void> {
+
+    var loading = document.getElementById("buttonPressed")!;
+    loading.style.display = "flex";
+    this.buttonDisabled = true;
+
+    await this.sleep(1500);
 
     this.loginInput.Password = this.loginForm.value.password;
     this.loginInput.Username = this.loginForm.value.username;
@@ -56,6 +70,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('Token', result.accessToken);
         localStorage.setItem('Username', this.loginInput.Username);
 
+        this.dataService.changeUserData(this.loginForm.value);
         this.router.navigate(['/main/vehicles']);
       },
       error : (error) => {
@@ -74,15 +89,15 @@ export class LoginComponent implements OnInit {
         document.getElementById('messageOutput')!.innerHTML = result;
         messageSection!.style.backgroundColor = "rgba(255, 255, 255, 0.95)";
 
+        loading.style.display = "none";
+        this.buttonDisabled = false;
+
         this.messageTimeout = setTimeout( () => {
           document.getElementById('messageOutput')!.innerHTML = "";
           messageSection!.style.backgroundColor = "rgba(255, 255, 255, 0)";
         }, 5000);
       }
     });
-
-    this.dataService.changeUserData(this.loginForm.value);
-
   }
 
   get username() {

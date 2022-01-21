@@ -36,4 +36,13 @@ export class MainComponent implements OnInit {
     console.log(event);
   }
 
+  public tabClick(event : any) : void{
+    if(event.index == 0)
+      this.router.navigate(['/main/vehicles']);
+    if(event.index == 1)
+      this.router.navigate(['/main/wheels']);
+    if(event.index == 2)
+      this.router.navigate(['/main/locations']);
+  }
+
 }

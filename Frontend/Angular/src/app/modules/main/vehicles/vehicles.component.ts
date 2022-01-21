@@ -12,6 +12,8 @@ export class VehiclesComponent implements OnInit {
 
   @Output() messageFromChild = new EventEmitter<string>();
 
+  public vehicles: any;
+  public displayedColumns = ['brand', 'model', 'year', 'mileage', 'price'];
   constructor(
     private vehiclesService: VehiclesService,
   ) {
@@ -19,21 +21,16 @@ export class VehiclesComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log(this.messageFromParent);
-
     this.vehiclesService.getAllAvailableVehicles().subscribe({
       next : (result) => {
-        console.log(result);
+        this.vehicles = result;
+        console.log(this.vehicles);
       },
       error : (error) => {
         console.error(error);
       }
     });
 
-  }
-
-  public event(){
-    this.messageFromChild.emit("message from child");
   }
 
 }

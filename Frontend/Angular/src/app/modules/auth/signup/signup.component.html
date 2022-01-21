@@ -31,9 +31,13 @@
           </mat-form-field>
       </form>
 
-      <button id="signupButton" mat-flat-button class = "button" color = "accent" (click) = "Signup()">
+      <button [disabled] = "buttonDisabled" id="signupButton" mat-flat-button class = "button" color = "accent" (click) = "Signup()">
         Sign up
       </button>
+
+      <div id = "buttonPressed">
+        <mat-spinner class = "spinner" [diameter]="70"></mat-spinner>
+      </div>
 
       <div class = "signUp">
         <p> Already have an account? <a href="/auth"><u>Log in</u></a> instead.</p>
