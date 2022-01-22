@@ -15,6 +15,7 @@
   }
 
   .listHead{
+    margin-top: .2vw;
     width: 100%;
     display:flex;
     flex-direction: row;
@@ -22,7 +23,6 @@
     background-color: $accent;
     color:white;
     border-color: $accent2;
-    border-radius: 1em 1em 0 0;
     position:top;
 
     .mySection{
@@ -96,12 +96,14 @@
   .scrollWrapper{
     width: 100%;
     height: auto;
+    padding-right:.2vw;
+    background-color: $accent;
+    padding-bottom: .2vw;
 
     .vehiclesList{
       width: 100%;
-      max-height: 39.8vw;
+      max-height: 39.9vw;
       background-color: $accent;
-      border-radius: 0 0 0 .4vw;
 
       .myCard{
         width: 100%;
@@ -109,11 +111,13 @@
         flex-direction: row;
         margin-bottom: .2vw;
         border: none;
+        margin-left: .2vw;
+        margin-right: .3vw;
 
         .card-img-top{
           margin: .4vw .4vw .4vw .8vw;
-          border: .2vw solid $primary;
-          background-color: $primary;
+          border: .2vw solid $accent;
+          background-color: $accent;
           border-radius: .3em;
           width: 7.5vw;
           height:auto;
