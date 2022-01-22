@@ -8,6 +8,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
+import {ScrollingModule} from '@angular/cdk/scrolling';
+
 
 @NgModule({
   declarations: [],
@@ -21,6 +23,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
     MatTabsModule,
     MatTableModule,
     MatProgressSpinnerModule,
+    ScrollingModule,
   ],
   exports: [
     MatButtonModule,
@@ -31,6 +34,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
     MatTabsModule,
     MatTableModule,
     MatProgressSpinnerModule,
+    ScrollingModule,
   ]
 })
 export class MaterialModule {  }

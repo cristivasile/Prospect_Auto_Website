@@ -15,6 +15,5 @@ export class DataService {
 
   public changeUserData(user : any): void {
     this.userSource.next(user);
-    console.log(user);
   }
 }

@@ -1,4 +1,5 @@
 <div class = "myContainer">
+
   <div class = "listHead">
     <div class = "imageSection mySection">
       Image
@@ -21,42 +22,57 @@
     </div>
   </div>
 
-  <div class = "d-flex flex-wrap vehiclesList">
-
-    <div class= "card myCard" *ngFor="let vehicle of vehicles">
-      <img style = "object-fit:contain"src="https://static.turbosquid.com/Preview/2014/12/25__23_33_08/01.jpgc343e688-6e75-4628-90e0-b3331493f667Original.jpg" class="card-img-top" alt="{{vehicle.brand}}">
-      <div class = "myInfo">
-          <div>
-            <span class = "tag1">Brand</span> &nbsp; &nbsp; <span class="info1">{{vehicle.brand}}</span>
-          </div>
-          <div>
-            <span class = "tag1">Model</span> &nbsp; &nbsp; <span class="info1">{{vehicle.model}}</span>
-          </div>
-      </div>
-
-      <div class = "myInfo2">
-        <div class = "myLine">
-          <span class = "tag2">Year</span> &nbsp; &nbsp; &nbsp; <span class="info2">{{vehicle.year}}</span>
-        </div>
-        <div class = "myLine">
-          <span class = "tag2">Mileage</span> &nbsp; &nbsp; <span class="info2">{{vehicle.odometer}} km</span>
-        </div>
-        <div class = "myLine">
-          <span class = "tag2">Engine size</span> &nbsp; &nbsp; <span class="info2">{{vehicle.engineSize}} cc</span>
-        </div>
-        <div class = "myLine">
-          <span class = "tag2">Power</span> &nbsp; &nbsp; <span class="info2">{{vehicle.power}} hp</span>
-        </div>
-      </div>
-
-      <div class = "myAddress">
-        <span>{{vehicle.locationAddress}}</span>
-      </div>
-
-      <div class = "priceContainer">
-        <span>{{vehicle.price}}	€</span>
-      </div>
-    </div>
+  <div id = "loading">
+    <mat-spinner [diameter]="70" color = "accent"></mat-spinner>
   </div>
 
+  <div class="scrollWrapper">
+    <cdk-virtual-scroll-viewport id = "myViewport" itemSize = "count" class = "d-flex flex-wrap vehiclesList">
+
+      <div id = "queryI" class = "queryInfo">
+        <p>
+        Displaying {{count}} results:
+        </p>
+      </div>
+
+      <div class= "card myCard" *cdkVirtualFor="let vehicle of vehicles">
+        <img style = "object-fit:contain"src="https://static.turbosquid.com/Preview/2014/12/25__23_33_08/01.jpgc343e688-6e75-4628-90e0-b3331493f667Original.jpg" class="card-img-top" alt="{{vehicle.brand}}">
+        <div class = "myInfo">
+            <div>
+              <span class = "tag1">Brand</span> &nbsp; &nbsp; <span class="info1">{{vehicle.brand}}</span>
+            </div>
+            <div>
+              <span class = "tag1">Model</span> &nbsp; &nbsp; <span class="info1">{{vehicle.model}}</span>
+            </div>
+        </div>
+
+        <div class = "myInfo2">
+          <div class = "myLine">
+            <span class = "tag2">Year</span> &nbsp; &nbsp; &nbsp; <span class="info2">{{vehicle.year}}</span>
+          </div>
+          <div class = "myLine">
+            <span class = "tag2">Mileage</span> &nbsp; &nbsp; <span class="info2">{{vehicle.odometer}} km</span>
+          </div>
+          <div class = "myLine">
+            <span class = "tag2">Engine size</span> &nbsp; &nbsp; <span class="info2">{{vehicle.engineSize}} cc</span>
+          </div>
+          <div class = "myLine">
+            <span class = "tag2">Power</span> &nbsp; &nbsp; <span class="info2">{{vehicle.power}} hp</span>
+          </div>
+        </div>
+
+        <div class = "myAddress">
+          <span>{{vehicle.locationAddress}}</span>
+        </div>
+
+        <div class = "priceContainer">
+          <span>{{vehicle.price}}	€</span>
+        </div>
+      </div>
+
+      <div id = "endI" class="endMessage">
+        No results found
+      </div>
+    </cdk-virtual-scroll-viewport>
+  </div>
 </div>

@@ -42,9 +42,6 @@
 
   .myChildContainer{
     width: 88%;
-    height: auto;
-    //max-height: 80%;
-    //overflow:hidden;
     display:flex;
     box-sizing: content-box;
     align-items: center;
@@ -57,7 +54,6 @@
     .myChild{
       width:100%;
       box-sizing:content-box;
-      height:100%;
       align-items: center;
       justify-content: center;
     }
