@@ -1,5 +1,11 @@
 @import "../../../../variables";
 
+.adminMenu{
+  width: 100%;
+  display:flex;
+  justify-content: space-around;
+}
+
 .myContainer{
   width: 100%;
   display: flex;
@@ -61,9 +67,16 @@
     .priceSection{
       width: 4vw;
       margin-left: auto;
-      margin-right: 2.4vw;
+      margin-right: .5vw;
     }
 
+    .buttonSection{
+      width: 6vw;
+    }
+
+    .endMargin{
+      margin-right: 1.2vw;
+    }
   }
 
   .verticalSeparatorContainer{
@@ -197,6 +210,27 @@
           margin-right: 1vw;
           text-align: right;
         }
+
+        .buttonContainer{
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          text-align: center;
+          align-content: center;
+          width: 3vw;
+
+          .mat-edit{
+            background-color: $primary;
+            color: white;
+          }
+
+          .mat-delete{
+            background-color: $primary;
+            color: white;
+          }
+
+        }
+
       }
 
       .myCard:hover {

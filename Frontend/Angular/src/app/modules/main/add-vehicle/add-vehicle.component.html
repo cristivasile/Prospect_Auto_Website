@@ -1,0 +1,71 @@
+<div class="myContainer">
+  <button mat-flat-button id="backButton" color = "transparent" (click)="goBack()"><mat-icon><span class="material-icons">
+    arrow_back_ios_new
+    </span></mat-icon> <span>Back</span>
+  </button>
+
+  <div class = "form-section">
+    <form [formGroup]="vehicleForm" class="myForm">
+
+      <mat-form-field appearance="legacy" class = "oneLine">
+        <mat-label>Brand</mat-label>
+        <input matInput required placeholder="Brand" formControlName="brand"/>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class = "oneLine">
+        <mat-label>Model</mat-label>
+        <input matInput required placeholder="Model" formControlName="model"/>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class = "twoLine">
+        <mat-label>Year</mat-label>
+        <input matInput min = "1900" required max = "2022" type = "number" placeholder="Year" formControlName="year"/>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class = "twoLine ender">
+        <mat-label>Mileage</mat-label>
+        <input matInput type = "number" min = "0" required placeholder="Mileage" formControlName="mileage"/>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class = "twoLine">
+        <mat-label>Engine size</mat-label>
+        <input matInput min = "400" max = "15000" type = "number" required placeholder="Engine size" formControlName="engineSize"/>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class = "twoLine ender">
+        <mat-label>Power</mat-label>
+        <input matInput min = "20" max = "1500" type = "number" required placeholder="Power" formControlName="power"/>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class = "locationSelector">
+        <mat-select required placeholder = "Select location address" formControlName="location">
+          <mat-option *ngFor ="let location of locationList" [value] = location.id>
+            {{location.address}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="legacy" class = "featureSelector">
+        <mat-select placeholder = "Select features" formControlName="features" multiple>
+          <mat-select-trigger>
+            <span *ngIf="this.vehicleForm.get('features')!.value?.length > 0">
+              {{this.vehicleForm.get('features')!.value?.length}} selected
+            </span>
+          </mat-select-trigger>
+          <mat-option *ngFor ="let feature of featureList" [value] = feature.id>
+            {{feature.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <button id = "addLocation" mat-mini-fab id="addLocationButton" color = "add" (click)="addFeature()">
+        <mat-icon>
+          add
+        </mat-icon>
+      </button>
+
+    </form>
+
+  </div>
+</div>

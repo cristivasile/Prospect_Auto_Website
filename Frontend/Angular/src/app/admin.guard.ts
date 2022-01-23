@@ -5,8 +5,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-
-export class AuthGuard implements CanActivate, CanActivateChild {
+export class AdminGuard implements CanActivate, CanActivateChild {
 
   constructor(private router: Router){
 
@@ -15,10 +14,10 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const isAuthorized = localStorage.getItem('Role') === 'Admin' || localStorage.getItem('Role') === 'User';
+    const isAuthorized = localStorage.getItem('Role') === 'Admin';
 
     if(!isAuthorized){
-      this.router.navigate(['/auth']);
+      this.router.navigate(['/main']);
     }
 
     return isAuthorized;

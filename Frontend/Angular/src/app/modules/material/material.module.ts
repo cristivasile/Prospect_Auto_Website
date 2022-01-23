@@ -9,6 +9,11 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTableModule} from '@angular/material/table';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import {ScrollingModule} from '@angular/cdk/scrolling';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -23,7 +28,13 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     MatTabsModule,
     MatTableModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSortModule,
     ScrollingModule,
+    MatSelectModule,
+    MatChipsModule,
+    MatDialogModule,
+
   ],
   exports: [
     MatButtonModule,
@@ -34,7 +45,12 @@ import {ScrollingModule} from '@angular/cdk/scrolling';
     MatTabsModule,
     MatTableModule,
     MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSortModule,
     ScrollingModule,
+    MatSelectModule,
+    MatChipsModule,
+    MatDialogModule,
   ]
 })
 export class MaterialModule {  }

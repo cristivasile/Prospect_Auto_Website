@@ -1,9 +1,8 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { FocusMonitorDetectionMode } from '@angular/cdk/a11y';
-import { BehaviorSubject, delay, Subscription, timeout } from 'rxjs';
+import {Subscription} from 'rxjs';
 import { DataService } from 'src/app/services/data.service';
 
 type loginDetails = {
@@ -50,18 +49,13 @@ export class LoginComponent implements OnInit, OnDestroy {
         var messageSection = document.getElementById('message-section');
         document.getElementById('messageOutput')!.innerHTML = "Your session has expired. Please log in again.";
         messageSection!.style.backgroundColor = "rgba(255, 255, 255, 0.95)";
-
-        this.messageTimeout = setTimeout( () => {
-          document.getElementById('messageOutput')!.innerHTML = "";
-          messageSection!.style.backgroundColor = "rgba(255, 255, 255, 0)";
-        }, 5000);
       }
 
       //information was loaded, reset so message does not display again
-      this.dataService.changeUserState(new BehaviorSubject(true));
+      this.dataService.changeUserState(false);
 
       this.userSubscription = this.dataService.currentUser.subscribe(x => this.user = x.username);
-      console.log(this.user);
+
       if (this.user != ""){
         this.loginForm.patchValue({
           username: this.user,

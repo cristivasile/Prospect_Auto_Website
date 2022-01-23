@@ -1,3 +1,7 @@
+<div class = "adminMenu" *ngIf = "isAdmin">
+  <button mat-raised-button color = "accent" (click) = "addNew()">Add new</button>
+</div>
+
 <div class = "myContainer">
 
   <div class = "listHead">
@@ -20,6 +24,14 @@
     <div class = "priceSection mySection">
       Price
     </div>
+    <div class = "separator" *ngIf="isAdmin"></div>
+    <div class = "buttonSection mySection" *ngIf="isAdmin">
+      Modify
+    </div>
+
+    <div class = "endMargin">
+    </div>
+
   </div>
 
   <div id = "loading">
@@ -35,7 +47,7 @@
         </p>
       </div>
 
-      <div class= "card myCard" *cdkVirtualFor="let vehicle of vehicles">
+      <div class= "card myCard" *ngFor="let vehicle of vehicles">
         <img style = "object-fit:contain"src="https://static.turbosquid.com/Preview/2014/12/25__23_33_08/01.jpgc343e688-6e75-4628-90e0-b3331493f667Original.jpg" class="card-img-top" alt="{{vehicle.brand}}">
         <div class = "myInfo">
             <div>
@@ -68,6 +80,20 @@
         <div class = "priceContainer">
           <span>{{vehicle.price}}	€</span>
         </div>
+
+
+        <div class = "buttonContainer" *ngIf = "isAdmin">
+          <button mat-mini-fab color = "edit" class = "editButton">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+
+        <div class = "buttonContainer" *ngIf = "isAdmin">
+          <button mat-mini-fab color = "delete" class = "deleteButton" (click) = "deleteVehicle(vehicle)">
+            <mat-icon> delete </mat-icon>
+          </button>
+        </div>
+
       </div>
 
       <div id = "endI" class="endMessage">

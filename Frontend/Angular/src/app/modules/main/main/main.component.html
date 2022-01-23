@@ -11,7 +11,7 @@
 
       <p id="welcomeMessage">Welcome, {{ loggedUser }}!</p>
 
-      <button mat-mini-fab color="warn" (click)="Logout()" id="logoutButton">
+      <button mat-mini-fab color="logout" (click)="Logout()" id="logoutButton">
         <mat-icon>logout</mat-icon>
       </button>
     </mat-toolbar-row>
@@ -28,7 +28,7 @@
     <button
       mat-flat-button
       id="githubIcon"
-      color="accent"
+      color="primary"
       onClick="window.open('https://github.com/cristivasile/Prospect_Auto_Website')"
     >
       GitHub

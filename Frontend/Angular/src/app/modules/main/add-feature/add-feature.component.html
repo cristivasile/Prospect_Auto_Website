@@ -1,0 +1,25 @@
+<div class="myContainer">
+  <h1 class="title">
+    Add new feature
+  </h1>
+
+  <h3 id="message">
+  </h3>
+
+  <form [formGroup]="featureForm" class="myForm">
+    <mat-form-field id = "nameField" appearance = "legacy">
+      <mat-label>Name</mat-label>
+      <input matInput required placeholder="Name" formControlName="name"/>
+    </mat-form-field>
+
+    <mat-form-field id = "desField" appearance = "legacy">
+      <mat-label>Desirability</mat-label>
+      <mat-select required [(value)]= 'selectedD' formControlName="desirability">
+        <mat-option value = 1>*</mat-option>
+        <mat-option value = 2>**</mat-option>
+        <mat-option value = 3>***</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+  <button mat-raised-button color = "add" (click) = "add()">Add new</button>
+</div>

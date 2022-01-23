@@ -2,6 +2,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 // Plus imports for other components in your app.
 @import "variables";
 @import "~bootstrap/dist/css/bootstrap.css";
@@ -47,4 +48,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-tab-label {
   color: white;
   font-size: .9em;
+}
+.mat-icon {
+  vertical-align: middle;
 }

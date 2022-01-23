@@ -19,6 +19,6 @@ export class VehiclesService {
   }
 
   public deleteVehicle (id : string) : Observable<any> {
-    return this.http.delete(`${config.api}${this.url}/delete/${id}`);
+    return this.http.delete(`${config.api}${this.url}/${id}`);
   }
 }

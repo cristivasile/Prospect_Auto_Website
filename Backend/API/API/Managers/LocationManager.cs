@@ -47,7 +47,7 @@ namespace API.Managers
         {
             var locations = await Task.FromResult(
                 (await locationRepository.GetAll())
-                .Select(x => new LocationModel(x)).ToList());
+                .Select(x => new LocationModel(x)).OrderBy(x => x.Address).ToList());
             return locations;
         }
 

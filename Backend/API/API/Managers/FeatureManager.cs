@@ -46,7 +46,7 @@ namespace API.Managers
         {
             var features = await Task.FromResult(
                 (await featureRepository.GetAll())
-                .Select(x => new FeatureModel(x)).ToList());
+                .Select(x => new FeatureModel(x)).OrderBy(x => x.Name).ToList());
 
             return features;
         }

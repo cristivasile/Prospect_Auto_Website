@@ -17,6 +17,10 @@ const routes: Routes = [
   {
     path : 'auth',
     loadChildren : () => import('src/app/modules/auth/auth.module').then(x => x.AuthModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'main/vehicles'
   }
 ];
 
