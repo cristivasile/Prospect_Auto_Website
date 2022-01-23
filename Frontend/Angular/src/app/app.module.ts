@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokensenderInterceptor } from './interceptors/tokensender.interceptor';
+import { DataService } from './services/data.service';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TokensenderInterceptor } from './interceptors/tokensender.interceptor';
     BrowserAnimationsModule,
     HttpClientModule,
   ],
-  providers: [ { provide: HTTP_INTERCEPTORS, useClass: TokensenderInterceptor, multi: true },],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokensenderInterceptor, multi: true },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

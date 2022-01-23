@@ -1,10 +1,11 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { DataService } from 'src/app/services/data.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FocusMonitorDetectionMode } from '@angular/cdk/a11y';
-import { delay, timeout } from 'rxjs';
+import { BehaviorSubject, delay, Subscription, timeout } from 'rxjs';
+import { DataService } from 'src/app/services/data.service';
+
 type loginDetails = {
   Username : string,
   Password : string,
@@ -17,14 +18,20 @@ type loginDetails = {
     '../common.styles.scss',
     './login.component.scss',]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
-  private user : string = "";
   private loginInput : loginDetails =
   {Username : "",
   Password : ""};
   private messageTimeout : any;
   public buttonDisabled : boolean = false;
+
+  private stateSubscription! : Subscription;
+  private userSubscription!: Subscription;
+
+  private user : string = "";
+  private sessionExpired : boolean = false;
+
   constructor(
     private router : Router,
     private dataService : DataService,
@@ -37,13 +44,34 @@ export class LoginComponent implements OnInit {
   });
 
   ngOnInit(): void {
-      this.dataService.currentUser.subscribe(x => this.user = x.username);
+      this.stateSubscription = this.dataService.userState.subscribe(x => this.sessionExpired = x);
+
+      if(this.sessionExpired){
+        var messageSection = document.getElementById('message-section');
+        document.getElementById('messageOutput')!.innerHTML = "Your session has expired. Please log in again.";
+        messageSection!.style.backgroundColor = "rgba(255, 255, 255, 0.95)";
+
+        this.messageTimeout = setTimeout( () => {
+          document.getElementById('messageOutput')!.innerHTML = "";
+          messageSection!.style.backgroundColor = "rgba(255, 255, 255, 0)";
+        }, 5000);
+      }
+
+      //information was loaded, reset so message does not display again
+      this.dataService.changeUserState(new BehaviorSubject(true));
+
+      this.userSubscription = this.dataService.currentUser.subscribe(x => this.user = x.username);
       console.log(this.user);
       if (this.user != ""){
         this.loginForm.patchValue({
           username: this.user,
         });
       }
+  }
+
+  ngOnDestroy(): void {
+      this.stateSubscription.unsubscribe();
+      this.userSubscription.unsubscribe();
   }
 
   private sleep(ms : any) {
