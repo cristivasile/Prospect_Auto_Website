@@ -41,10 +41,16 @@ namespace API.Repositories
             return vehicle;
         }
 
-        public async Task Create(Vehicle newVehicle, Status newStatus)
+        public async Task Create(Vehicle newVehicle, Status newStatus, List<VehicleFeature> features)
         {
             await storage.Vehicles.AddAsync(newVehicle);
             await storage.Statuses.AddAsync(newStatus);
+
+            foreach(var feature in features)
+            {
+                await storage.VehicleFeature.AddAsync(feature);
+            }
+
             await storage.SaveChangesAsync();
         }
 

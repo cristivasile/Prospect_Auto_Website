@@ -21,4 +21,9 @@ export class VehiclesService {
   public deleteVehicle (id : string) : Observable<any> {
     return this.http.delete(`${config.api}${this.url}/${id}`);
   }
+
+  public addVehicle (newVehicle: any) : Observable<any> {
+    console.log(newVehicle);
+    return this.http.post(`${config.api}${this.url}`, newVehicle);
+  }
 }

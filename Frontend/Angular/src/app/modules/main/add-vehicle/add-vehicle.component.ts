@@ -4,14 +4,20 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { FeaturesService } from 'src/app/services/features.service';
 import { LocationsService } from 'src/app/services/locations.service';
+import { VehiclesService } from 'src/app/services/vehicles.service';
 import { AddFeatureComponent } from '../add-feature/add-feature.component';
 
 
-type locationType = {
-  address : string,
-  id : string,
-  employeeNumber: number,
-  size : string
+type vehicleType = {
+  brand : string,
+  model : string,
+  odometer : number,
+  year : number,
+  engineSize : number,
+  power : number,
+  locationId : string,
+  features : string[],
+  price: number,
 };
 
 @Component({
@@ -26,6 +32,7 @@ export class AddVehicleComponent implements OnInit {
     private router: Router,
     private locationService: LocationsService,
     private featureService: FeaturesService,
+    private vehicleService: VehiclesService,
     public dialog: MatDialog,
   ) { }
 
@@ -34,12 +41,13 @@ export class AddVehicleComponent implements OnInit {
   public vehicleForm: FormGroup = new FormGroup({
     brand: new FormControl(''),
     model: new FormControl(''),
-    year: new FormControl(''),
     mileage: new FormControl(''),
+    year: new FormControl(''),
     engineSize: new FormControl(''),
     power: new FormControl(''),
     location: new FormControl(''),
     features: new FormControl(''),
+    price: new FormControl(''),
   });
 
   ngOnInit(): void {
@@ -82,6 +90,56 @@ export class AddVehicleComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.loadFeatures();
     })
+
+  }
+
+  public addVehicle() : void{
+    var message = document.getElementById('messageOutput')!;
+
+    if(!this.vehicleForm.invalid){
+      message.style.color = "green";
+      message.style.display = "block";
+      message.innerHTML = "Vehicle succesfully inserted!"
+
+      var requestBody : vehicleType = {
+        brand : this.vehicleForm.get('brand')!.value,
+        model : this.vehicleForm.get('model')!.value,
+        odometer : this.vehicleForm.get('mileage')!.value,
+        year : this.vehicleForm.get('year')!.value,
+        engineSize : this.vehicleForm.get('engineSize')!.value,
+        power : this.vehicleForm.get('power')!.value,
+        locationId : this.vehicleForm.get('location')!.value,
+        features : this.vehicleForm.get('features')!.value,
+        price: this.vehicleForm.get('price')!.value,
+      }
+
+      this.vehicleService.addVehicle(requestBody).subscribe({
+        next: (result) => {
+          console.log(result);
+        },
+        error: (error) => {
+          console.error(error);
+        }
+      })
+
+
+      this.vehicleForm.patchValue({
+        brand: '',
+        model: '',
+        mileage: '',
+        year: '',
+        engineSize: '',
+        power: '',
+        location: '',
+        features: [],
+        price: '',
+      });
+    }
+    else{
+      message.style.color = "red";
+      message.style.display = "block";
+      message.innerHTML = "Please check your input!"
+    }
 
   }
 }

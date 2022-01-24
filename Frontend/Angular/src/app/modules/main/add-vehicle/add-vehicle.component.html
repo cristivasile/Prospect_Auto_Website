@@ -4,6 +4,10 @@
     </span></mat-icon> <span>Back</span>
   </button>
 
+  <div class = "myTitle">
+    Add new vehicle
+  </div>
+
   <div class = "form-section">
     <form [formGroup]="vehicleForm" class="myForm">
 
@@ -17,22 +21,22 @@
         <input matInput required placeholder="Model" formControlName="model"/>
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class = "twoLine">
+      <mat-form-field appearance="legacy" class = "twoLine twoLineSep">
         <mat-label>Year</mat-label>
         <input matInput min = "1900" required max = "2022" type = "number" placeholder="Year" formControlName="year"/>
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class = "twoLine ender">
+      <mat-form-field appearance="legacy" class = "twoLine">
         <mat-label>Mileage</mat-label>
         <input matInput type = "number" min = "0" required placeholder="Mileage" formControlName="mileage"/>
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class = "twoLine">
+      <mat-form-field appearance="legacy" class = "twoLine twoLineSep">
         <mat-label>Engine size</mat-label>
         <input matInput min = "400" max = "15000" type = "number" required placeholder="Engine size" formControlName="engineSize"/>
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class = "twoLine ender">
+      <mat-form-field appearance="legacy" class = "twoLine">
         <mat-label>Power</mat-label>
         <input matInput min = "20" max = "1500" type = "number" required placeholder="Power" formControlName="power"/>
       </mat-form-field>
@@ -58,12 +62,22 @@
         </mat-select>
       </mat-form-field>
 
-
       <button id = "addLocation" mat-mini-fab id="addLocationButton" color = "add" (click)="addFeature()">
         <mat-icon>
           add
         </mat-icon>
       </button>
+
+      <mat-form-field appearance="legacy" class = "price">
+        <mat-label>Price</mat-label>
+        <input matInput required type="number" min="500" placeholder="Price" formControlName="price"/>
+      </mat-form-field>
+
+      <button id = "addVehicleButton" mat-raised-button color = "add" (click) = "addVehicle()">Add vehicle</button>
+
+      <div id = "messageOutput">
+        test
+      </div>
 
     </form>
 

@@ -70,9 +70,11 @@ namespace API.Managers
 
         public async Task Create(VehicleCreateModel vehicle)
         {
+            var generatedId = Utilities.GetGUID();
+
             Vehicle newVehicle = new()
             {
-                Id = Utilities.GetGUID(),
+                Id = generatedId,
                 Brand = vehicle.Brand,
                 Model = vehicle.Model,
                 LocationId = vehicle.LocationId,
@@ -91,7 +93,17 @@ namespace API.Managers
                 DateSold = null
             };
 
-            await vehicleRepository.Create(newVehicle, newStatus);
+            var features = new List<VehicleFeature>();
+
+            foreach(var featureId in vehicle.Features)
+            {
+                features.Add(new VehicleFeature{
+                    FeatureId = featureId,
+                    VehicleId = generatedId,
+                });
+            }
+
+            await vehicleRepository.Create(newVehicle, newStatus, features);
         }
 
         public async Task<int> Update(string id, VehicleCreateModel updatedVehicle)

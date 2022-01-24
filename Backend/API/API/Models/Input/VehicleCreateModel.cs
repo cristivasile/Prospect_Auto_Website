@@ -21,6 +21,8 @@ namespace API.Models
 
         public string LocationId { get; set; }
 
+        public List<string> Features { get; set; }
+
         public float Price { get; set; }
     }
 }
