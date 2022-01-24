@@ -96,12 +96,16 @@ namespace API.Managers
 
             var features = new List<VehicleFeature>();
 
-            foreach(var featureId in vehicle.Features)
+            if (vehicle.Features != null)
             {
-                features.Add(new VehicleFeature{
-                    FeatureId = featureId,
-                    VehicleId = generatedId,
-                });
+                foreach (var featureId in vehicle.Features)
+                {
+                    features.Add(new VehicleFeature
+                    {
+                        FeatureId = featureId,
+                        VehicleId = generatedId,
+                    });
+                }
             }
 
             await vehicleRepository.Create(newVehicle, newStatus, features);
@@ -128,13 +132,16 @@ namespace API.Managers
 
             var features = new List<VehicleFeature>();
 
-            foreach (var featureId in updatedVehicle.Features)
+            if (updatedVehicle.Features != null)
             {
-                features.Add(new VehicleFeature
+                foreach (var featureId in updatedVehicle.Features)
                 {
-                    FeatureId = featureId,
-                    VehicleId = currentVehicle.Id,
-                });
+                    features.Add(new VehicleFeature
+                    {
+                        FeatureId = featureId,
+                        VehicleId = currentVehicle.Id,
+                    });
+                }
             }
 
             await vehicleRepository.Update(currentVehicle, features);

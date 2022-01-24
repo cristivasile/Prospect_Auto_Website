@@ -12,6 +12,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddFeatureComponent } from './components/vehicles/add-feature/add-feature.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { EditVehicleComponent } from './components/vehicles/edit-vehicle/edit-vehicle.component';
+import { DistancePipe } from 'src/app/pipes/distance.pipe';
+import { EngineSizePipe } from 'src/app/pipes/engine-size.pipe';
+import { PowerPipe } from 'src/app/pipes/power.pipe';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { EditVehicleComponent } from './components/vehicles/edit-vehicle/edit-ve
     AddFeatureComponent,
     NotFoundComponent,
     EditVehicleComponent,
+    DistancePipe,
+    EngineSizePipe,
+    PowerPipe,
   ],
   imports: [
     CommonModule,

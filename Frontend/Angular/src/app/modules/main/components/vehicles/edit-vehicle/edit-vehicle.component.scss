@@ -1,6 +1,9 @@
 @import "/src/variables";
 
 .myContainer{
+  #notFoundError {
+    display: none;
+  }
   #notFound{
     font-weight: bold;
     color: $primary;
@@ -11,6 +14,10 @@
     #large{
       font-size: 2rem;
     }
+  }
+
+  #found{
+    display: none;
   }
 
   .break {

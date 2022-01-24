@@ -47,7 +47,7 @@
         </p>
       </div>
 
-      <div class= "card myCard" *ngFor="let vehicle of vehicles">
+      <div class= "card myCard" *ngFor="let vehicle of vehicles" (click)="view(vehicle.id, $event)">
         <img style = "object-fit:contain" [src] = "getImage(vehicle.image)" onerror = "src='https://static.turbosquid.com/Preview/2014/12/25__23_33_08/01.jpgc343e688-6e75-4628-90e0-b3331493f667Original.jpg'" class="card-img-top" alt="{{vehicle.brand}}">
         <div class = "myInfo">
             <div>
@@ -63,13 +63,13 @@
             <span class = "tag2">Year</span> &nbsp; &nbsp; &nbsp; <span class="info2">{{vehicle.year}}</span>
           </div>
           <div class = "myLine">
-            <span class = "tag2">Mileage</span> &nbsp; &nbsp; <span class="info2">{{vehicle.odometer}} km</span>
+            <span class = "tag2">Mileage</span> &nbsp; &nbsp; <span class="info2">{{vehicle.odometer | distance}}</span>
           </div>
           <div class = "myLine">
-            <span class = "tag2">Engine size</span> &nbsp; &nbsp; <span class="info2">{{vehicle.engineSize}} cc</span>
+            <span class = "tag2">Engine size</span> &nbsp; &nbsp; <span class="info2">{{vehicle.engineSize | engineSize}}</span>
           </div>
           <div class = "myLine">
-            <span class = "tag2">Power</span> &nbsp; &nbsp; <span class="info2">{{vehicle.power}} hp</span>
+            <span class = "tag2">Power</span> &nbsp; &nbsp; <span class="info2">{{vehicle.power | power}}</span>
           </div>
         </div>
 
@@ -78,7 +78,7 @@
         </div>
 
         <div class = "priceContainer">
-          <span>{{vehicle.price}}	€</span>
+          <span>{{vehicle.price	| currency:'EUR':'symbol':'1.0-0'}}</span>
         </div>
 
 

@@ -2,6 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router} from '@angular/router';
+import { NotFoundError } from 'rxjs';
 import { FeaturesService } from 'src/app/services/features.service';
 import { LocationsService } from 'src/app/services/locations.service';
 import { VehiclesService } from 'src/app/services/vehicles.service';
@@ -61,6 +62,14 @@ export class EditVehicleComponent implements OnInit {
   ) { }
 
   ngOnInit() : void {
+
+    //to avoid errors on page load
+    this.vehicle = {
+      brand : "",
+      model : "",
+      year : ""
+    }
+
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.loadLocations();
     this.loadFeatures();
@@ -68,6 +77,9 @@ export class EditVehicleComponent implements OnInit {
  }
 
   private loadVehicle() : void{
+    var notFound = document.getElementById('notFoundError')!;
+    var found = document.getElementById('found')!;
+
     this.vehicleService.getVehicleById(this.id).subscribe({
       next: (result) =>{
         this.vehicleFound = true;
@@ -75,15 +87,14 @@ export class EditVehicleComponent implements OnInit {
 
         var loading = document.getElementById('loading')!;
         loading.style.display = 'none';
-
-        console.log(result);
+        found.style.display = 'block';
 
         //vehicle can not be edited, since it has been sold
         if(this.vehicle.status.vehicleStatus == "sold"){
           this.vehicleFound = false;
           var message = document.getElementById('')!;
           var description = document.getElementById('description')!;
-          message.innerHTML = "<p><span id='large'>400</span> vehicle sold</p>";
+          message.innerHTML = "Vehicle not available";
           description.innerHTML = "The vehicle you have requested has been sold. It can not be edited!";
         }
         else{
@@ -93,7 +104,13 @@ export class EditVehicleComponent implements OnInit {
       error: (error) =>{
         this.vehicleFound = false;
 
+        notFound.style.display = 'block';
         var loading = document.getElementById('loading')!;
+        var toDiscard = Array.from(document.getElementsByClassName('discardOnError')! as HTMLCollectionOf<HTMLElement>);
+
+        toDiscard.forEach(element => {
+          element.style.display = "none";
+        });
         loading.style.display = 'none';
 
         console.error(error);

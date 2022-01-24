@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { VehiclesService } from 'src/app/services/vehicles.service';
 import { DomSanitizer } from '@angular/platform-browser';
 
+
 @Component({
   selector: 'app-vehicles',
   templateUrl: './vehicles.component.html',
@@ -61,7 +62,6 @@ export class VehiclesComponent implements OnInit {
 
         this.afterLoad();
         this.vehicles = result;
-        console.log(this.vehicles);
 
         this.count = this.vehicles.length;
         endMessage.style.display = 'flex';
@@ -131,5 +131,10 @@ export class VehiclesComponent implements OnInit {
   public getImage(image: string) : any{
     var trustedImage = this.sanitizer.bypassSecurityTrustResourceUrl(image);
     return trustedImage;
+  }
+
+  public view(id: string, event: any) : any{
+    event.stopPropagation();
+    console.log(id);
   }
 }
