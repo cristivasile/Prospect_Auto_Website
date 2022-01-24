@@ -72,6 +72,7 @@ export class SignupComponent implements OnInit {
         message.style.color = "green";
         document.getElementById('message-section')!.style.backgroundColor = "rgba(255, 255, 255, 0.95)";
 
+        //sends username to service so it can be loaded on login
         this.dataService.changeUserData(this.signupForm.value);
 
         setTimeout(() => {this.router.navigate(['/auth']);}, 2000);
