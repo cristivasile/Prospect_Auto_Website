@@ -2,28 +2,31 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace API.Models
 {
-    public class VehicleModel : VehicleCreateModel
+    public class VehicleWithFeaturesModel : VehicleCreateModel
     {
         public string Id { get; set; }
-        public string LocationAddress { get; set; }
+        public Status Status { get; set; }
+        new public List<Feature> Features { get; set; }
 
-        public VehicleModel(Vehicle x)
+        public VehicleWithFeaturesModel(Vehicle x, List<Feature> features)
         {
             Id = x.Id;
             Brand = x.Brand;
             Model = x.Model;
             LocationId = x.LocationId;
 
-            if(x.Location != null)
-                LocationAddress = x.Location.Address;
+            if (x.Status != null)
+                Status = x.Status;
 
             if (x.Image != null)
                 Image = x.Image;
+
+            if (features != null)
+                Features = features;
 
             Odometer = x.Odometer;
             Power = x.Power;

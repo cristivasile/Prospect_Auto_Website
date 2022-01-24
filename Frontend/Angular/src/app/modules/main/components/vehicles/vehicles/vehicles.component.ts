@@ -28,11 +28,10 @@ export class VehiclesComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+
     var viewport = document.getElementById("myViewport")!;
-    var queryMessage = document.getElementById("queryI")!;
-    var endMessage = document.getElementById("endI")!;
-    endMessage.style.display = 'none';
-    queryMessage.style.display = "none";
+
+    this.beforeLoad();
 
     if(localStorage.getItem('Role') == "Admin" || localStorage.getItem('Role') == "SysAdmin"){
       this.isAdmin = true;
@@ -50,8 +49,6 @@ export class VehiclesComponent implements OnInit {
     var queryMessage = document.getElementById("queryI")!;
     var endMessage = document.getElementById("endI")!;
     var loading = document.getElementById("loading")!;
-
-    endMessage.style.display = "none";
 
     var vehicleCards = Array.from(document.getElementsByClassName("myCard")! as HTMLCollectionOf<HTMLElement>);
 
@@ -100,6 +97,13 @@ export class VehiclesComponent implements OnInit {
     loading.style.display = 'none';
   }
 
+  beforeLoad() : void {
+    var queryMessage = document.getElementById("queryI")!;
+    var endMessage = document.getElementById("endI")!;
+    endMessage.style.display = 'none';
+    queryMessage.style.display = "none";
+  }
+
   private sleep(ms : any) : any{
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -113,6 +117,10 @@ export class VehiclesComponent implements OnInit {
         console.error(err);
       }
     });
+  }
+
+  public editVehicle(id: string) : void{
+    this.router.navigate([`/main/vehicle/edit/${id}`])
   }
 
   public addNew() : void{

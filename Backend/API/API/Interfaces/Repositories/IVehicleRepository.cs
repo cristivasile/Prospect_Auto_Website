@@ -13,8 +13,9 @@ namespace API.Interfaces
         Task<List<Vehicle>> GetAll();
         Task<List<Vehicle>> GetAvailable();
         Task<Vehicle> GetById(string id);
+        Task<List<Feature>> GetFeaturesByVehicleId(string id);
         Task Create(Vehicle newVehicle, Status newStatus, List<VehicleFeature> features);
-        Task Update(Vehicle updatedVehicle);
+        Task Update(Vehicle updatedVehicle, List<VehicleFeature> features);
         Task Delete(Vehicle toDelete);
     }
 }

@@ -11,6 +11,7 @@ import { AddVehicleComponent } from './components/vehicles/add-vehicle/add-vehic
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddFeatureComponent } from './components/vehicles/add-feature/add-feature.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { EditVehicleComponent } from './components/vehicles/edit-vehicle/edit-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     AddVehicleComponent,
     AddFeatureComponent,
     NotFoundComponent,
+    EditVehicleComponent,
   ],
   imports: [
     CommonModule,

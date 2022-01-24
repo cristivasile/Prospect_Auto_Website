@@ -25,13 +25,14 @@ type vehicleType = {
 @Component({
   selector: 'app-add-vehicle',
   templateUrl: './add-vehicle.component.html',
-  styleUrls: ['./add-vehicle.component.scss']
+  styleUrls: [
+    './add-vehicle.component.scss',
+    '../common.scss',]
 })
 
 export class AddVehicleComponent implements OnInit {
 
   @ViewChild('myInput') input!: ElementRef;
-  @ViewChild('imagePreview') imgPreview!: ElementRef;
 
   constructor(
     private router: Router,
@@ -89,8 +90,6 @@ export class AddVehicleComponent implements OnInit {
   }
 
   public addFeature() : void {
-
-    console.log(this.vehicleForm.get('features'));
 
     var dialogRef = this.dialog.open(AddFeatureComponent);
 

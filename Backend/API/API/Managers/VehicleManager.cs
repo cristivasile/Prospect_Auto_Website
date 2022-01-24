@@ -115,6 +115,8 @@ namespace API.Managers
             if (currentVehicle == null)
                 return -1;
 
+            if (updatedVehicle.Image != "")
+                currentVehicle.Image = updatedVehicle.Image;
             currentVehicle.Brand = updatedVehicle.Brand;
             currentVehicle.Model = updatedVehicle.Model;
             currentVehicle.Price = updatedVehicle.Price;
@@ -124,7 +126,18 @@ namespace API.Managers
             currentVehicle.LocationId = updatedVehicle.LocationId;
             currentVehicle.Year = updatedVehicle.Year;
 
-            await vehicleRepository.Update(currentVehicle);
+            var features = new List<VehicleFeature>();
+
+            foreach (var featureId in updatedVehicle.Features)
+            {
+                features.Add(new VehicleFeature
+                {
+                    FeatureId = featureId,
+                    VehicleId = currentVehicle.Id,
+                });
+            }
+
+            await vehicleRepository.Update(currentVehicle, features);
             return 0;
         }
 
@@ -140,15 +153,16 @@ namespace API.Managers
             return 0;
         }
 
-        public async Task<VehicleModel> GetById(string id)
+        public async Task<VehicleWithFeaturesModel> GetById(string id)
         {
             var vehicle = await vehicleRepository.GetById(id);
+            var features = await vehicleRepository.GetFeaturesByVehicleId(id);
 
-            VehicleModel returned = null;
+            VehicleWithFeaturesModel returned = null;
             if (vehicle == null)
                 return returned;
 
-            returned = new VehicleModel(vehicle);
+            returned = new VehicleWithFeaturesModel(vehicle, features);
 
             return returned;
         }

@@ -7,6 +7,7 @@ import { MainComponent } from './main/main.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { VehiclesComponent } from './components/vehicles/vehicles/vehicles.component';
 import { WheelsComponent } from './components/wheels/wheels/wheels.component';
+import { EditVehicleComponent } from './components/vehicles/edit-vehicle/edit-vehicle.component';
 
 const routes: Routes = [
   {
@@ -43,9 +44,10 @@ const routes: Routes = [
           path: 'add',
           component: AddVehicleComponent
         },
-        //  path: 'edit/:id',
-         // component: EditVehicleComponent
-       // }
+        {
+          path: 'edit/:id',
+          component: EditVehicleComponent
+        }
       ]
     }],
   },

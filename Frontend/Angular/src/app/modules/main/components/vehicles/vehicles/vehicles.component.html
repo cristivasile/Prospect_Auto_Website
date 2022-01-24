@@ -83,7 +83,7 @@
 
 
         <div class = "buttonContainer" *ngIf = "isAdmin">
-          <button mat-mini-fab color = "edit" class = "editButton">
+          <button mat-mini-fab color = "edit" class = "editButton" (click) = "editVehicle(vehicle.id)">
             <mat-icon>edit</mat-icon>
           </button>
         </div>

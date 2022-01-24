@@ -18,12 +18,21 @@ export class VehiclesService {
     return this.http.get(`${config.api}${this.url}/getAvailable`);
   }
 
+  public getVehicleById (id : string) : Observable<any> {
+    return this.http.get(`${config.api}${this.url}/${id}`);
+  }
+
   public deleteVehicle (id : string) : Observable<any> {
     return this.http.delete(`${config.api}${this.url}/${id}`);
   }
 
   public addVehicle (newVehicle: any) : Observable<any> {
-    console.log(newVehicle);
     return this.http.post(`${config.api}${this.url}`, newVehicle);
   }
+
+  public updateVehicle(updatedVehicle: any, id:string) : Observable<any> {
+    console.log(updatedVehicle);
+    return this.http.put(`${config.api}${this.url}/${id}`, updatedVehicle);
+  }
+
 }

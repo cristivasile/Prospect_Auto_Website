@@ -1,0 +1,118 @@
+<div class="myContainer">
+  <div id="notFound" *ngIf="!vehicleFound">
+    <div id="notFound">
+      <p>
+        <span id="large">404</span> not found
+      </p>
+    </div>
+
+    <div class="break">
+    </div>
+
+    <h3 id = "description">
+      The vehicle you have searched for does not exist. Perhaps the link is broken, or the vehicle may have been removed.
+    </h3>
+
+    <div class="break">
+    </div>
+
+    <div class = "buttonContainer">
+      <button mat-stroked-button color = "accent" class = "deleteButton" (click) = "goto()">
+        Go to vehicles page
+      </button>
+    </div>
+  </div>
+
+  <div #found *ngIf="vehicleFound">
+
+    <button mat-flat-button id="backButton" color = "transparent" (click)="goBack()"><mat-icon><span class="material-icons">
+      arrow_back_ios_new
+      </span></mat-icon> <span>Back</span>
+    </button>
+
+    <div class = "myTitle">
+      <span id = "large">Update</span> {{vehicle.brand}} {{vehicle.model}} {{vehicle.year}}
+    </div>
+
+    <div id = "loading">
+      <mat-spinner [diameter]="70" color = "accent"></mat-spinner>
+    </div>
+
+    <div class = "form-section">
+      <form [formGroup]="vehicleForm" class="myForm">
+
+        <mat-checkbox class="example-margin" (click)="imageToggle()">Upload new image &nbsp; &nbsp;</mat-checkbox>
+        <input *ngIf = "addImage" #myInput type="file" required (change)="onFileUpload($event)" formControlName="image">
+
+        <mat-form-field appearance="fill" class = "oneLine marginTop">
+          <mat-label>Brand</mat-label>
+          <input matInput required placeholder="Brand" formControlName="brand"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class = "oneLine">
+          <mat-label>Model</mat-label>
+          <input matInput required placeholder="Model" formControlName="model"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class = "twoLine twoLineSep">
+          <mat-label>Year</mat-label>
+          <input matInput min = "1900" required max = "2022" type = "number" placeholder="Year" formControlName="year"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class = "twoLine">
+          <mat-label>Mileage</mat-label>
+          <input matInput type = "number" min = "0" required placeholder="Mileage" formControlName="mileage"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class = "twoLine twoLineSep">
+          <mat-label>Engine size</mat-label>
+          <input matInput min = "400" max = "15000" type = "number" required placeholder="Engine size" formControlName="engineSize"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class = "twoLine">
+          <mat-label>Power</mat-label>
+          <input matInput min = "20" max = "1500" type = "number" required placeholder="Power" formControlName="power"/>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class = "locationSelector">
+          <mat-select required placeholder = "Select location address" formControlName="location">
+            <mat-option *ngFor ="let location of locationList" [value] = location.id>
+              {{location.address}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class = "featureSelector">
+          <mat-select placeholder = "Select features" formControlName="features" multiple>
+            <mat-select-trigger>
+              <span *ngIf="this.vehicleForm.get('features')!.value?.length > 0">
+                {{this.vehicleForm.get('features')!.value?.length}} selected
+              </span>
+            </mat-select-trigger>
+            <mat-option *ngFor ="let feature of featureList" [value] = feature.id>
+              {{feature.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button id = "addLocation" mat-mini-fab id="addLocationButton" color = "add" (click)="addFeature()">
+          <mat-icon>
+            add
+          </mat-icon>
+        </button>
+
+        <mat-form-field appearance="fill" class = "price">
+          <mat-label>Price</mat-label>
+          <input matInput required type="number" min="500" placeholder="Price" formControlName="price"/>
+        </mat-form-field>
+
+        <button id = "addVehicleButton" mat-raised-button color = "add" (click)="updateVehicle()">Update vehicle</button>
+
+        <div id = "messageOutput">
+          test
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

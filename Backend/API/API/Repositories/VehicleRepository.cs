@@ -37,7 +37,8 @@ namespace API.Repositories
         
         public async Task<Vehicle> GetById(string id)
         {
-            var vehicle = await storage.Vehicles.FindAsync(id);
+            var vehicles = await storage.Vehicles.Include(x => x.Status).Where(x => x.Id == id).ToListAsync();
+            var vehicle = vehicles[0];
             return vehicle;
         }
 
@@ -46,17 +47,20 @@ namespace API.Repositories
             await storage.Vehicles.AddAsync(newVehicle);
             await storage.Statuses.AddAsync(newStatus);
 
-            foreach(var feature in features)
-            {
-                await storage.VehicleFeature.AddAsync(feature);
-            }
+            //assign features
+            await storage.VehicleFeature.AddRangeAsync(features);
 
             await storage.SaveChangesAsync();
         }
 
-        public async Task Update(Vehicle updatedVehicle)
+        public async Task Update(Vehicle updatedVehicle, List<VehicleFeature> features)
         {
             await Task.FromResult(storage.Vehicles.Update(updatedVehicle));
+            //delete old features
+            storage.VehicleFeature.RemoveRange(storage.VehicleFeature.Where(x => x.VehicleId == updatedVehicle.Id));
+            //assign new features
+            await storage.VehicleFeature.AddRangeAsync(features);
+
             await storage.SaveChangesAsync();
         }
 
@@ -69,6 +73,18 @@ namespace API.Repositories
 
             await Task.FromResult(storage.Vehicles.Remove(toDelete));
             await storage.SaveChangesAsync();
+        }
+
+        public async Task<List<Feature>> GetFeaturesByVehicleId(string id)
+        {
+            var features = await storage.VehicleFeature
+                                        .Where(x => x.VehicleId == id)
+                                        .Include(x => x.Feature)
+                                        .Select(x => x.Feature)
+                                        .OrderBy(x => -x.Desirability)
+                                        .ToListAsync();
+
+            return features;
         }
     }
 }
