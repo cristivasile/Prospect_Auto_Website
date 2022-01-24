@@ -62,6 +62,11 @@ namespace API.Repositories
 
         public async Task Delete(Vehicle toDelete)
         {
+            var features = await storage.VehicleFeature.Where(x => x.VehicleId == toDelete.Id)
+                                                       .ToListAsync();
+            foreach(var feature in features)
+                await Task.FromResult(storage.VehicleFeature.Remove(feature));
+
             await Task.FromResult(storage.Vehicles.Remove(toDelete));
             await storage.SaveChangesAsync();
         }

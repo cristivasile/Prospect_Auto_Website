@@ -122,18 +122,7 @@ export class AddVehicleComponent implements OnInit {
         }
       })
 
-
-      this.vehicleForm.patchValue({
-        brand: '',
-        model: '',
-        mileage: '',
-        year: '',
-        engineSize: '',
-        power: '',
-        location: '',
-        features: [],
-        price: '',
-      });
+      this.vehicleForm.reset();
     }
     else{
       message.style.color = "red";

@@ -11,37 +11,37 @@
   <div class = "form-section">
     <form [formGroup]="vehicleForm" class="myForm">
 
-      <mat-form-field appearance="legacy" class = "oneLine">
+      <mat-form-field appearance="fill" class = "oneLine">
         <mat-label>Brand</mat-label>
         <input matInput required placeholder="Brand" formControlName="brand"/>
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class = "oneLine">
+      <mat-form-field appearance="fill" class = "oneLine">
         <mat-label>Model</mat-label>
         <input matInput required placeholder="Model" formControlName="model"/>
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class = "twoLine twoLineSep">
+      <mat-form-field appearance="fill" class = "twoLine twoLineSep">
         <mat-label>Year</mat-label>
         <input matInput min = "1900" required max = "2022" type = "number" placeholder="Year" formControlName="year"/>
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class = "twoLine">
+      <mat-form-field appearance="fill" class = "twoLine">
         <mat-label>Mileage</mat-label>
         <input matInput type = "number" min = "0" required placeholder="Mileage" formControlName="mileage"/>
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class = "twoLine twoLineSep">
+      <mat-form-field appearance="fill" class = "twoLine twoLineSep">
         <mat-label>Engine size</mat-label>
         <input matInput min = "400" max = "15000" type = "number" required placeholder="Engine size" formControlName="engineSize"/>
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class = "twoLine">
+      <mat-form-field appearance="fill" class = "twoLine">
         <mat-label>Power</mat-label>
         <input matInput min = "20" max = "1500" type = "number" required placeholder="Power" formControlName="power"/>
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class = "locationSelector">
+      <mat-form-field appearance="fill" class = "locationSelector">
         <mat-select required placeholder = "Select location address" formControlName="location">
           <mat-option *ngFor ="let location of locationList" [value] = location.id>
             {{location.address}}
@@ -49,7 +49,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="legacy" class = "featureSelector">
+      <mat-form-field appearance="fill" class = "featureSelector">
         <mat-select placeholder = "Select features" formControlName="features" multiple>
           <mat-select-trigger>
             <span *ngIf="this.vehicleForm.get('features')!.value?.length > 0">
@@ -68,7 +68,7 @@
         </mat-icon>
       </button>
 
-      <mat-form-field appearance="legacy" class = "price">
+      <mat-form-field appearance="fill" class = "price">
         <mat-label>Price</mat-label>
         <input matInput required type="number" min="500" placeholder="Price" formControlName="price"/>
       </mat-form-field>

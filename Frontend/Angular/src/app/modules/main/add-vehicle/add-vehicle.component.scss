@@ -11,7 +11,7 @@
     text-align: center;
     margin-top: 1%;
     margin-bottom: 3%;
-    color: $accent;
+    color: $primary;
   }
 
   #back-button{
@@ -86,8 +86,10 @@
       margin-left: 30%;
     }
 
-    ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-      color: $accent;
+    ::ng-deep {
+      .mat-form-field .mat-form-field-flex{
+        background-color: rgba(169,214,202, 0.2);
+      }
     }
   }
 }
