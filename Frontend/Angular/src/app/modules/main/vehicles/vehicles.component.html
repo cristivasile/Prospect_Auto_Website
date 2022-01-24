@@ -48,7 +48,7 @@
       </div>
 
       <div class= "card myCard" *ngFor="let vehicle of vehicles">
-        <img style = "object-fit:contain"src="https://static.turbosquid.com/Preview/2014/12/25__23_33_08/01.jpgc343e688-6e75-4628-90e0-b3331493f667Original.jpg" class="card-img-top" alt="{{vehicle.brand}}">
+        <img style = "object-fit:contain" [src] = "getImage(vehicle.image)" onerror = "src='https://static.turbosquid.com/Preview/2014/12/25__23_33_08/01.jpgc343e688-6e75-4628-90e0-b3331493f667Original.jpg'" class="card-img-top" alt="{{vehicle.brand}}">
         <div class = "myInfo">
             <div>
               <span class = "tag1">Brand</span> &nbsp; &nbsp; <span class="info1">{{vehicle.brand}}</span>

@@ -75,6 +75,7 @@ namespace API.Managers
             Vehicle newVehicle = new()
             {
                 Id = generatedId,
+                Image = vehicle.Image,
                 Brand = vehicle.Brand,
                 Model = vehicle.Model,
                 LocationId = vehicle.LocationId,

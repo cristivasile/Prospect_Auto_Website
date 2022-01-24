@@ -29,8 +29,6 @@ namespace API.Controllers
             return Ok(wheels);
         }
 
-        //TODO - read in stock
-
         [HttpGet("{id}")]
         [Authorize(Policy = "User")]
         public async Task<IActionResult> ReadById([FromRoute] string id)

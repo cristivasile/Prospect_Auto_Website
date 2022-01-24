@@ -2,6 +2,7 @@ import { query } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { VehiclesService } from 'src/app/services/vehicles.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-vehicles',
@@ -22,6 +23,7 @@ export class VehiclesComponent implements OnInit {
   constructor(
     private vehiclesService: VehiclesService,
     private router: Router,
+    private sanitizer: DomSanitizer,
   ) {
   }
 
@@ -62,6 +64,7 @@ export class VehiclesComponent implements OnInit {
 
         this.afterLoad();
         this.vehicles = result;
+        console.log(this.vehicles);
 
         this.count = this.vehicles.length;
         endMessage.style.display = 'flex';
@@ -116,4 +119,9 @@ export class VehiclesComponent implements OnInit {
     this.router.navigate(['/main/vehicle/add']);
   }
 
+
+  public getImage(image: string) : any{
+    var trustedImage = this.sanitizer.bypassSecurityTrustResourceUrl(image);
+    return trustedImage;
+  }
 }

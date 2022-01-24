@@ -4,6 +4,7 @@ import { AdminGuard } from 'src/app/admin.guard';
 import { AddVehicleComponent } from './add-vehicle/add-vehicle.component';
 import { LocationsComponent } from './locations/locations.component';
 import { MainComponent } from './main/main.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 import { VehiclesComponent } from './vehicles/vehicles.component';
 import { WheelsComponent } from './wheels/wheels.component';
 
@@ -29,6 +30,10 @@ const routes: Routes = [
     },{
       path: 'locations',
       component: LocationsComponent
+    },
+    {
+      path: 'notFound',
+      component: NotFoundComponent
     },
     {
       path: 'vehicle',

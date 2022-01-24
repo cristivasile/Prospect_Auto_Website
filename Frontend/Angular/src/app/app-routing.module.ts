@@ -20,7 +20,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'main/vehicles'
+    redirectTo: 'main/notFound'
   }
 ];
 

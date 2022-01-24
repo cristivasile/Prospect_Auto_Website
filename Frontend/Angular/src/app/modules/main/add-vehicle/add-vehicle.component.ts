@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
+import { Component, ElementRef, OnInit, ViewChild, ɵɵsetComponentScope } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -9,6 +10,7 @@ import { AddFeatureComponent } from '../add-feature/add-feature.component';
 
 
 type vehicleType = {
+  image : string,
   brand : string,
   model : string,
   odometer : number,
@@ -28,6 +30,9 @@ type vehicleType = {
 
 export class AddVehicleComponent implements OnInit {
 
+  @ViewChild('myInput') input!: ElementRef;
+  @ViewChild('imagePreview') imgPreview!: ElementRef;
+
   constructor(
     private router: Router,
     private locationService: LocationsService,
@@ -36,9 +41,11 @@ export class AddVehicleComponent implements OnInit {
     public dialog: MatDialog,
   ) { }
 
+  private file: any;
   public featureList : any = [];
   public locationList : any = [];
   public vehicleForm: FormGroup = new FormGroup({
+    image: new FormControl(''),
     brand: new FormControl(''),
     model: new FormControl(''),
     mileage: new FormControl(''),
@@ -100,35 +107,58 @@ export class AddVehicleComponent implements OnInit {
       message.style.color = "green";
       message.style.display = "block";
       message.innerHTML = "Vehicle succesfully inserted!"
+      var imageB64;
 
-      var requestBody : vehicleType = {
-        brand : this.vehicleForm.get('brand')!.value,
-        model : this.vehicleForm.get('model')!.value,
-        odometer : this.vehicleForm.get('mileage')!.value,
-        year : this.vehicleForm.get('year')!.value,
-        engineSize : this.vehicleForm.get('engineSize')!.value,
-        power : this.vehicleForm.get('power')!.value,
-        locationId : this.vehicleForm.get('location')!.value,
-        features : this.vehicleForm.get('features')!.value,
-        price: this.vehicleForm.get('price')!.value,
-      }
+      var reader = new FileReader();
+      reader.readAsDataURL(this.file);
 
-      this.vehicleService.addVehicle(requestBody).subscribe({
-        next: (result) => {
-          console.log(result);
-        },
-        error: (error) => {
-          console.error(error);
+      reader.onload = () => {
+        imageB64 = reader.result as string;
+
+        var requestBody : vehicleType = {
+          image: imageB64,
+          brand : this.vehicleForm.get('brand')!.value,
+          model : this.vehicleForm.get('model')!.value,
+          odometer : this.vehicleForm.get('mileage')!.value,
+          year : this.vehicleForm.get('year')!.value,
+          engineSize : this.vehicleForm.get('engineSize')!.value,
+          power : this.vehicleForm.get('power')!.value,
+          locationId : this.vehicleForm.get('location')!.value,
+          features : this.vehicleForm.get('features')!.value,
+          price: this.vehicleForm.get('price')!.value,
         }
-      })
 
-      this.vehicleForm.reset();
+        this.vehicleService.addVehicle(requestBody).subscribe({
+          next: (result) => {
+            console.log(result);
+          },
+          error: (error) => {
+            console.error(error);
+          }
+        })
+
+        this.vehicleForm.reset();
+      }
     }
     else{
       message.style.color = "red";
       message.style.display = "block";
       message.innerHTML = "Please check your input!"
+
+      if(this.input.nativeElement.value == "")
+        this.input.nativeElement.style.color = "red";
     }
 
+  }
+
+  public onFileUpload(event: any): void{
+    this.file = event.target.files[0];
+
+    if(!this.file.type.startsWith('image')){
+      this.input.nativeElement.value = "";
+    }
+    else{
+      this.input.nativeElement.style.color = "black";
+    }
   }
 }

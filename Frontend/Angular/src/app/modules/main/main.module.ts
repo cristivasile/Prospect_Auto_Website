@@ -10,6 +10,7 @@ import { LocationsComponent } from './locations/locations.component';
 import { AddVehicleComponent } from './add-vehicle/add-vehicle.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AddFeatureComponent } from './add-feature/add-feature.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { AddFeatureComponent } from './add-feature/add-feature.component';
     LocationsComponent,
     AddVehicleComponent,
     AddFeatureComponent,
+    NotFoundComponent,
   ],
   imports: [
     CommonModule,

@@ -9,9 +9,15 @@
   </div>
 
   <div class = "form-section">
+
+    <div #imagePreview>
+    </div>
+
     <form [formGroup]="vehicleForm" class="myForm">
 
-      <mat-form-field appearance="fill" class = "oneLine">
+      <input #myInput type="file" required (change)="onFileUpload($event)" formControlName="image">
+
+      <mat-form-field appearance="fill" class = "oneLine marginTop">
         <mat-label>Brand</mat-label>
         <input matInput required placeholder="Brand" formControlName="brand"/>
       </mat-form-field>

@@ -20,6 +20,8 @@ namespace API.Models
             LocationId = x.LocationId;
             if(x.Location != null)
                 LocationAddress = x.Location.Address;
+            if (x.Image != null)
+                Image = x.Image;
             Odometer = x.Odometer;
             Power = x.Power;
             EngineSize = x.EngineSize;
