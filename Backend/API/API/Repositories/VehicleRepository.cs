@@ -20,7 +20,10 @@ namespace API.Repositories
 
         public async Task<List<Vehicle>> GetAll()
         {
-            var vehicles = await storage.Vehicles.ToListAsync();
+            var vehicles = await storage.Vehicles
+                                .Include(x => x.Status)
+                                .Include(x => x.Location)
+                                .ToListAsync();
             return vehicles;
         }
 
@@ -37,7 +40,7 @@ namespace API.Repositories
         
         public async Task<Vehicle> GetById(string id)
         {
-            var vehicles = await storage.Vehicles.Include(x => x.Status).Where(x => x.Id == id).ToListAsync();
+            var vehicles = await storage.Vehicles.Include(x => x.Status).Include(x => x.Location).Where(x => x.Id == id).ToListAsync();
             var vehicle = vehicles[0];
             return vehicle;
         }
@@ -85,6 +88,20 @@ namespace API.Repositories
                                         .ToListAsync();
 
             return features;
+        }
+
+        public async Task UpdateStatus(Status updatedStatus)
+        {
+            try
+            {
+                storage.Statuses.Update(updatedStatus);
+            }
+            catch
+            {
+                var entity = storage.Statuses.First(x => x.VehicleId == updatedStatus.VehicleId);
+                storage.Entry(entity).CurrentValues.SetValues(updatedStatus);
+            }
+            await storage.SaveChangesAsync();
         }
     }
 }

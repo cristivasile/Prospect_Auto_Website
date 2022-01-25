@@ -1,0 +1,157 @@
+@import "/src/variables";
+
+$important : #47b851;
+$medium :   #91d497;
+$notImportant : #c5e8c8;
+
+.myContainer{
+  width: 100%;
+  height: auto;
+
+  .contentContainer{
+    margin: 1.5%;
+    margin-top: 1%;
+    width: 96%;
+    border-radius: .5vw;
+    height: auto;
+
+    .featureContainer{
+      display: inline-block;
+      margin-top: 2vw;
+      margin-left: .6vw;
+      height: auto;
+      width:auto;
+      flex-direction: column;
+
+      .mat-chip{
+        border: 1px solid $add;
+      }
+
+      .important{
+        background-color: $important;
+      }
+
+      .medium{
+        background-color: $medium;
+      }
+
+      .notImportant{
+        background-color: $notImportant;
+      }
+    }
+
+    .line{
+      width: 100%;
+      height: 18.5vw;
+      display: flex;
+      flex-direction: row;
+      align-content: center;
+
+      .oneQuarter{
+        display:flex;
+        width: 25%;
+        height: 100%;
+
+        img{
+          margin: .6vw .6vw .6vw .6vw;
+          background-color: white;
+          border-radius: .3em;
+          box-shadow: 2px 2px 5px grey;
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .threeQuarters{
+        display:flex;
+        width: 75%;
+        height: 100%;
+
+        .myInfo{
+          margin: .6vw .6vw .6vw .6vw;
+          padding: 2%;
+          margin-left: 3%;
+          border-radius: .3em;
+          background-color: white;
+          box-shadow: 2px 2px 5px grey;
+          display:flex;
+          flex-direction: column;
+          width:30%;
+          height: 100%;
+          justify-content: space-between;
+
+          div{
+            display: flex;
+            flex-direction: row;
+            width: auto;
+            .tag{
+              color: $accent;
+              font-weight: bold;
+              font-size: 1vw;
+            }
+            .info{
+              margin-left: auto;
+              font-size: .9vw;
+            }
+          }
+        }
+
+        .myAddress{
+          margin: .6vw .6vw .6vw .6vw;
+          padding: 2%;
+          margin-left: 2%;
+          border-radius: .3em;
+          background-color: white;
+          box-shadow: 2px 2px 5px grey;
+          display:flex;
+          flex-direction: column;
+          width: 70%;
+          height: 100%;
+          padding-top: 6%;
+          padding-bottom: 6%;
+          justify-content: space-around;
+
+          .tag{
+            color: $accent;
+            font-size: 1vw;
+            font-weight: bold;
+          }
+          .info{
+            margin-left: 3%;
+            font-size: .9vw;
+          }
+        }
+
+      }
+    }
+
+    #messageOutput{
+      flex-direction: column;
+      align-content: center;
+      justify-content: center;
+      width: 100%;
+      font-size:1.5em;
+      display: none;
+      text-align: center;
+    }
+
+    .buttonContainer{
+      display:flex;
+      flex-direction: column;
+      padding-top: 1vw;
+
+      .mat-add{
+        width: 20%;
+        margin-left: 40%;
+        background-color: $add;
+        color: white;
+      }
+    }
+  }
+
+}
+
+#found{
+  display: none;
+}
+

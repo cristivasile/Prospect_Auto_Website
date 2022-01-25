@@ -3,31 +3,19 @@ import { Component, ElementRef, OnInit, ViewChild, ɵɵsetComponentScope } from 
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { vehicleOutputType } from 'src/app/interfaces/vehicle-output-model';
 import { FeaturesService } from 'src/app/services/features.service';
 import { LocationsService } from 'src/app/services/locations.service';
 import { VehiclesService } from 'src/app/services/vehicles.service';
 import { AddFeatureComponent } from '../add-feature/add-feature.component';
-
-
-type vehicleType = {
-  image : string,
-  brand : string,
-  model : string,
-  odometer : number,
-  year : number,
-  engineSize : number,
-  power : number,
-  locationId : string,
-  features : string[],
-  price: number,
-};
 
 @Component({
   selector: 'app-add-vehicle',
   templateUrl: './add-vehicle.component.html',
   styleUrls: [
     './add-vehicle.component.scss',
-    '../common.scss',]
+    '../common.scss',
+  ]
 })
 
 export class AddVehicleComponent implements OnInit {
@@ -114,7 +102,7 @@ export class AddVehicleComponent implements OnInit {
       reader.onload = () => {
         imageB64 = reader.result as string;
 
-        var requestBody : vehicleType = {
+        var requestBody : vehicleOutputType = {
           image: imageB64,
           brand : this.vehicleForm.get('brand')!.value,
           model : this.vehicleForm.get('model')!.value,

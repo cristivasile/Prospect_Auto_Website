@@ -8,6 +8,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { VehiclesComponent } from './components/vehicles/vehicles/vehicles.component';
 import { WheelsComponent } from './components/wheels/wheels/wheels.component';
 import { EditVehicleComponent } from './components/vehicles/edit-vehicle/edit-vehicle.component';
+import { ViewVehicleComponent } from './components/vehicles/view-vehicle/view-vehicle.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,15 @@ const routes: Routes = [
     {
       path: 'notFound',
       component: NotFoundComponent
+    },
+    {
+      path: 'vehicle',
+      children: [
+        {
+          path: 'view/:id',
+          component: ViewVehicleComponent,
+        }
+      ]
     },
     {
       path: 'vehicle',

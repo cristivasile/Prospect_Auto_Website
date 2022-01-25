@@ -30,40 +30,17 @@ namespace API.Managers
             return vehicles;
         }
 
-        public Task<List<VehicleModel>> GetAllGrouped()
-        {
-            //TODO - this
-            /*
-            var vehicles = await vehicleRepository.GetAll().GroupBy(x => x.LocationId).ToListAsync();
-
-            List<VehicleModel> returned = new();
-            foreach (var vehicle in vehicles)
-            {
-                VehicleModel auxVehicle = new()
-                {
-                    Id = vehicle.Id,
-                    Brand = vehicle.Brand,
-                    Model = vehicle.Model,
-                    Odometer = vehicle.Odometer,
-                    Year = vehicle.Year,
-                    LocationId = vehicle.LocationId,
-                    Price = vehicle.Price
-                };
-
-                returned.Add(auxVehicle);
-            }
-
-            return returned;
-            */
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<List<VehicleModel>> GetAvailable()
+        public async Task<List<VehicleModel>> GetAvailable(VehicleSearchModel filter)
         {
             //use task.fromresult to simulate tolistasync
             var vehicles = await Task.FromResult((await vehicleRepository.GetAvailable())
                                 .Select(x => new VehicleModel(x))
                                 .ToList());
+
+            if (filter != null)
+                vehicles = vehicles.Where(x => (x.Brand + x.Model).ToLower()
+                        .Contains(filter.filter.Replace(" ", "").ToLower()))
+                        .ToList();
 
             return vehicles;
         }
@@ -148,6 +125,30 @@ namespace API.Managers
             return 0;
         }
 
+        public async Task<int> UpdateStatus(string id)
+        {
+            var currentVehicle = await vehicleRepository.GetById(id);
+
+            ///404 not found
+            if (currentVehicle == null)
+                return -1;
+
+            if (currentVehicle.Status.VehicleStatus == "Sold")
+                return -2;
+
+            var updatedStatus = new Status
+            {
+                VehicleId = currentVehicle.Status.VehicleId,
+                DateAdded = currentVehicle.Status.DateAdded,
+                DateSold = System.DateTime.Now,
+                VehicleStatus = "Sold",
+            };
+
+            await vehicleRepository.UpdateStatus(updatedStatus);
+
+            return 0;
+        }
+
         public async Task<int> Delete(string id)
         {
             var currentVehicle = await vehicleRepository.GetById(id);
@@ -163,13 +164,15 @@ namespace API.Managers
         public async Task<VehicleWithFeaturesModel> GetById(string id)
         {
             var vehicle = await vehicleRepository.GetById(id);
-            var features = await vehicleRepository.GetFeaturesByVehicleId(id);
 
             VehicleWithFeaturesModel returned = null;
             if (vehicle == null)
                 return returned;
 
-            returned = new VehicleWithFeaturesModel(vehicle, features);
+            var features = await vehicleRepository.GetFeaturesByVehicleId(id);
+            var groupedFeatures = features.OrderBy(x => x.Name).GroupBy(x => x.Desirability).Select(x => x.ToList()).ToList();
+
+            returned = new VehicleWithFeaturesModel(vehicle, features, groupedFeatures);
 
             return returned;
         }

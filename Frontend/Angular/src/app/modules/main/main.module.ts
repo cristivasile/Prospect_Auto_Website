@@ -15,6 +15,7 @@ import { EditVehicleComponent } from './components/vehicles/edit-vehicle/edit-ve
 import { DistancePipe } from 'src/app/pipes/distance.pipe';
 import { EngineSizePipe } from 'src/app/pipes/engine-size.pipe';
 import { PowerPipe } from 'src/app/pipes/power.pipe';
+import { ViewVehicleComponent } from './components/vehicles/view-vehicle/view-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { PowerPipe } from 'src/app/pipes/power.pipe';
     DistancePipe,
     EngineSizePipe,
     PowerPipe,
+    ViewVehicleComponent,
   ],
   imports: [
     CommonModule,

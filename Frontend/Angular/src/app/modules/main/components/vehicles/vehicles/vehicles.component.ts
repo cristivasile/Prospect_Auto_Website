@@ -1,4 +1,3 @@
-import { query } from '@angular/animations';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { VehiclesService } from 'src/app/services/vehicles.service';
@@ -19,6 +18,7 @@ export class VehiclesComponent implements OnInit {
 
   public vehicles: any;
   public isAdmin: boolean = false;
+  public displayStatus: boolean = false;
   public count: any;
   public displayedColumns = ['brand', 'model', 'year', 'mileage', 'price'];
   constructor(
@@ -36,7 +36,6 @@ export class VehiclesComponent implements OnInit {
 
     if(localStorage.getItem('Role') == "Admin" || localStorage.getItem('Role') == "SysAdmin"){
       this.isAdmin = true;
-      viewport.style.maxHeight = "37.3vw";
     }
 
     await this.sleep(500);
@@ -127,7 +126,6 @@ export class VehiclesComponent implements OnInit {
     this.router.navigate(['/main/vehicle/add']);
   }
 
-
   public getImage(image: string) : any{
     var trustedImage = this.sanitizer.bypassSecurityTrustResourceUrl(image);
     return trustedImage;
@@ -135,6 +133,88 @@ export class VehiclesComponent implements OnInit {
 
   public view(id: string, event: any) : any{
     event.stopPropagation();
-    console.log(id);
+    this.router.navigate([`/main/vehicle/view/${id}`])
+  }
+
+  public viewAll() : any{
+    var viewport = document.getElementById("myViewport")!;
+    var queryMessage = document.getElementById("queryI")!;
+    var endMessage = document.getElementById("endI")!;
+
+    this.vehiclesService.getAllVehicles().subscribe({
+      next : (result) => {
+
+        this.afterLoad();
+        this.vehicles = result;
+        console.log(result);
+        this.displayStatus = true;
+
+        this.count = this.vehicles.length;
+        endMessage.style.display = 'flex';
+
+        if(this.count == undefined)
+          this.count = 0;
+
+        viewport.style.height = `${this.count * 7.7 + 3}vw`;
+
+        if(this.count == 0){
+          endMessage.innerHTML = "No results found";
+        }
+        else{
+          endMessage.innerHTML = "End of results";
+          queryMessage.style.display = "flex";
+        }
+      },
+      error : (error) => {
+        this.afterLoad();
+
+        viewport.style.height = `${3}vw`;
+        endMessage.innerHTML = "No results found";
+
+        console.error(error);
+      }
+    });
+  }
+
+  public searchBy() : void{
+    var viewport = document.getElementById("myViewport")!;
+    var queryMessage = document.getElementById("queryI")!;
+    var endMessage = document.getElementById("endI")!;
+
+    var input = document.getElementById("typeSearch")! as HTMLInputElement;
+
+    this.vehiclesService.getAllAvailableFiltered(input.value).subscribe({
+      next : (result) => {
+
+        this.afterLoad();
+        this.vehicles = result;
+        console.log(result);
+        this.displayStatus = true;
+
+        this.count = this.vehicles.length;
+        endMessage.style.display = 'flex';
+
+        if(this.count == undefined)
+          this.count = 0;
+
+        viewport.style.height = `${this.count * 7.7 + 3}vw`;
+
+        if(this.count == 0){
+          endMessage.innerHTML = "No results found";
+        }
+        else{
+          endMessage.innerHTML = "End of results";
+          queryMessage.style.display = "flex";
+        }
+      },
+      error : (error) => {
+        this.afterLoad();
+
+        viewport.style.height = `${3}vw`;
+        endMessage.innerHTML = "No results found";
+
+        console.error(error);
+      }
+    });
   }
 }

@@ -7,7 +7,7 @@ export class EngineSizePipe implements PipeTransform {
 
   transform(value: any, ...args: unknown[]): any {
 
-    return `${value} cmc/ ${Math.round(value/1000 * 10) / 10} L`;
+    return `${value} cmc/ ${Math.ceil(value/1000 * 10) / 10} L`;
   }
 
 }

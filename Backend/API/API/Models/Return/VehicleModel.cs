@@ -11,6 +11,7 @@ namespace API.Models
     {
         public string Id { get; set; }
         public string LocationAddress { get; set; }
+        public Status Status { get; set; }
 
         public VehicleModel(Vehicle x)
         {
@@ -24,6 +25,12 @@ namespace API.Models
 
             if (x.Image != null)
                 Image = x.Image;
+
+            if (x.Status != null)
+            {
+                Status = x.Status;
+                Status.Vehicle = null;
+            }
 
             Odometer = x.Odometer;
             Power = x.Power;

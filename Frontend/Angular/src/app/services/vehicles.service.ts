@@ -18,6 +18,14 @@ export class VehiclesService {
     return this.http.get(`${config.api}${this.url}/getAvailable`);
   }
 
+  public getAllAvailableFiltered (filter: string): Observable<any> {
+    return this.http.post(`${config.api}${this.url}/getAvailableByName`, {filter: filter});
+  }
+
+  public getAllVehicles (): Observable<any> {
+    return this.http.get(`${config.api}${this.url}/getAll`);
+  }
+
   public getVehicleById (id : string) : Observable<any> {
     return this.http.get(`${config.api}${this.url}/${id}`);
   }
@@ -31,8 +39,11 @@ export class VehiclesService {
   }
 
   public updateVehicle(updatedVehicle: any, id:string) : Observable<any> {
-    console.log(updatedVehicle);
     return this.http.put(`${config.api}${this.url}/${id}`, updatedVehicle);
+  }
+
+  public sellVehicle(id: string) : Observable<any>{
+    return this.http.put(`${config.api}${this.url}/setSold/${id}`, {});
   }
 
 }

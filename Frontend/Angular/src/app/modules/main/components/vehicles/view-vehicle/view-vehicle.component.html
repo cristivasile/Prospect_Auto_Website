@@ -1,0 +1,111 @@
+<div class="myContainer">
+  <div id="notFoundError">
+    <div id="notFound">
+      <p>
+        Vehicle not found.
+      </p>
+    </div>
+
+    <div class="break">
+    </div>
+
+    <h3 id = "description" style="margin-left:2%;margin-top:2%">
+      The vehicle you have searched for does not exist. Perhaps the link is broken, or the vehicle may have been removed.
+    </h3>
+
+    <div class="break">
+    </div>
+
+    <div class = "buttonContainer" style="margin-left:2%">
+      <button mat-stroked-button color = "accent" class = "deleteButton" (click) = "goto()">
+        Go to vehicles page
+      </button>
+    </div>
+  </div>
+
+  <button mat-flat-button class = "discardOnError" id="backButton" color = "transparent" (click)="goto()"><mat-icon><span class="material-icons">
+    arrow_back_ios_new
+    </span></mat-icon> <span>Back</span>
+  </button>
+
+  <div class = "contentContainer">
+
+    <div id = "found">
+      <div class = "line">
+        <div class = "oneQuarter">
+          <img style = "object-fit:contain" [src] = "getImage(vehicle.image)" alt="No image found">
+        </div>
+        <div class = "threeQuarters">
+          <div class = "myInfo">
+            <div>
+              <span class = "tag">Brand</span> &nbsp; &nbsp; <span class="info">{{vehicle.brand}}</span>
+            </div>
+            <div>
+              <span class = "tag">Model</span> &nbsp; &nbsp; <span class="info">{{vehicle.model}}</span>
+            </div>
+            <div>
+              <span class = "tag">Year</span> &nbsp; &nbsp; &nbsp; <span class="info">{{vehicle.year}}</span>
+            </div>
+            <div>
+              <span class = "tag">Mileage</span> &nbsp; &nbsp; <span class="info">{{vehicle.odometer | distance}}</span>
+            </div>
+            <div>
+              <span class = "tag">Engine size</span> &nbsp; &nbsp; <span class="info">{{vehicle.engineSize | engineSize}}</span>
+            </div>
+            <div>
+              <span class = "tag">Power</span> &nbsp; &nbsp; <span class="info">{{vehicle.power | power}}</span>
+            </div>
+          </div>
+
+          <div class = "myAddress">
+            <div>
+              <span class = "tag">You can come see this vehicle at</span>
+            </div>
+            <div class = "info">
+              {{vehicle.locationAddress}}
+            </div>
+            <div>
+              <span class = "tag">Or call this number for more information</span>
+            </div>
+            <div>
+              <span class = "info">{{phoneNumber}}</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class = "featureContainer">
+        <mat-chip-list>
+          <mat-chip [selectable]="false" *ngFor = "let feature of vehicle.groupedFeatures[0]" class="important">
+            {{feature.name}}
+          </mat-chip>
+        </mat-chip-list>
+
+        <mat-chip-list>
+          <mat-chip [selectable]="false" *ngFor = "let feature of vehicle.groupedFeatures[1]" class="medium">
+            {{feature.name}}
+          </mat-chip>
+        </mat-chip-list>
+
+        <mat-chip-list>
+          <mat-chip [selectable]="false" *ngFor = "let feature of vehicle.groupedFeatures[2]" class="notImportant">
+            {{feature.name}}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+
+
+      <div id = "messageOutput">
+        test
+      </div>
+
+      <div class = "buttonContainer">
+        <button [disabled] = "isSold" id = "buyVehicleButton" color = "add" mat-raised-button (click) = "purchaseVehicle()">Purchase</button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

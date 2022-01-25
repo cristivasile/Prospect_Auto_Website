@@ -1,20 +1,6 @@
 @import "/src/variables";
 
 .myContainer{
-  #notFoundError {
-    display: none;
-  }
-  #notFound{
-    font-weight: bold;
-    color: $primary;
-    width: 100%;
-    margin-top: 1%;
-    margin-left: 1%;
-    font-size: 1.75rem;
-    #large{
-      font-size: 2rem;
-    }
-  }
 
   #found{
     display: none;

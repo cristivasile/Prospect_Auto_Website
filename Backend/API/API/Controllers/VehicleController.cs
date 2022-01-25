@@ -1,15 +1,7 @@
-﻿using API.Context;
-using API.Entities;
-using API.Interfaces;
-using API.Managers;
+﻿using API.Interfaces;
 using API.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace API.Controllers
@@ -34,14 +26,6 @@ namespace API.Controllers
             return Ok(vehicles);
         }
 
-        [HttpGet("getAllGroupedByLocation")]
-        [Authorize(Policy = "User")]
-        public async Task<IActionResult> ReadGroupedVehicles()
-        {
-            var vehicles = await vehicleManager.GetAllGrouped();
-            return Ok(vehicles);
-        }
-
         /// <summary>
         /// Get all vehicles that have an associated "available" status.
         /// </summary>
@@ -53,13 +37,26 @@ namespace API.Controllers
             return Ok(vehicles);
         }
 
+        // <summary>
+        /// Get all vehicles that have an associated "available" status, filtered by name.
+        /// </summary>
+        [HttpPost("getAvailableByName")]
+        [Authorize(Policy = "User")]
+        public async Task<IActionResult> ReadAvailableVehiclesByName([FromBody] VehicleSearchModel filter)
+        {
+            var vehicles = await vehicleManager.GetAvailable(filter);
+            return Ok(vehicles);
+        }
+
         [HttpGet("{id}")]
         [Authorize(Policy = "User")]
         public async Task<IActionResult> ReadById([FromRoute] string id)
         {
             var vehicle = await vehicleManager.GetById(id);
+
             if (vehicle == null)
                 return NotFound();
+
             return Ok(vehicle);
         }
 
@@ -78,6 +75,21 @@ namespace API.Controllers
         {
             if (await vehicleManager.Update(id, updatedVehicle) == -1)
                 return NotFound();
+
+            return Ok();
+        }
+
+        [HttpPut("setSold/{id}")]
+        [Authorize(Policy = "User")]
+        public async Task<IActionResult> UpdateVehicleStatus([FromRoute] string id)
+        {
+            var result = await vehicleManager.UpdateStatus(id);
+
+            if (result == -1)
+                return NotFound();
+
+            if (result == -2)
+                return BadRequest("Vehicle already sold!");
 
             return Ok();
         }
