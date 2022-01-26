@@ -101,6 +101,7 @@ export class VehiclesComponent implements OnInit {
     var viewport = document.getElementById("myViewport")!;
     var loading = document.getElementById("loading")!;
 
+
     this.beforeVehiclesLoad();
 
     var vehicleCards = Array.from(document.getElementsByClassName("myCard")! as HTMLCollectionOf<HTMLElement>);
@@ -222,12 +223,14 @@ export class VehiclesComponent implements OnInit {
   }
 
   public viewAll() : any{
+    this.displayStatus = true;
     this.loadVehicles(true);
   }
 
   public searchBy(): void{
     this.hasSearch = true;
     this.hasFilter = false;
+    this.displayStatus = false;
 
     this.FilterForm.patchValue({
       sort: '',
@@ -245,6 +248,7 @@ export class VehiclesComponent implements OnInit {
   public filter(): void {
     this.hasSearch = false;
     this.hasFilter = true;
+    this.displayStatus = false;
 
     this.SearchForm.patchValue({
       type: '',
@@ -257,6 +261,7 @@ export class VehiclesComponent implements OnInit {
   public reset(): void {
     this.hasSearch = false;
     this.hasFilter = false;
+    this.displayStatus = false;
 
     this.FilterForm.patchValue({
       sort: '',

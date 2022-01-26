@@ -1,5 +1,4 @@
 @import "/src/variables";
-
 .adminMenu{
   width: 100%;
   display:flex;
@@ -167,13 +166,13 @@
 
           .tag1{
             color: $accent;
-            font-size:1.1rem;
+            font-size:1vw;
             font-weight: bold;
             margin-bottom: 0;
           }
 
           .info1{
-            font-size:1.1rem;
+            font-size: .9vw;
             color: black;
             margin-bottom: 0;
           }
@@ -196,11 +195,13 @@
 
             .tag2{
               color: $accent;
+              font-size: .8vw;
               font-weight: bold;
             }
 
             .info2{
               margin-left: auto;
+              font-size: .8vw;
             }
           }
 
@@ -211,7 +212,7 @@
           display: flex;
           flex-direction: column;
           text-align: center;
-          font-size:1rem;
+          font-size:1vw;
           justify-content: center;
           align-content: center;
         }
@@ -233,7 +234,7 @@
           width: 6vw;
           margin-left: auto;
           flex-direction: column;
-          font-size:1.4rem;
+          font-size:1.3vw;
           color:$accent;
           font-weight: bold;
           justify-content: center;
