@@ -48,6 +48,17 @@ namespace API.Controllers
             return Ok(vehicles);
         }
 
+        // <summary>
+        /// Get all vehicles that have an associated "available" status, filtered by given criteria.
+        /// </summary>
+        [HttpPost("getAvailableFiltered")]
+        [Authorize(Policy = "User")]
+        public async Task<IActionResult> ReadAvailableVehiclesFiltered([FromBody] VehicleFiltersModel filters)
+        {
+            var vehicles = await vehicleManager.GetAvailableFiltered(filters);
+            return Ok(vehicles);
+        }
+
         [HttpGet("{id}")]
         [Authorize(Policy = "User")]
         public async Task<IActionResult> ReadById([FromRoute] string id)

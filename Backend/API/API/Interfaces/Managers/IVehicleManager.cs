@@ -10,6 +10,7 @@ namespace API.Interfaces
     {
         Task<List<VehicleModel>> GetAll();
         Task<List<VehicleModel>> GetAvailable(VehicleSearchModel filter = null);
+        Task<List<VehicleModel>> GetAvailableFiltered(VehicleFiltersModel filters);
         Task<VehicleWithFeaturesModel> GetById(string id);
         Task Create(VehicleCreateModel newVehicle);
         Task<int> Update(string id, VehicleCreateModel updatedVehicle);

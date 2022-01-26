@@ -22,7 +22,6 @@ namespace API.Managers
 
         public async Task<List<VehicleModel>> GetAll()
         {
-            var test = await vehicleRepository.GetAll();
             //use task.fromresult to simulate tolistasync
             var vehicles = await Task.FromResult((await vehicleRepository.GetAll())
                                .Select(x => new VehicleModel(x)).ToList());
@@ -41,6 +40,51 @@ namespace API.Managers
                 vehicles = vehicles.Where(x => (x.Brand + x.Model).ToLower()
                         .Contains(filter.filter.Replace(" ", "").ToLower()))
                         .ToList();
+
+            return vehicles;
+        }
+
+        public async Task<List<VehicleModel>> GetAvailableFiltered(VehicleFiltersModel filters)
+        {
+            var vehicles = await GetAvailable(null);
+
+            if (filters.Brand != "")
+                vehicles = vehicles.Where(x => x.Brand.ToLower() == filters.Brand.ToLower()).ToList();
+
+            if (filters.MaxMileage != 0)
+                vehicles = vehicles.Where(x => x.Odometer <= filters.MaxMileage).ToList();
+
+            if (filters.MaxPrice != 0)
+                vehicles = vehicles.Where(x => x.Price <= filters.MaxPrice).ToList();
+
+            if (filters.MinYear != 0)
+                vehicles = vehicles.Where(x => x.Year >= filters.MinYear).ToList();
+
+            if(filters.Sort != "")
+            {
+                if(filters.Sort.ToLower() == "type")
+                {
+                    if (filters.SortAsc == true)
+                        vehicles = vehicles.OrderBy(x => (x.Brand + x.Model)).ToList();
+                    else
+                        vehicles = vehicles.OrderByDescending(x => (x.Brand + x.Model)).ToList();
+                }
+                else
+                {
+                    var multiplier = 1;
+                    if (filters.SortAsc == false)
+                        multiplier = -1;
+
+                    if(filters.Sort.ToLower()=="price")
+                        vehicles = vehicles.OrderBy(x => multiplier * x.Price).ToList();
+
+                    else if(filters.Sort.ToLower() == "mileage")
+                        vehicles = vehicles.OrderBy(x => multiplier * x.Odometer).ToList();
+                    
+                    else
+                        vehicles = vehicles.OrderBy(x => multiplier * x.Power).ToList();
+                }
+            }
 
             return vehicles;
         }
@@ -170,11 +214,12 @@ namespace API.Managers
                 return returned;
 
             var features = await vehicleRepository.GetFeaturesByVehicleId(id);
-            var groupedFeatures = features.OrderBy(x => x.Name).GroupBy(x => x.Desirability).Select(x => x.ToList()).ToList();
+            var groupedFeatures = features.OrderBy(x => -x.Desirability).ThenBy(x => x.Name).GroupBy(x => x.Desirability).Select(x => x.ToList()).ToList();
 
             returned = new VehicleWithFeaturesModel(vehicle, features, groupedFeatures);
 
             return returned;
         }
+
     }
 }

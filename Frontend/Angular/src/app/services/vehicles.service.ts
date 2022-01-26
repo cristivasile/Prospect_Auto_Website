@@ -18,8 +18,12 @@ export class VehiclesService {
     return this.http.get(`${config.api}${this.url}/getAvailable`);
   }
 
-  public getAllAvailableFiltered (filter: string): Observable<any> {
+  public getAllAvailableByType (filter: string): Observable<any> {
     return this.http.post(`${config.api}${this.url}/getAvailableByName`, {filter: filter});
+  }
+
+  public getAllAvailableFiltered (filters: any): Observable<any> {
+    return this.http.post(`${config.api}${this.url}/getAvailableFiltered`, filters);
   }
 
   public getAllVehicles (): Observable<any> {

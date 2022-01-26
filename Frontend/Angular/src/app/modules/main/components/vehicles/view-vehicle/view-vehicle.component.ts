@@ -34,13 +34,15 @@ export class ViewVehicleComponent implements OnInit {
   private loadVehicle() : void{
     var notFound = document.getElementById('notFoundError')!;
     var found = document.getElementById('found')!;
+    var featureContainer = document.getElementById("fContainer")!;
 
     this.vehicleService.getVehicleById(this.id).subscribe({
       next: (result) =>{
         this.vehicle = result;
 
         found.style.display = 'block';
-
+        if(this.vehicle.features.length == 0)
+              featureContainer.style.display = "none";
         //vehicle can not be edited, since it has been sold
         if(this.vehicle.status.vehicleStatus == "Sold"){
           this.isSold = true;

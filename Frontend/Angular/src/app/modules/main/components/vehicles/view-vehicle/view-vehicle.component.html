@@ -32,10 +32,12 @@
 
     <div id = "found">
       <div class = "line">
+
         <div class = "oneQuarter">
           <img style = "object-fit:contain" [src] = "getImage(vehicle.image)" alt="No image found">
         </div>
-        <div class = "threeQuarters">
+
+        <div class = "oneQuarter">
           <div class = "myInfo">
             <div>
               <span class = "tag">Brand</span> &nbsp; &nbsp; <span class="info">{{vehicle.brand}}</span>
@@ -56,7 +58,9 @@
               <span class = "tag">Power</span> &nbsp; &nbsp; <span class="info">{{vehicle.power | power}}</span>
             </div>
           </div>
+        </div>
 
+        <div class = "oneQuarter">
           <div class = "myAddress">
             <div>
               <span class = "tag">You can come see this vehicle at</span>
@@ -75,26 +79,27 @@
         </div>
       </div>
 
-      <div class = "featureContainer">
-        <mat-chip-list>
-          <mat-chip [selectable]="false" *ngFor = "let feature of vehicle.groupedFeatures[0]" class="important">
-            {{feature.name}}
-          </mat-chip>
-        </mat-chip-list>
+      <div class = "featureSection">
+        <div class = "featureContainer" id ="fContainer">
+          <mat-chip-list>
+            <mat-chip [selectable]="false" *ngFor = "let feature of vehicle.groupedFeatures[0]" class="important">
+              {{feature.name}}
+            </mat-chip>
+          </mat-chip-list>
 
-        <mat-chip-list>
-          <mat-chip [selectable]="false" *ngFor = "let feature of vehicle.groupedFeatures[1]" class="medium">
-            {{feature.name}}
-          </mat-chip>
-        </mat-chip-list>
+          <mat-chip-list>
+            <mat-chip [selectable]="false" *ngFor = "let feature of vehicle.groupedFeatures[1]" class="medium">
+              {{feature.name}}
+            </mat-chip>
+          </mat-chip-list>
 
-        <mat-chip-list>
-          <mat-chip [selectable]="false" *ngFor = "let feature of vehicle.groupedFeatures[2]" class="notImportant">
-            {{feature.name}}
-          </mat-chip>
-        </mat-chip-list>
+          <mat-chip-list>
+            <mat-chip [selectable]="false" *ngFor = "let feature of vehicle.groupedFeatures[2]" class="notImportant">
+              {{feature.name}}
+            </mat-chip>
+          </mat-chip-list>
+        </div>
       </div>
-
 
       <div id = "messageOutput">
         test

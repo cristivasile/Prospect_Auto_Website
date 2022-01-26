@@ -6,6 +6,27 @@
   justify-content: space-around;
 }
 
+.filtersMenu{
+  display:flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  height: auto;
+  #brandSelect{
+    width: 20%;
+  }
+
+  .filterField{
+    margin-left: .5%;
+  }
+
+  button{
+    margin-top: .3vw;
+    height: 20%;
+  }
+}
+
+
 .myContainer{
   width: 100%;
   display: flex;
@@ -114,7 +135,7 @@
 
     .vehiclesList{
       width: 100%;
-      max-height: 37.3vw;
+      max-height: 36.5vw;
       background-color: $accent;
 
       .myCard{

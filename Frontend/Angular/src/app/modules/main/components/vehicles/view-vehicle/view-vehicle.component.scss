@@ -9,74 +9,81 @@ $notImportant : #c5e8c8;
   height: auto;
 
   .contentContainer{
-    margin: 1.5%;
     margin-top: 1%;
-    width: 96%;
-    border-radius: .5vw;
     height: auto;
+    width: 100%;
+    border-radius: .5vw;
 
-    .featureContainer{
-      display: inline-block;
-      margin-top: 2vw;
-      margin-left: .6vw;
-      height: auto;
-      width:auto;
-      flex-direction: column;
+    .featureSection{
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      justify-content: center;
 
-      .mat-chip{
-        border: 1px solid $add;
-      }
+      .featureContainer{
+        display: inline-block;
+        margin-top: 2vw;
+        border-radius: .3em;
+        height: auto;
+        width: auto;
+        min-width: 25%;
+        background-color: white;
+        border: 1vw solid $accent;
+        padding: .6vw;
+        flex-direction: column;
 
-      .important{
-        background-color: $important;
-      }
+        .mat-chip{
+          border: 1px solid $add;
+        }
 
-      .medium{
-        background-color: $medium;
-      }
+        .important{
+          background-color: $important;
+        }
 
-      .notImportant{
-        background-color: $notImportant;
+        .medium{
+          background-color: $medium;
+        }
+
+        .notImportant{
+          background-color: $notImportant;
+        }
       }
     }
 
     .line{
-      width: 100%;
-      height: 18.5vw;
+      width: 90%;
+      height: 21vw;
       display: flex;
       flex-direction: row;
       align-content: center;
+      margin-left: 5%;
+      margin-right: 5%;
+      justify-content: space-around;
+      background-color: $accent;
 
       .oneQuarter{
         display:flex;
-        width: 25%;
+        width: 30%;
         height: 100%;
+        padding: 1.5vw;
 
         img{
-          margin: .6vw .6vw .6vw .6vw;
           background-color: white;
           border-radius: .3em;
           box-shadow: 2px 2px 5px grey;
           width: 100%;
           height: 100%;
         }
-      }
-
-      .threeQuarters{
-        display:flex;
-        width: 75%;
-        height: 100%;
 
         .myInfo{
-          margin: .6vw .6vw .6vw .6vw;
-          padding: 2%;
+          padding: 5%;
           margin-left: 3%;
           border-radius: .3em;
           background-color: white;
           box-shadow: 2px 2px 5px grey;
           display:flex;
           flex-direction: column;
-          width:30%;
+          width: 100%;
           height: 100%;
           justify-content: space-between;
 
@@ -94,33 +101,30 @@ $notImportant : #c5e8c8;
               font-size: .9vw;
             }
           }
-        }
+      }
+      .myAddress{
+        padding: 5%;
+        margin-left: 2%;
+        border-radius: .3em;
+        background-color: white;
+        box-shadow: 2px 2px 5px grey;
+        display:flex;
+        flex-direction: column;
+        height: 100%;
+        padding-top: 6%;
+        padding-bottom: 6%;
+        justify-content: space-around;
 
-        .myAddress{
-          margin: .6vw .6vw .6vw .6vw;
-          padding: 2%;
-          margin-left: 2%;
-          border-radius: .3em;
-          background-color: white;
-          box-shadow: 2px 2px 5px grey;
-          display:flex;
-          flex-direction: column;
-          width: 70%;
-          height: 100%;
-          padding-top: 6%;
-          padding-bottom: 6%;
-          justify-content: space-around;
-
-          .tag{
-            color: $accent;
-            font-size: 1vw;
-            font-weight: bold;
-          }
-          .info{
-            margin-left: 3%;
-            font-size: .9vw;
-          }
+        .tag{
+          color: $accent;
+          font-size: 1vw;
+          font-weight: bold;
         }
+        .info{
+          margin-left: 3%;
+          font-size: .9vw;
+        }
+      }
 
       }
     }
