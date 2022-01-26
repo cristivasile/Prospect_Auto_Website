@@ -11,16 +11,16 @@ namespace API.Repositories
 {
     public class VehicleRepository : IVehicleRepository
     {
-        private readonly AppDbContext storage;
+        private readonly AppDbContext context;
         
         public VehicleRepository(AppDbContext context)
         {
-            storage = context;
+            this.context = context;
         }
 
         public async Task<List<Vehicle>> GetAll()
         {
-            var vehicles = await storage.Vehicles
+            var vehicles = await context.Vehicles
                                 .Include(x => x.Status)
                                 .Include(x => x.Location)
                                 .ToListAsync();
@@ -29,7 +29,7 @@ namespace API.Repositories
 
         public async Task<List<Vehicle>> GetAvailable()
         {
-            var vehicles = await storage.Vehicles
+            var vehicles = await context.Vehicles
                              .Include(x => x.Status)
                              .Where(x => x.Status.VehicleStatus.ToLower() == "available")
                              .Include(x => x.Location)
@@ -40,47 +40,47 @@ namespace API.Repositories
         
         public async Task<Vehicle> GetById(string id)
         {
-            var vehicles = await storage.Vehicles.Include(x => x.Status).Include(x => x.Location).Where(x => x.Id == id).ToListAsync();
+            var vehicles = await context.Vehicles.Include(x => x.Status).Include(x => x.Location).Where(x => x.Id == id).ToListAsync();
             var vehicle = vehicles[0];
             return vehicle;
         }
 
         public async Task Create(Vehicle newVehicle, Status newStatus, List<VehicleFeature> features)
         {
-            await storage.Vehicles.AddAsync(newVehicle);
-            await storage.Statuses.AddAsync(newStatus);
+            await context.Vehicles.AddAsync(newVehicle);
+            await context.Statuses.AddAsync(newStatus);
 
             //assign features
-            await storage.VehicleFeature.AddRangeAsync(features);
+            await context.VehicleFeature.AddRangeAsync(features);
 
-            await storage.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
 
         public async Task Update(Vehicle updatedVehicle, List<VehicleFeature> features)
         {
-            await Task.FromResult(storage.Vehicles.Update(updatedVehicle));
+            await Task.FromResult(context.Vehicles.Update(updatedVehicle));
             //delete old features
-            storage.VehicleFeature.RemoveRange(storage.VehicleFeature.Where(x => x.VehicleId == updatedVehicle.Id));
+            context.VehicleFeature.RemoveRange(context.VehicleFeature.Where(x => x.VehicleId == updatedVehicle.Id));
             //assign new features
-            await storage.VehicleFeature.AddRangeAsync(features);
+            await context.VehicleFeature.AddRangeAsync(features);
 
-            await storage.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
 
         public async Task Delete(Vehicle toDelete)
         {
-            var features = await storage.VehicleFeature.Where(x => x.VehicleId == toDelete.Id)
+            var features = await context.VehicleFeature.Where(x => x.VehicleId == toDelete.Id)
                                                        .ToListAsync();
             foreach(var feature in features)
-                await Task.FromResult(storage.VehicleFeature.Remove(feature));
+                await Task.FromResult(context.VehicleFeature.Remove(feature));
 
-            await Task.FromResult(storage.Vehicles.Remove(toDelete));
-            await storage.SaveChangesAsync();
+            await Task.FromResult(context.Vehicles.Remove(toDelete));
+            await context.SaveChangesAsync();
         }
 
         public async Task<List<Feature>> GetFeaturesByVehicleId(string id)
         {
-            var features = await storage.VehicleFeature
+            var features = await context.VehicleFeature
                                         .Where(x => x.VehicleId == id)
                                         .Include(x => x.Feature)
                                         .Select(x => x.Feature)
@@ -92,16 +92,16 @@ namespace API.Repositories
 
         public async Task UpdateStatus(Status updatedStatus)
         {
-            try
-            {
-                storage.Statuses.Update(updatedStatus);
-            }
-            catch
-            {
-                var entity = storage.Statuses.First(x => x.VehicleId == updatedStatus.VehicleId);
-                storage.Entry(entity).CurrentValues.SetValues(updatedStatus);
-            }
-            await storage.SaveChangesAsync();
+
+            context.Statuses.Update(updatedStatus);
+
+            await context.SaveChangesAsync();
+        }
+
+        public async Task<Status> GetStatusById(string id)
+        {
+            var status = await context.Statuses.FirstOrDefaultAsync(x => x.VehicleId == id);
+            return status;
         }
     }
 }

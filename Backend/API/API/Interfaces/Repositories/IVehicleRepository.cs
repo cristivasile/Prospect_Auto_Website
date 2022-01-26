@@ -14,6 +14,7 @@ namespace API.Interfaces
         Task<List<Vehicle>> GetAvailable();
         Task<Vehicle> GetById(string id);
         Task<List<Feature>> GetFeaturesByVehicleId(string id);
+        Task<Status> GetStatusById(string id);
         Task Create(Vehicle newVehicle, Status newStatus, List<VehicleFeature> features);
         Task Update(Vehicle updatedVehicle, List<VehicleFeature> features);
         Task UpdateStatus(Status updatedStatus);

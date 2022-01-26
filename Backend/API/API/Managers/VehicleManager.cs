@@ -180,15 +180,12 @@ namespace API.Managers
             if (currentVehicle.Status.VehicleStatus == "Sold")
                 return -2;
 
-            var updatedStatus = new Status
-            {
-                VehicleId = currentVehicle.Status.VehicleId,
-                DateAdded = currentVehicle.Status.DateAdded,
-                DateSold = System.DateTime.Now,
-                VehicleStatus = "Sold",
-            };
+            var status = await vehicleRepository.GetStatusById(id);
 
-            await vehicleRepository.UpdateStatus(updatedStatus);
+            status.DateSold = System.DateTime.Now;
+            status.VehicleStatus = "Sold";
+
+            await vehicleRepository.UpdateStatus(status);
 
             return 0;
         }
