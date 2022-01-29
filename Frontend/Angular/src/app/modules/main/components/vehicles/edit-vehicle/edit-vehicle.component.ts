@@ -12,8 +12,8 @@ import { AddFeatureComponent } from '../add-feature/add-feature.component';
   selector: 'app-edit-vehicle',
   templateUrl: './edit-vehicle.component.html',
   styleUrls: [
+    '../common.scss',
     './edit-vehicle.component.scss',
-    '../common.scss'
   ]
 })
 export class EditVehicleComponent implements OnInit {

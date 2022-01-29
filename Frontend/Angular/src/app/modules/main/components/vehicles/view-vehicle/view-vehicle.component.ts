@@ -8,8 +8,8 @@ import { VehiclesService } from 'src/app/services/vehicles.service';
   selector: 'app-view-vehicle',
   templateUrl: './view-vehicle.component.html',
   styleUrls: [
+    '../common.scss',
     './view-vehicle.component.scss',
-    '../common.scss'
   ]
 })
 export class ViewVehicleComponent implements OnInit {

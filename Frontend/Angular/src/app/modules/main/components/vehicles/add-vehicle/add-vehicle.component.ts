@@ -13,8 +13,8 @@ import { AddFeatureComponent } from '../add-feature/add-feature.component';
   selector: 'app-add-vehicle',
   templateUrl: './add-vehicle.component.html',
   styleUrls: [
-    './add-vehicle.component.scss',
     '../common.scss',
+    './add-vehicle.component.scss',
   ]
 })
 
