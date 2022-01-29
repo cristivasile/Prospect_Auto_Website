@@ -53,24 +53,26 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="fill" class = "featureSelector">
-        <mat-select placeholder = "Select features" formControlName="features" multiple>
-          <mat-select-trigger>
-            <span *ngIf="this.vehicleForm.get('features')!.value?.length > 0">
-              {{this.vehicleForm.get('features')!.value?.length}} selected
-            </span>
-          </mat-select-trigger>
-          <mat-option *ngFor ="let feature of featureList" [value] = feature.id>
-            {{feature.name}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div id="featureGroup">
+        <mat-form-field appearance="fill" class = "featureSelector">
+          <mat-select placeholder = "Select features" formControlName="features" multiple>
+            <mat-select-trigger>
+              <span *ngIf="this.vehicleForm.get('features')!.value?.length > 0">
+                {{this.vehicleForm.get('features')!.value?.length}} selected
+              </span>
+            </mat-select-trigger>
+            <mat-option *ngFor ="let feature of featureList" [value] = feature.id>
+              {{feature.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <button id = "addLocation" mat-mini-fab id="addLocationButton" color = "add" (click)="addFeature()">
-        <mat-icon>
-          add
-        </mat-icon>
-      </button>
+        <button id = "addLocation" mat-mini-fab id="addLocationButton" color = "add" (click)="addFeature()">
+          <mat-icon>
+            add
+          </mat-icon>
+        </button>
+      </div>
 
       <mat-form-field appearance="fill" class = "price">
         <mat-label>Price</mat-label>
