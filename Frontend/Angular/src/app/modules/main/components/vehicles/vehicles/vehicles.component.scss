@@ -13,7 +13,7 @@
 
 .filtersMenu{
   position:relative;
-  z-index: 2147483647;
+  z-index: 6;
   height: 4.5em;
 
   #panelTitle{
@@ -37,6 +37,8 @@
 
     #brandSelect{
       width: 20%;
+      position:relative;
+      z-index: 2147483647;
     }
 
     .filterField{
