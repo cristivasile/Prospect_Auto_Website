@@ -78,8 +78,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     loading.style.display = "flex";
     this.buttonDisabled = true;
 
-    await this.sleep(1500);
-
     this.loginInput.Password = this.loginForm.value.password;
     this.loginInput.Username = this.loginForm.value.username;
 
@@ -121,6 +119,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   get username() {
     return this.loginForm.get('username');
+  }
+
+  public goToSignUp() : void {
+    this.router.navigate(['/auth/signup']);
   }
 
 }

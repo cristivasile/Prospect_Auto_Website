@@ -78,13 +78,11 @@ export class AddVehicleComponent implements OnInit {
   }
 
   public addFeature() : void {
-
     var dialogRef = this.dialog.open(AddFeatureComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       this.loadFeatures();
     })
-
   }
 
   public addVehicle() : void{

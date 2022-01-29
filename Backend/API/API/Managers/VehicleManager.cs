@@ -142,6 +142,7 @@ namespace API.Managers
 
             if (updatedVehicle.Image != "")
                 currentVehicle.Image = updatedVehicle.Image;
+
             currentVehicle.Brand = updatedVehicle.Brand;
             currentVehicle.Model = updatedVehicle.Model;
             currentVehicle.Price = updatedVehicle.Price;

@@ -94,7 +94,7 @@ namespace API
                 options.AddPolicy(name: "_allowSpecificOrigins",
                                   builder =>
                                   {
-                                      builder.WithOrigins("localhost:4200", "http://localhost:4200", "https://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+                                      builder.WithOrigins("localhost:4200", "http://localhost:4200", "https://localhost:4200", "https://cristivasile.github.io").AllowAnyMethod().AllowAnyHeader();
                                   });
             });
 

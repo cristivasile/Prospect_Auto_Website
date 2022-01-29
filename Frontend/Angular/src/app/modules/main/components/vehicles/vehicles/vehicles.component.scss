@@ -59,7 +59,7 @@
       justify-content: center;
       padding-top:1.2em;
       padding-bottom: 1.2em;
-      font-size: 1.1rem;
+      font-size: .9vw;
     }
 
     .separator{
@@ -134,7 +134,7 @@
 
     .vehiclesList{
       width: 100%;
-      max-height: 36.5vw;
+      max-height: 68vh;
       background-color: $accent;
 
       .myCard{
@@ -284,3 +284,4 @@
     }
   }
 }
+

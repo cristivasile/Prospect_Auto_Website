@@ -59,7 +59,6 @@ export class SignupComponent implements OnInit {
     loading.style.display = "flex";
 
     this.buttonDisabled = true;
-    await this.sleep(1500);
 
     this.authService.signUp(this.signupInput).subscribe({
       next : (result) => {
@@ -95,6 +94,10 @@ export class SignupComponent implements OnInit {
       }
     });
 
+  }
+
+  public goToLogin() : void{
+    this.router.navigate(['/auth']);
   }
 
 }

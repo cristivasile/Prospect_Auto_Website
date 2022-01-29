@@ -3,11 +3,14 @@
 .myContainer{
   width: 100%;
   height: 100%;
+  overflow: hidden;
   display:flex;
   align-items: center;
   flex-direction: column;
   background-image: url(../../../../assets/images/background.jpg);
-
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: none;
 
   .toolbar{
     width: 90%;
@@ -17,13 +20,14 @@
 
     #title{
       margin-right: 1.5em;
-      font-size: 1.5rem;
+      font-size: 1.3vw;
     }
 
     #welcomeMessage{
       margin-left: auto;
       margin-bottom : 0;
       margin-right: 1%;
+      font-size: 1.2vw;
     }
 
     #logoutButton{
@@ -47,6 +51,7 @@
 
   .myChildContainer{
     width: 88%;
+    max-height: 80vh;
     display:flex;
     box-sizing: content-box;
     align-items: center;
