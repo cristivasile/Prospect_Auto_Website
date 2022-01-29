@@ -3,11 +3,15 @@
 .myContainer {
   width: 100%;
   box-sizing:content-box;
-  height: 100%;
+  min-height: 100%;
+  height: auto;
   display:flex;
   align-items: center;
   flex-direction: column;
   background-image: url(../../../assets/images/background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
 
   #buttonPressed{
     display: none;
@@ -15,8 +19,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 10%;
-    width: 8%;
+    height: 20%;
+    width: 40%;
     border-radius: 2em;
     align-items: center;
     justify-content: center;
@@ -32,8 +36,8 @@
   }
 
   .myTitle{
-    margin-top: 5%;
-    font-size: 5em;
+    margin-top: 1.1em;
+    font-size: 3em;
     height:auto;
     font-weight: bold;
     color: $primary;
@@ -41,29 +45,35 @@
 
   .form-section{
     border-radius: 2em;
-    width: 30%;
+    width: 90%;
     height: auto;
     display:flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     background-color: rgba(255, 255, 255, 0.95);
-    margin-bottom: 2.5%;
 
     ::ng-deep .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
       color: $accent;
     }
 
+    .myForm {
+      width : 86%;
+      .mat-form-field {
+        width : 100%;
+      }
+    }
+
     .myHeader{
       margin-top:2em;
       margin-bottom:1.3em;
-      font-size: 1.75em;
+      font-size: 1.55em;
       font-weight: bold;
       color: $primary;
     }
 
     .button{
-      margin-top:2%;
+      margin-top:8%;
       background-color: $accent;
     }
 
@@ -75,11 +85,11 @@
   }
 
   #message-section{
-    margin-top: 7%;
+    margin-top: 2em;
     width: auto;
-    max-width: 30%;
+    max-width: 90%;
     height: auto;
-    padding:1%;
+    padding:5%;
     display:flex;
     flex-direction: column;
     align-items: center;
@@ -94,36 +104,169 @@
     }
   }
 
-  .myForm {
-    width : 70%;
-    .mat-form-field {
-      width : 100%;
+  #spacerDiv{
+    height: 5em;
+    margin-bottom: auto;
+  }
+
+  #footerWrapper{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+
+    #myFooter{
+      position: absolute;
+      width: 75%;
+      box-sizing: content-box;
+      float:bottom;
+      bottom:0;
+      display:flex;
+      flex-direction: row;
+      justify-content: space-around;
+      font-weight: bold;
+      align-items: center;
+      padding-top:2%;
+      padding-left:1%;
+      padding-right:1%;
+      padding-bottom:.5%;
+      background-color:rgba(255, 255, 255, 0.95);
+      border-radius: .2em .2em 0 0;
+
+      #footerText {
+        color: $primary;
+        margin-right:10%;
+        font-size: 1em;
+        margin-bottom:0;
+      }
     }
   }
 
-  #myFooter{
-    width: 25%;
-    box-sizing: content-box;
-    position:absolute;
-    bottom:0;
-    display:flex;
-    flex-direction: row;
-    justify-content: space-around;
-    font-weight: bold;
-    align-items: center;
-    padding-top:.5%;
-    padding-left:1%;
-    padding-right:1%;
-    padding-bottom:.5%;
-    background-color:rgba(255, 255, 255, 0.75);
-    border-radius: 1em 1em 0 0;
+}
 
-    #footerText {
-      color: $primary;
-      margin-right:10%;
-      font-size: 1.4em;
-      margin-bottom:0;
+@media only screen and (orientation: landscape) and (-webkit-min-device-pixel-ratio: 2){
+
+  .myContainer{
+
+    .form-section{
+      width: 50%;
+      margin-bottom: 10em;
     }
+
+    #footerWrapper{
+      width: 40%;
+      height: 100%;
+
+
+      #myFooter{
+        width: 100%;
+
+      }
+    }
+
+  }
+
+}
+
+@media only screen and (min-width: 768px) and (-webkit-max-device-pixel-ratio: 2){
+
+  .myContainer{
+    height: 100%;
+    .myTitle{
+      margin-top: 1.2em;
+      font-size: 4em;
+    }
+
+    #buttonPressed{
+      width: 8%;
+      height: 10%;
+    }
+
+    .form-section{
+      width: 50%;
+
+      .myHeader{
+        font-size: 1.75em;
+      }
+
+      .myForm {
+        width : 70%;
+        .mat-form-field {
+          width : 100%;
+        }
+      }
+
+      .button{
+        margin-top:2%;
+      }
+    }
+
+    #message-section{
+      max-width: 30%;
+      padding: 1%;
+      margin-top: 7em;
+    }
+
+    #footerWrapper{
+      #myFooter{
+        width: 25%;
+        padding-top:.5%;
+        padding-left:1%;
+        padding-right:1%;
+        padding-bottom:.5%;
+        border-radius: 1em 1em 0 0;
+        background-color:rgba(255, 255, 255, 0.75);
+
+        #footerText {
+          margin-right:10%;
+          font-size: 1.4em;
+          margin-bottom:0;
+        }
+      }
+    }
+
+  }
+}
+
+
+@media only screen and (min-width: 1200px) and (-webkit-max-device-pixel-ratio: 2){
+
+  .myContainer{
+
+    .myTitle{
+      font-size: 5em;
+    }
+
+    #message-section{
+      margin-top: 10em;
+    }
+
+
+    .form-section{
+      width: 30%;
+
+      .myHeader{
+        font-size: 1.75em;
+      }
+    }
+
+    #myFooter{
+      width: 25%;
+      padding-top:.5%;
+      padding-left:1%;
+      padding-right:1%;
+      padding-bottom:.5%;
+
+      #footerText {
+        margin-right:10%;
+        font-size: 1.4em;
+        margin-bottom:0;
+      }
+    }
+
   }
 
 }

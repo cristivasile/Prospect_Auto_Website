@@ -28,7 +28,7 @@
         </button>
 
         <div class = "signUp">
-          <p> Don't have an account? <a href="/auth/signup"><u>Sign up</u></a> instead.</p>
+          <p> Don't have an account? <a (click) = "goToSignUp()"><u>Sign up</u></a> instead.</p>
         </div>
     </div>
 
@@ -36,8 +36,13 @@
       <mat-spinner class = "spinner" [diameter]="70"></mat-spinner>
     </div>
 
-    <footer id = "myFooter">
-      <p id = "footerText"> Vasile George-Cristian </p>
-      <button mat-flat-button icon = "home" id = "githubIcon" color = "accent" onClick = "window.open('https://github.com/cristivasile/Prospect_Auto_Website')">GitHub</button>
-    </footer>
+    <div id="spacerDiv">
+    </div>
+
+    <div id = "footerWrapper">
+      <footer id = "myFooter">
+        <p id = "footerText"> Vasile George-Cristian </p>
+        <button mat-flat-button icon = "home" id = "githubIcon" color = "accent" onClick = "window.open('https://github.com/cristivasile/Prospect_Auto_Website')">GitHub</button>
+      </footer>
+    </div>
 </div>
