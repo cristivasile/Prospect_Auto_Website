@@ -4,68 +4,74 @@
 </div>
 
 <div class = "filtersMenu" *ngIf = "!isAdmin">
+  <mat-expansion-panel id="filterPanel" (opened)="panelOpenState = true" (closed)="panelOpenState = false" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title id="panelTitle">
+        <form [formGroup] = "SearchForm" class = "myForm" style="display: inline-block;">
+          <mat-form-field appearance="legacy">
+            <mat-label>Search by type</mat-label>
+            <input id="typeSearch" (click) = "$event.stopPropagation();" (keydown.Space)="$event.stopImmediatePropagation();" matInput placeholder="Ex: Audi/ Audi A4/ A4" formControlName="type"/>
+          </mat-form-field>
+        </form>
 
-  <form [formGroup] = "SearchForm" class = "myForm" style="display: inline-block;">
-    <mat-form-field appearance="legacy">
-      <mat-label>Search by type</mat-label>
-      <input id="typeSearch" matInput placeholder="Ex: Audi/ Audi A4/ A4" formControlName="type"/>
-    </mat-form-field>
-  </form>
+        <button class = "formMargin" mat-raised-button color = "accent" (click) = "$event.stopPropagation();searchBy()" style="transform: scale(0.8)">Search</button>
 
-  <label>&nbsp; &nbsp;</label>
-  <button mat-raised-button color = "accent" (click) = "searchBy()" style="transform: scale(0.8)">Search</button>
+      </mat-panel-title>
+      <mat-panel-description id="panelDescription">
+       Filters <mat-icon *ngIf="!panelOpenState">expand_more</mat-icon> <mat-icon *ngIf="panelOpenState">expand_less</mat-icon>
+      </mat-panel-description>
+      </mat-expansion-panel-header>
+    <form [formGroup]="FilterForm" class="myForm" style="display: inline-block; margin-left: auto;">
+      <label class = "formMargin"> Filters:</label>
 
-  <form [formGroup]="FilterForm" class="myForm" style="display: inline-block; margin-left: auto;">
-    <label> &nbsp; &nbsp; </label>
-    <label> Filters: &nbsp;</label>
-    <mat-form-field>
-      <mat-select placeholder = "Sort by" formControlName="sort">
-        <mat-option value = "type">
-          Type
-        </mat-option>
-        <mat-option value = "price">
-          Price
-        </mat-option>
-        <mat-option value = "mileage">
-          Mileage
-        </mat-option>
-        <mat-option value = "power">
-          Power
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <label>&nbsp; &nbsp; </label>
-    <mat-checkbox formControlName="sortAsc">Asc</mat-checkbox>
-    <label> &nbsp; &nbsp; </label>
-    <mat-form-field>
-      <mat-select placeholder = "Select brand" formControlName="brand">
-        <mat-option *ngFor = "let brand of brands" [value] = brand>
-          {{brand}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <label>&nbsp; &nbsp;</label>
-    <mat-form-field appearance="legacy">
-      <mat-label>Minimum year</mat-label>
-      <input type="number" min="1900" max="2022" matInput placeholder="Ex: 2015" formControlName="minYear"/>
-    </mat-form-field>
-    <label>&nbsp; &nbsp;</label>
-    <mat-form-field appearance="legacy">
-      <mat-label>Maximum mileage</mat-label>
-      <input type="number" min="0" max="10000000" matInput placeholder="Ex: 200000" formControlName="maxMileage"/>
-    </mat-form-field>
-    <label>&nbsp; &nbsp;</label>
-    <mat-form-field appearance="legacy">
-      <mat-label>Maximum price</mat-label>
-      <input type="number" min="400" max="10000000" matInput placeholder="Ex: 4000" formControlName="maxPrice"/>
-    </mat-form-field>
-  </form>
+      <div id="sortField">
+        <mat-form-field class = "formMargin">
+          <mat-select placeholder = "Sort by" formControlName="sort">
+            <mat-option value = "type">
+              Type
+            </mat-option>
+            <mat-option value = "price">
+              Price
+            </mat-option>
+            <mat-option value = "mileage">
+              Mileage
+            </mat-option>
+            <mat-option value = "power">
+              Power
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-checkbox formControlName="sortAsc" class = "formMargin">Asc</mat-checkbox>
+      </div>
+      <mat-form-field class = "formMargin">
+        <mat-select placeholder = "Select brand" formControlName="brand">
+          <mat-option *ngFor = "let brand of brands" [value] = brand>
+            {{brand}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="legacy" class = "formMargin">
+        <mat-label>Minimum year</mat-label>
+        <input (keydown.Space)="$event.stopImmediatePropagation();" type="number" min="1900" max="2022" matInput placeholder="Ex: 2015" formControlName="minYear"/>
+      </mat-form-field>
+      <mat-form-field appearance="legacy" class = "formMargin">
+        <mat-label>Maximum mileage</mat-label>
+        <input (keydown.Space)="$event.stopImmediatePropagation();" type="number" min="0" max="10000000" matInput placeholder="Ex: 200000" formControlName="maxMileage"/>
+      </mat-form-field>
+      <mat-form-field appearance="legacy" class = "formMargin">
+        <mat-label>Maximum price</mat-label>
+        <input (keydown.Space)="$event.stopImmediatePropagation();" type="number" min="400" max="10000000" matInput placeholder="Ex: 4000" formControlName="maxPrice"/>
+      </mat-form-field>
+    </form>
 
-  <label>&nbsp; &nbsp;</label>
-  <button mat-raised-button color = "accent" (click) = "filter()" style="transform: scale(0.8)">Filter</button>
+    <div style="display: inline-block">
+      <button class = "formMargin" mat-raised-button color = "accent" (click) = "filter()" style="transform: scale(0.8)">Filter</button>
 
-  <label>&nbsp; &nbsp;</label>
-  <button mat-raised-button color = "accent" (click) = "reset()" style="transform: scale(0.8)">Reset</button>
+      <button class = "formMargin" mat-raised-button color = "accent" (click) = "reset()" style="transform: scale(0.8)">Reset</button>
+    </div>
+  </mat-expansion-panel>
+
+
 </div>
 
 <div class = "myContainer">
@@ -105,7 +111,7 @@
   </div>
 
   <div class="scrollWrapper">
-    <cdk-virtual-scroll-viewport id = "myViewport" itemSize = "count" class = "d-flex flex-wrap vehiclesList">
+    <div id = "myViewport" itemSize = "count" class = "d-flex flex-wrap vehiclesList">
 
       <div id = "queryI" class = "queryInfo">
         <p>
@@ -169,6 +175,6 @@
       <div id = "endI" class="endMessage">
         No results found
       </div>
-    </cdk-virtual-scroll-viewport>
+    </div>
   </div>
 </div>

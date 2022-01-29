@@ -25,6 +25,7 @@ export class VehiclesComponent implements OnInit {
   public displayStatus: boolean = false;
   public hasSearch: boolean = false;
   public hasFilter: boolean = false;
+  public panelOpenState: boolean = false;
   public count: any;
   public displayedColumns = ['brand', 'model', 'year', 'mileage', 'price'];
   constructor(
@@ -110,8 +111,6 @@ export class VehiclesComponent implements OnInit {
 
     loading.style.display = "flex";
 
-    viewport.style.height = `${3}vw`;
-
     if(!getAll){
       if(!this.hasSearch && !this.hasFilter){
         this.vehiclesService.getAllAvailableVehicles().subscribe({
@@ -162,7 +161,6 @@ export class VehiclesComponent implements OnInit {
     if(this.count == undefined)
       this.count = 0;
 
-    viewport.style.height = `${this.count * 7.7 + 4.6}vw`;
 
     if(this.count == 0){
       endMessage.innerHTML = "No results found";
@@ -179,7 +177,6 @@ export class VehiclesComponent implements OnInit {
 
     this.afterVehiclesLoad();
 
-    viewport.style.height = `${3}vw`;
     endMessage.innerHTML = "No results found";
 
     console.error(error);
