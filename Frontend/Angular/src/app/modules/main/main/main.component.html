@@ -1,21 +1,30 @@
 <div class="myContainer">
-  <mat-toolbar color="primary" class="toolbar">
-    <mat-toolbar-row>
-      <h1 id="title">Prospect Auto |</h1>
+  <div class="toolbar">
+    <p id="title" class = "desktopGroup"> Prospect Auto |</p>
 
-      <mat-tab-group (selectedTabChange)="tabClick($event)">
-        <mat-tab label="Vehicles" [routerLink]="'/main/vehicles'"></mat-tab>
-        <mat-tab label="Wheels" [routerLink]="'/main/wheels'"></mat-tab>
-        <mat-tab label="Locations" [routerLink]="'/main/locations'"></mat-tab>
-      </mat-tab-group>
-
+    <div class="welcomeSection mobileGroup">
+      <p id="title" class = "mobileGroup"> Prospect Auto |</p>
       <p id="welcomeMessage">Welcome, {{ loggedUser }}!</p>
 
       <button mat-mini-fab color="logout" (click)="Logout()" id="logoutButton">
         <mat-icon>logout</mat-icon>
       </button>
-    </mat-toolbar-row>
-  </mat-toolbar>
+    </div>
+
+    <mat-tab-group (selectedTabChange)="tabClick($event)">
+      <mat-tab label="Vehicles" [routerLink]="'/main/vehicles'"></mat-tab>
+      <mat-tab label="Wheels" [routerLink]="'/main/wheels'"></mat-tab>
+      <mat-tab label="Locations" [routerLink]="'/main/locations'"></mat-tab>
+    </mat-tab-group>
+
+    <div class="welcomeSection desktopGroup">
+      <p id="welcomeMessage">Welcome, {{ loggedUser }}!</p>
+
+      <button mat-mini-fab color="logout" (click)="Logout()" id="logoutButton">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </div>
 
   <div class="myChildContainer">
     <div class="myChild">
@@ -23,15 +32,10 @@
     </div>
   </div>
 
-  <footer id="footer" cBackgr ccolor="accent">
-    <p id="footerText">Vasile George-Cristian</p>
-    <button
-      mat-flat-button
-      id="githubIcon"
-      color="primary"
-      onClick="window.open('https://github.com/cristivasile/Prospect_Auto_Website')"
-    >
-      GitHub
-    </button>
-  </footer>
+ <div id = "footerWrapper">
+    <footer id = "myFooter">
+      <p id = "footerText"> Vasile George-Cristian </p>
+      <button mat-flat-button icon = "home" id = "githubIcon" color = "accent" onClick = "window.open('https://github.com/cristivasile/Prospect_Auto_Website')">GitHub</button>
+    </footer>
+  </div>
 </div>
