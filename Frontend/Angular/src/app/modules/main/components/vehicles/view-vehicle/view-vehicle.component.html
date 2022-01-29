@@ -31,13 +31,18 @@
   <div class = "contentContainer">
 
     <div id = "found">
-      <div class = "line">
 
-        <div class = "oneQuarter">
+      <div class = "myTitle discardOnError" >
+        <span id = "large">Viewing</span> {{vehicle.brand}} {{vehicle.model}} {{vehicle.year}}
+      </div>
+
+      <div class = "myInfo">
+
+        <div class = "myCard">
           <img style = "object-fit:contain" [src] = "getImage(vehicle.image)" alt="No image found">
         </div>
 
-        <div class = "oneQuarter">
+        <div class = "myCard">
           <div class = "myInfo">
             <div>
               <span class = "tag">Brand</span> &nbsp; &nbsp; <span class="info">{{vehicle.brand}}</span>
@@ -60,7 +65,7 @@
           </div>
         </div>
 
-        <div class = "oneQuarter">
+        <div class = "myCard">
           <div class = "myAddress">
             <div>
               <span class = "tag">You can come see this vehicle at</span>
