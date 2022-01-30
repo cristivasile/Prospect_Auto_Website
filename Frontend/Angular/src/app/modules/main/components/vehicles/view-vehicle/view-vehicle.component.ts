@@ -16,6 +16,8 @@ export class ViewVehicleComponent implements OnInit {
 
   private id: any;
   public vehicle: any;
+  public loaded: boolean = false;
+  public found: boolean = false;
   public phoneNumber: string = "0744111222";
   public isSold: boolean = false;
 
@@ -32,15 +34,13 @@ export class ViewVehicleComponent implements OnInit {
   }
 
   private loadVehicle() : void{
-    var notFound = document.getElementById('notFoundError')!;
-    var found = document.getElementById('found')!;
     var featureContainer = document.getElementById("fContainer")!;
 
     this.vehicleService.getVehicleById(this.id).subscribe({
       next: (result) =>{
         this.vehicle = result;
-
-        found.style.display = 'block';
+        this.loaded = true;
+        this.found = true;
         if(this.vehicle.features.length == 0)
               featureContainer.style.display = "none";
         //vehicle can not be edited, since it has been sold
@@ -51,13 +51,10 @@ export class ViewVehicleComponent implements OnInit {
         }
       },
       error: (error) =>{
-        notFound.style.display = 'block';
-        var toDiscard = Array.from(document.getElementsByClassName('discardOnError')! as HTMLCollectionOf<HTMLElement>);
-
-        toDiscard.forEach(element => {
-          element.style.display = "none";
-        });
-
+        this.loaded = true;
+        this.found = false;
+        console.log(this.found);
+        console.log(this.loaded);
         console.error(error);
       }
     })

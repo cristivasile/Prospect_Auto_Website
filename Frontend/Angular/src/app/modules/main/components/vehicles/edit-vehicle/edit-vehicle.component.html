@@ -1,5 +1,5 @@
 <div class="myContainer">
-  <div id="notFoundError">
+  <div id="notFoundError" *ngIf="!vehicleFound && loaded">
     <div id="notFound">
       <p>
         Vehicle not found.
@@ -24,7 +24,7 @@
   </div>
 
   <div>
-    <button mat-flat-button class = "discardOnError" id="backButton" color = "transparent" (click)="goBack()"><mat-icon><span class="material-icons">
+    <button mat-flat-button *ngIf="vehicleFound" id="backButton" color = "transparent" (click)="goBack()"><mat-icon><span class="material-icons">
       arrow_back_ios_new
       </span></mat-icon> <span>Back</span>
     </button>
@@ -33,11 +33,11 @@
       <mat-spinner [diameter]="70" color = "accent"></mat-spinner>
     </div>
 
-    <div class = "myTitle discardOnError" >
+    <div class = "myTitle" *ngIf="vehicleFound && loaded">
       <span id = "large">Update</span> {{vehicle.brand}} {{vehicle.model}} {{vehicle.year}}
     </div>
 
-    <div id = "found" class = "form-section">
+    <div id = "found" class = "form-section" *ngIf="vehicleFound && loaded">
       <form [formGroup]="vehicleForm" class="myForm">
 
         <mat-checkbox class="example-margin" (click)="imageToggle()">Upload new image &nbsp; &nbsp;</mat-checkbox>

@@ -1,5 +1,5 @@
 <div class="myContainer">
-  <div id="notFoundError">
+  <div id="notFoundError" *ngIf="!found && loaded">
     <div id="notFound">
       <p>
         Vehicle not found.
@@ -23,16 +23,16 @@
     </div>
   </div>
 
-  <button mat-flat-button class = "discardOnError" id="backButton" color = "transparent" (click)="goto()"><mat-icon><span class="material-icons">
+  <button mat-flat-button *ngIf="found" id="backButton" color = "transparent" (click)="goto()"><mat-icon><span class="material-icons">
     arrow_back_ios_new
     </span></mat-icon> <span>Back</span>
   </button>
 
   <div class = "contentContainer">
 
-    <div id = "found">
+    <div id = "found" *ngIf="found && loaded">
 
-      <div class = "myTitle discardOnError" >
+      <div class = "myTitle" >
         <span id = "large">Viewing</span> {{vehicle.brand}} {{vehicle.model}} {{vehicle.year}}
       </div>
 

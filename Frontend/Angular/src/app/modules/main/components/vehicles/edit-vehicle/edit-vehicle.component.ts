@@ -27,6 +27,7 @@ export class EditVehicleComponent implements OnInit {
   public vehicle: any;
   public featureList : any = [];
   public locationList : any = [];
+  public loaded: boolean = false;
   public vehicleForm: FormGroup = new FormGroup({
     image: new FormControl(''),
     brand: new FormControl(''),
@@ -65,17 +66,15 @@ export class EditVehicleComponent implements OnInit {
  }
 
   private loadVehicle() : void{
-    var notFound = document.getElementById('notFoundError')!;
-    var found = document.getElementById('found')!;
 
     this.vehicleService.getVehicleById(this.id).subscribe({
       next: (result) =>{
         this.vehicleFound = true;
+        this.loaded = true;
         this.vehicle = result;
 
         var loading = document.getElementById('loading')!;
         loading.style.display = 'none';
-        found.style.display = 'block';
 
         //vehicle can not be edited, since it has been sold
         if(this.vehicle.status.vehicleStatus == "sold"){
@@ -91,14 +90,10 @@ export class EditVehicleComponent implements OnInit {
       },
       error: (error) =>{
         this.vehicleFound = false;
+        this.loaded = true;
 
-        notFound.style.display = 'block';
         var loading = document.getElementById('loading')!;
-        var toDiscard = Array.from(document.getElementsByClassName('discardOnError')! as HTMLCollectionOf<HTMLElement>);
 
-        toDiscard.forEach(element => {
-          element.style.display = "none";
-        });
         loading.style.display = 'none';
 
         console.error(error);
