@@ -13,6 +13,6 @@ username - admin
 password - Admin1!  
 
 ## Screenshots
-![](https://postimg.cc/N9qJWTCD)
-![](https://postimg.cc/n9Lv5hxT)
-![](https://postimg.cc/3W91ZPhn)
+![](https://i.postimg.cc/V65x0Wjx/image-2022-02-01-225052.png)
+![](https://i.postimg.cc/x8vtXX4r/image-2022-02-01-225349.png)
+![](https://i.postimg.cc/WbcysvHL/image-2022-02-01-225307.png)
