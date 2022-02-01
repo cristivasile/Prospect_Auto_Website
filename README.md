@@ -11,8 +11,3 @@ https://cristivasile.github.io/Prospect_Auto_Website/
 Admin account:  
 username - admin  
 password - Admin1!  
-
-## Screenshots
-![](https://i.postimg.cc/V65x0Wjx/image-2022-02-01-225052.png)
-![](https://i.postimg.cc/x8vtXX4r/image-2022-02-01-225349.png)
-![](https://i.postimg.cc/WbcysvHL/image-2022-02-01-225307.png)
