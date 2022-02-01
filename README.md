@@ -6,6 +6,7 @@ Mock commercial website of a used car dealership chain. Backend is built with .N
 - Mobile-first responsive UI implemented using Angular Material and SCSS
 - Backend uses an SQL Server code-first database created with EntityFramework
 
+## Link and admin credentials
 https://cristivasile.github.io/Prospect_Auto_Website/<br/>
 Admin account:<br/>
 username - admin<br/>
