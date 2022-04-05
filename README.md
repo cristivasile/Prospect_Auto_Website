@@ -1,5 +1,5 @@
 ## Summary
-Mock commercial website of a used car dealership chain 'Prospect Auto'. Backend is built with .NET (C#) and Frontend is built with Angular and is hosted on GitHub.io.
+Mock commercial website of a used car dealership chain 'Prospect Auto'. Backend is built with .NET (C#) and Frontend is built with Angular.
 
 ## Features
 - Secure authentication using JWT
